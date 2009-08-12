@@ -104,7 +104,7 @@ class AccountController {
     }
 
     def createMainAccount = {
-      def account = new Account(username: params.userName, passwd: authenticateService.encodePassword("aaa"), enabled: true)
+      def account = new Account(username: params.username, passwd: authenticateService.encodePassword("aaa"), enabled: true)
       account.save()
 
       Role.findByAuthority("ROLE_ADMIN").addToPeople(account)    
