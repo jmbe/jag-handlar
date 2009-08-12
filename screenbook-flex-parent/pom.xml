@@ -29,6 +29,10 @@
                 <artifactId>flexmojos-maven-plugin</artifactId>
                 <version>${flex.plugin.version}</version>
                 <extensions>true</extensions>
+                <configuration>
+                    <!-- required for Idea -->
+                    <configurationReport>true</configurationReport>
+                </configuration>
             </plugin>
         </plugins>
     </build>
