@@ -40,15 +40,6 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="userRealName">User Real Name:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:accountInstance,field:'userRealName','errors')}">
-                                    <input type="text" id="userRealName" name="userRealName" value="${fieldValue(bean:accountInstance,field:'userRealName')}"/>
-                                </td>
-                            </tr> 
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
                                     <label for="passwd">Passwd:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:accountInstance,field:'passwd','errors')}">
@@ -71,42 +62,6 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:accountInstance,field:'authorities','errors')}">
                                     
-                                </td>
-                            </tr> 
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="description">Description:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:accountInstance,field:'description','errors')}">
-                                    <input type="text" id="description" name="description" value="${fieldValue(bean:accountInstance,field:'description')}"/>
-                                </td>
-                            </tr> 
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="email">Email:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:accountInstance,field:'email','errors')}">
-                                    <input type="text" id="email" name="email" value="${fieldValue(bean:accountInstance,field:'email')}"/>
-                                </td>
-                            </tr> 
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="emailShow">Email Show:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:accountInstance,field:'emailShow','errors')}">
-                                    <g:checkBox name="emailShow" value="${accountInstance?.emailShow}" ></g:checkBox>
-                                </td>
-                            </tr> 
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="pass">Pass:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:accountInstance,field:'pass','errors')}">
-                                    <input type="text" name="pass" id="pass" value="${fieldValue(bean:accountInstance,field:'pass')}" />
                                 </td>
                             </tr> 
                         

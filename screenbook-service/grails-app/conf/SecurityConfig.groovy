@@ -10,4 +10,6 @@ security {
     useRequestMapDomainClass = false
 
     useControllerAnnotations = true
+
+    basicProcessingFilter = true
 }
