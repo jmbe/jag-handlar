@@ -25,13 +25,9 @@
                         
                    	        <g:sortableColumn property="username" title="Username" />
                         
-                   	        <g:sortableColumn property="userRealName" title="User Real Name" />
-                        
                    	        <g:sortableColumn property="passwd" title="Passwd" />
                         
                    	        <g:sortableColumn property="enabled" title="Enabled" />
-                        
-                   	        <g:sortableColumn property="description" title="Description" />
                         
                         </tr>
                     </thead>
@@ -43,13 +39,9 @@
                         
                             <td>${fieldValue(bean:accountInstance, field:'username')}</td>
                         
-                            <td>${fieldValue(bean:accountInstance, field:'userRealName')}</td>
-                        
                             <td>${fieldValue(bean:accountInstance, field:'passwd')}</td>
                         
                             <td>${fieldValue(bean:accountInstance, field:'enabled')}</td>
-                        
-                            <td>${fieldValue(bean:accountInstance, field:'description')}</td>
                         
                         </tr>
                     </g:each>

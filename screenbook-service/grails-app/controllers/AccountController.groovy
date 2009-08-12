@@ -1,3 +1,6 @@
+import grails.converters.XML
+import org.codehaus.groovy.grails.plugins.springsecurity.Secured
+
 class AccountController {
 
     def authenticateService
@@ -7,6 +10,7 @@ class AccountController {
     // the delete, save and update actions only accept POST requests
     static allowedMethods = [delete:'POST', save:'POST', update:'POST']
 
+    @Secured(['ROLE_ADMIN'])
     def list = {
         params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
         [ accountInstanceList: Account.list( params ), accountInstanceTotal: Account.count() ]
@@ -97,5 +101,14 @@ class AccountController {
         else {
             render(view:'create',model:[accountInstance:accountInstance])
         }
+    }
+
+    def createMainAccount = {
+      def account = new Account(username: params.userName, passwd: authenticateService.encodePassword("aaa"), enabled: true)
+      account.save()
+
+      Role.findByAuthority("ROLE_ADMIN").addToPeople(account)    
+
+      render account as XML
     }
 }

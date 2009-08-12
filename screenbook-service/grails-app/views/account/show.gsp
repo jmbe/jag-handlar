@@ -37,13 +37,6 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name">User Real Name:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:accountInstance, field:'userRealName')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
                             <td valign="top" class="name">Passwd:</td>
                             
                             <td valign="top" class="value">${fieldValue(bean:accountInstance, field:'passwd')}</td>
@@ -67,34 +60,6 @@
                                 </g:each>
                                 </ul>
                             </td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Description:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:accountInstance, field:'description')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Email:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:accountInstance, field:'email')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Email Show:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:accountInstance, field:'emailShow')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Pass:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:accountInstance, field:'pass')}</td>
                             
                         </tr>
                     
