@@ -4,5 +4,5 @@
 *~
 target
 *.war
-
+*_temp_flex_config.xml
 
