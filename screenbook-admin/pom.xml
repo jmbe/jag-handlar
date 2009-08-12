@@ -6,7 +6,7 @@
     <parent>
         <groupId>se.spsm.screenbook</groupId>
         <artifactId>screenbook-flex-parent</artifactId>
-        <version>1.0</version>
+        <version>1.0-SNAPSHOT</version>
         <relativePath>../screenbook-flex-parent/pom.xml</relativePath>
     </parent>
 
@@ -14,6 +14,14 @@
     <packaging>swf</packaging>
     <name>Jag handlar Backoffice</name>
 
-   
+   <dependencies>
+
+       <dependency>
+           <groupId>${project.groupId}</groupId>
+           <artifactId>screenbook-client</artifactId>
+           <version>${project.version}</version>
+           <type>swc</type>
+       </dependency>
+   </dependencies>
 
 </project>

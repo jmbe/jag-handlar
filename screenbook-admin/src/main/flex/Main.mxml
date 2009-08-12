@@ -1,4 +1,15 @@
 <?xml version="1.0"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
-	<mx:Text text="Hello World!"/>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical">
+    <mx:Script><![CDATA[
+        import se.spsm.screenbook.App;
+        ]]></mx:Script>
+
+    <mx:Form>
+        <mx:FormItem label="Name">
+        <mx:TextInput id="nameInput"/>
+        </mx:FormItem>
+        <mx:FormItem>
+            <mx:Label visible="{nameInput.text != ''}" top="20" text="{App.greeting(nameInput.text)}"></mx:Label>
+        </mx:FormItem>
+    </mx:Form>
 </mx:Application>
