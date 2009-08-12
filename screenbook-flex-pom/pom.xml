@@ -9,15 +9,15 @@
         <relativePath>../screenbook-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>screenbook-pom</artifactId>
+    <artifactId>screenbook-flex-pom</artifactId>
     <packaging>pom</packaging>
-    <name>Screenbook Pom</name>
+    <name>Screenbook Flex Pom</name>
 
     
     <modules>
-        <module>../screenbook-parent</module>
-        <module>../screenbook-service</module>
-        <module>../screenbook-flex-pom</module>
+        <module>../screenbook-flex-parent</module>
+        <module>../screenbook-admin</module>
+        <module>../screenbook-client</module>
     </modules>
 
 </project>
