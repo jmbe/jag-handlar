@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>se.spsm.screenbook</groupId>
@@ -9,45 +10,45 @@
         <relativePath>../screenbook-parent/pom.xml</relativePath>
     </parent>
 
-  <artifactId>screenbook-flex-parent</artifactId>
-  <packaging>pom</packaging>
-  <name>Screenbook Flex Parent</name>
+    <artifactId>screenbook-flex-parent</artifactId>
+    <packaging>pom</packaging>
+    <name>Screenbook Flex Parent</name>
 
-   <properties>
-	<flex.plugin.version>3.2.0</flex.plugin.version>
+    <properties>
+        <flex.plugin.version>3.2.0</flex.plugin.version>
         <flex.framework.version>3.2.0.3958</flex.framework.version>
-   </properties>
+    </properties>
 
 
-  <build>
-    <sourceDirectory>src/main/flex</sourceDirectory>
-    <testSourceDirectory>src/test/flex</testSourceDirectory>
-    <plugins>
-      <plugin>
-        <groupId>org.sonatype.flexmojos</groupId>
-        <artifactId>flexmojos-maven-plugin</artifactId>
-        <version>${flex.plugin.version}</version>
-        <extensions>true</extensions>
-      </plugin>
-    </plugins>
-  </build>
-  <dependencies>
-    <dependency>
-      <groupId>com.adobe.flex.framework</groupId>
-      <artifactId>flex-framework</artifactId>
-      <version>${flex.framework.version}</version>
-      <type>pom</type>
-    </dependency>
+    <build>
+        <sourceDirectory>src/main/flex</sourceDirectory>
+        <testSourceDirectory>src/test/flex</testSourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.flexmojos</groupId>
+                <artifactId>flexmojos-maven-plugin</artifactId>
+                <version>${flex.plugin.version}</version>
+                <extensions>true</extensions>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>flex-framework</artifactId>
+            <version>${flex.framework.version}</version>
+            <type>pom</type>
+        </dependency>
 
-    <!-- flexmojos Unit testing support -->
-    <dependency>
-      <groupId>org.sonatype.flexmojos</groupId>
-      <artifactId>flexmojos-unittest-support</artifactId>
-      <version>${flex.plugin.version}</version>
-      <type>swc</type>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+        <!-- flexmojos Unit testing support -->
+        <dependency>
+            <groupId>org.sonatype.flexmojos</groupId>
+            <artifactId>flexmojos-unittest-support</artifactId>
+            <version>${flex.plugin.version}</version>
+            <type>swc</type>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 
 </project>
