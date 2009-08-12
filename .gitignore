@@ -1,1 +1,8 @@
 *.iml
+*.iws
+*.ipr
+*~
+target
+*.war
+
+

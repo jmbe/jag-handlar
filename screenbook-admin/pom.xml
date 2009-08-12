@@ -1,30 +1,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>se.spsm.screenbook</groupId>
-  <artifactId>screenbook-admin</artifactId>
-  <packaging>swf</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>screenbook-admin Maven Flex</name>
-  <url>http://maven.apache.org</url>
+    <modelVersion>4.0.0</modelVersion>
 
-  <properties>
-    <flex.home>/usr/local/flex/current</flex.home>
-  </properties>
-  <build>
-    <sourceDirectory>src/main/flex</sourceDirectory>
-    <plugins>
-      <plugin>
-        <groupId>net.israfil.mojo</groupId>
-        <artifactId>maven-flex2-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <flexHome>${flex.home}</flexHome>
-          <useNetwork>true</useNetwork>
-          <main>Main.mxml</main>
-        </configuration>
-      </plugin>
-    </plugins>
-    <defaultGoal>install</defaultGoal>
-  </build>
+
+    <parent>
+        <groupId>se.spsm.screenbook</groupId>
+        <artifactId>screenbook-flex-parent</artifactId>
+        <version>1.0</version>
+        <relativePath>../screenbook-flex-parent/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>screenbook-admin</artifactId>
+    <packaging>swf</packaging>
+    <name>Jag handlar Backoffice</name>
+
+   
+
 </project>
