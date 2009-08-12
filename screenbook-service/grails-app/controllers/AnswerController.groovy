@@ -103,8 +103,7 @@ class AnswerController {
      * @param question_key
      */
     def getAnswer = {
-      def answer = Answer.find("from Answer as a join a.student as s where s.username = ? and a.question_key = ?", [params.username, params.question_key])[0]
-
+      def answer = findAnswer(params.username, params.question_key)
       render answer as XML
     }
 
@@ -115,10 +114,24 @@ class AnswerController {
      */
     def setAnswer = {
        //username, question_key, answer
-      def student = Student.findByUsername(params.username)
-      def answer = new Answer(student: student, question_key: params.question_key, answer: params.answer)
+      def username = params.username
+
+      def questionkey = params.question_key
+      def answer = findAnswer(username, questionkey)
+      if(answer == null) {
+        def student = Student.findByUsername(username)
+        answer = new Answer(student: student, question_key: questionkey, answer: params.answer)
+      } else {
+        answer.answer = params.answer
+      }
       answer.save()
+
 
       render answer as XML
     }
+
+    def findAnswer(String username, String question_key) {
+      return Answer.find("from Answer as a join a.student as s where s.username = ? and a.question_key = ?", [params.username, params.question_key])[0]
+    }
+
 }
