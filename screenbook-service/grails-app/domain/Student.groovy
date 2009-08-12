@@ -1,5 +1,7 @@
 class Student {
 
+    static hasMany = [answers: Answer]
+
     String username
 
     static constraints = {
