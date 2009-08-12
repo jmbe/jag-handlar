@@ -1,23 +1,66 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>se.spsm.screenbook</groupId>
-  <artifactId>screenbook-parent</artifactId>
-  <packaging>pom</packaging>
-  <version>1.0</version>
-  <name>screenbook-parent</name>
-  <url>http://maven.apache.org</url>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-  <modules>
-    <module>../screenbook-admin</module>
-    <module>../screenbook-client</module>
-    <module>../screenbook-service</module>
-  </modules>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>se.spsm.screenbook</groupId>
+    <artifactId>screenbook-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+    <name>screenbook-parent</name>
+
+
+    <properties>
+
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>se.internetapplications-releases</id>
+            <url>
+                http://nexus.internetapplications.se/content/groups/public
+            </url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>se.internetapplications-snapshots</id>
+            <url>
+                http://nexus.internetapplications.se/content/groups/public-snapshots
+            </url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>se.internetapplications-releases</id>
+            <url>
+                http://nexus.internetapplications.se/content/groups/public
+            </url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+        <pluginRepository>
+            <id>se.internetapplications-snapshots</id>
+            <url>
+                http://nexus.internetapplications.se/content/groups/public-snapshots
+            </url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.5</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
 </project>
