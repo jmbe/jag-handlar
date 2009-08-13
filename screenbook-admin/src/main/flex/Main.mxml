@@ -1,15 +1,45 @@
 <?xml version="1.0"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical">
+
+
     <mx:Script><![CDATA[
         import se.spsm.screenbook.App;
+        import se.spsm.screenbook.JagHandlar;
+
+
+        [Bindable]
+        private var jagHandlar:JagHandlar = new JagHandlar("localhost:8080");
+
+        private function createStudent(student:String):void {
+            jagHandlar.networkLoginAsStudent(student);
+        }
+
+
         ]]></mx:Script>
+
 
     <mx:Form>
         <mx:FormItem label="Name">
-        <mx:TextInput id="nameInput"/>
+            <mx:TextInput id="nameInput"/>
         </mx:FormItem>
-        <mx:FormItem>
+        <mx:FormItem label="Binding test">
             <mx:Label visible="{nameInput.text != ''}" top="20" text="{App.greeting(nameInput.text)}"></mx:Label>
         </mx:FormItem>
+
+
+
+        <mx:FormItem label="Swc binding test">
+            <mx:Button label="Log in" click="jagHandlar.fakeLoginAsStudent(nameInput.text)"/>
+        </mx:FormItem>
+
+        <mx:FormItem label="Network">
+            <mx:Button label="Create student" click="createStudent(nameInput.text)"/>
+        </mx:FormItem>
+
+        <mx:FormItem>
+            <mx:Label text="{jagHandlar.lastMessage}"/>
+            <mx:Label text="{jagHandlar.lastStatus}"/>
+        </mx:FormItem>
+
     </mx:Form>
 </mx:Application>
