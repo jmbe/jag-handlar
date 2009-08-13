@@ -98,6 +98,8 @@ class StudentController {
     }
 
    def createStudentAccount = {
+      log.info("Creating student " + params.username)
+
       def student = new Student(username: params.username)
       student.save()
 
