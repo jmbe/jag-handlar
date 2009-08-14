@@ -4,11 +4,12 @@
 
     <mx:Script><![CDATA[
         import se.spsm.screenbook.App;
+        import se.spsm.screenbook.ConnectionSettings;
         import se.spsm.screenbook.JagHandlar;
 
 
         [Bindable]
-        private var jagHandlar:JagHandlar = new JagHandlar("localhost:8080");
+        private var jagHandlar:JagHandlar = new JagHandlar(new ConnectionSettings());
 
         private function createStudent(student:String):void {
             jagHandlar.networkLoginAsStudent(student);
@@ -39,6 +40,10 @@
         <mx:FormItem>
             <mx:Label text="{jagHandlar.lastMessage}"/>
             <mx:Label text="{jagHandlar.lastStatus}"/>
+        </mx:FormItem>
+
+        <mx:FormItem>
+            <mx:TextArea height="200" text="{jagHandlar.studentCreatedResult}"/>
         </mx:FormItem>
 
     </mx:Form>

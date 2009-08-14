@@ -1,10 +1,17 @@
 package se.spsm.screenbook {
+import flash.events.Event;
+import flash.events.EventDispatcher;
+
 import mx.controls.Alert;
 import mx.rpc.events.FaultEvent;
 import mx.rpc.events.ResultEvent;
 import mx.rpc.http.HTTPService;
 
-public class StudentController {
+import se.spsm.screenbook.student.StudentCreatedEvent;
+
+public class StudentController extends EventDispatcher {
+
+
 
     private var settings:ConnectionSettings;
 
@@ -13,11 +20,12 @@ public class StudentController {
     }
 
     private function httpServiceResult(e:ResultEvent):void {
-        //Alert.show("Received a result ");
+        var event:Event = new StudentCreatedEvent(e.result);
+        dispatchEvent(event);
     }
 
     private function httpServiceFault(e:FaultEvent):void {
-        throw new Error("There was a problem sending the request due to: " + e.message);
+        throw new Error("There was a problem sending the request due to: " + e.toString());
     }
 
     public function createStudentAccount(username:String):String {

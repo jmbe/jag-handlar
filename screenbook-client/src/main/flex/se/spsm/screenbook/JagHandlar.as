@@ -1,7 +1,9 @@
 package se.spsm.screenbook {
-import flash.events.Event;
+import flash.events.EventDispatcher;
 
-public class JagHandlar {
+import se.spsm.screenbook.student.StudentCreatedEvent;
+
+public class JagHandlar extends EventDispatcher {
 
     private var settings:ConnectionSettings;
     private var message:String;
@@ -9,16 +11,22 @@ public class JagHandlar {
     private var student:String;
     private var studentController:StudentController;
 
-    public function JagHandlar(host:String) {
-        this.settings = new ConnectionSettings();
-        this.settings.host = host;
+    [Bindable]
+    public var studentCreatedResult;
+
+    public function JagHandlar(newSettings:ConnectionSettings) {
+        this.settings = newSettings;
 
         this.studentController = new StudentController(this.settings);
+        this.studentController.addEventListener(StudentCreatedEvent.STUDENT_CREATED, handleStudentCreated);
 
         this.message = "Not logged in";
         this.status = "";
     }
 
+    private function handleStudentCreated(e:StudentCreatedEvent):void {
+        this.studentCreatedResult = e.info;
+    }
 
     public function fakeLoginAsStudent(username:String):void {
         lastMessage = "Logged in as " + username;
