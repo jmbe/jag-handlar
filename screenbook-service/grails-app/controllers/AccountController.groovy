@@ -4,6 +4,7 @@ import org.codehaus.groovy.grails.plugins.springsecurity.Secured
 class AccountController {
 
     def authenticateService
+    def accountService
 
     def index = { redirect(action:list,params:params) }
 
@@ -104,10 +105,8 @@ class AccountController {
     }
 
     def createMainAccount = {
-      def account = new Account(username: params.username, passwd: authenticateService.encodePassword("aaa"), enabled: true)
-      account.save()
 
-      Role.findByAuthority("ROLE_ADMIN").addToPeople(account)    
+      def account = accountService.createMainAccount(params.username)
 
       render account as XML
     }
