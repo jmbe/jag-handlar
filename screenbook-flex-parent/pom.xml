@@ -32,6 +32,7 @@
                 <configuration>
                     <!-- required for Idea -->
                     <configurationReport>true</configurationReport>
+                    <debug>true</debug>
                 </configuration>
             </plugin>
         </plugins>
