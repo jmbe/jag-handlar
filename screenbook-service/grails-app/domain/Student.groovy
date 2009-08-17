@@ -1,6 +1,7 @@
 class Student {
 
-    static hasMany = [answers: Answer]
+    static hasMany = [books: WorkBook]
+    static belongsTo = [account: Account]
 
     String username
 

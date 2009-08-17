@@ -2,8 +2,9 @@
  * User domain class.
  */
 class Account {
-	static hasMany = [authorities: Role]
-	static belongsTo = Role
+	static hasMany = [authorities: Role,
+                      students: Student]
+    static belongsTo = Role
 
 	/** Username */
 	String username
