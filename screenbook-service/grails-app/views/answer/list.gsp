@@ -27,7 +27,7 @@
                         
                    	        <g:sortableColumn property="answer" title="Answer" />
                         
-                   	        <th>Student</th>
+                   	        <th>Book</th>
                    	    
                         </tr>
                     </thead>
@@ -41,7 +41,7 @@
                         
                             <td>${fieldValue(bean:answerInstance, field:'answer')}</td>
                         
-                            <td>${fieldValue(bean:answerInstance, field:'student')}</td>
+                            <td>${fieldValue(bean:answerInstance, field:'book')}</td>
                         
                         </tr>
                     </g:each>

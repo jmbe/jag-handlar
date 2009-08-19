@@ -36,6 +36,26 @@
                             
                         </tr>
                     
+                        <tr class="prop">
+                            <td valign="top" class="name">Account:</td>
+                            
+                            <td valign="top" class="value"><g:link controller="account" action="show" id="${studentInstance?.account?.id}">${studentInstance?.account?.encodeAsHTML()}</g:link></td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name">Books:</td>
+                            
+                            <td  valign="top" style="text-align:left;" class="value">
+                                <ul>
+                                <g:each var="b" in="${studentInstance.books}">
+                                    <li><g:link controller="workBook" action="show" id="${b.id}">${b?.encodeAsHTML()}</g:link></li>
+                                </g:each>
+                                </ul>
+                            </td>
+                            
+                        </tr>
+                    
                     </tbody>
                 </table>
             </div>

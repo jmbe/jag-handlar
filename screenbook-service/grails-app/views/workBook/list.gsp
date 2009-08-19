@@ -4,15 +4,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="main" />
-        <title>Student List</title>
+        <title>WorkBook List</title>
     </head>
     <body>
         <div class="nav">
             <span class="menuButton"><a class="home" href="${resource(dir:'')}">Home</a></span>
-            <span class="menuButton"><g:link class="create" action="create">New Student</g:link></span>
+            <span class="menuButton"><g:link class="create" action="create">New WorkBook</g:link></span>
         </div>
         <div class="body">
-            <h1>Student List</h1>
+            <h1>WorkBook List</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -23,21 +23,21 @@
                         
                    	        <g:sortableColumn property="id" title="Id" />
                         
-                   	        <g:sortableColumn property="username" title="Username" />
-                        
-                   	        <th>Account</th>
+                   	        <th>Book</th>
+                   	    
+                   	        <th>Student</th>
                    	    
                         </tr>
                     </thead>
                     <tbody>
-                    <g:each in="${studentInstanceList}" status="i" var="studentInstance">
+                    <g:each in="${workBookInstanceList}" status="i" var="workBookInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td><g:link action="show" id="${studentInstance.id}">${fieldValue(bean:studentInstance, field:'id')}</g:link></td>
+                            <td><g:link action="show" id="${workBookInstance.id}">${fieldValue(bean:workBookInstance, field:'id')}</g:link></td>
                         
-                            <td>${fieldValue(bean:studentInstance, field:'username')}</td>
+                            <td>${fieldValue(bean:workBookInstance, field:'book')}</td>
                         
-                            <td>${fieldValue(bean:studentInstance, field:'account')}</td>
+                            <td>${fieldValue(bean:workBookInstance, field:'student')}</td>
                         
                         </tr>
                     </g:each>
@@ -45,7 +45,7 @@
                 </table>
             </div>
             <div class="paginateButtons">
-                <g:paginate total="${studentInstanceTotal}" />
+                <g:paginate total="${workBookInstanceTotal}" />
             </div>
         </div>
     </body>

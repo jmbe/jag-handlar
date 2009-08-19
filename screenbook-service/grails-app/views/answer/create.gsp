@@ -46,10 +46,10 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="student">Student:</label>
+                                    <label for="book">Book:</label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean:answerInstance,field:'student','errors')}">
-                                    <g:select optionKey="id" from="${Student.list()}" name="student.id" value="${answerInstance?.student?.id}" ></g:select>
+                                <td valign="top" class="value ${hasErrors(bean:answerInstance,field:'book','errors')}">
+                                    <g:select optionKey="id" from="${WorkBook.list()}" name="book.id" value="${answerInstance?.book?.id}" ></g:select>
                                 </td>
                             </tr> 
                         

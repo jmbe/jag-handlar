@@ -2,7 +2,7 @@ import grails.converters.XML
 
 class AnswerController {
 
-    def answerService
+	def answerService
 
     def index = { redirect(action:list,params:params) }
 
@@ -99,25 +99,23 @@ class AnswerController {
         }
     }
 
-  
-    /**
+	/**
      * @param username
      * @param question_key
      */
     def getAnswer = {
-      def answerInstance = answerService.getAnswer(params.username, params.question_key)
+      def answerInstance = answerService.getAnswer(params.username, params.bookname, params.question_key)
       render answerInstance as XML
     }
 
     /**
      * @param username
      * @param question_key
-     * @param answer 
+     * @param answer
      */
     def setAnswer = {
       //username, question_key, answer
-      def answerInstance = answerService.setAnswer(username: params.username, questionkey: params.question_key, answer: params.answer)
+      def answerInstance = answerService.setAnswer(params.username, params.bookname, params.question_key, params.answer)
       render answerInstance as XML
     }
-
 }

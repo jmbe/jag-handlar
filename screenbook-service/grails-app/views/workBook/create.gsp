@@ -4,21 +4,21 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="main" />
-        <title>Create Student</title>         
+        <title>Create WorkBook</title>         
     </head>
     <body>
         <div class="nav">
             <span class="menuButton"><a class="home" href="${resource(dir:'')}">Home</a></span>
-            <span class="menuButton"><g:link class="list" action="list">Student List</g:link></span>
+            <span class="menuButton"><g:link class="list" action="list">WorkBook List</g:link></span>
         </div>
         <div class="body">
-            <h1>Create Student</h1>
+            <h1>Create WorkBook</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
-            <g:hasErrors bean="${studentInstance}">
+            <g:hasErrors bean="${workBookInstance}">
             <div class="errors">
-                <g:renderErrors bean="${studentInstance}" as="list" />
+                <g:renderErrors bean="${workBookInstance}" as="list" />
             </div>
             </g:hasErrors>
             <g:form action="save" method="post" >
@@ -28,19 +28,19 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="username">Username:</label>
+                                    <label for="book">Book:</label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean:studentInstance,field:'username','errors')}">
-                                    <input type="text" id="username" name="username" value="${fieldValue(bean:studentInstance,field:'username')}"/>
+                                <td valign="top" class="value ${hasErrors(bean:workBookInstance,field:'book','errors')}">
+                                    <g:select optionKey="id" from="${Book.list()}" name="book.id" value="${workBookInstance?.book?.id}" ></g:select>
                                 </td>
                             </tr> 
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="account">Account:</label>
+                                    <label for="student">Student:</label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean:studentInstance,field:'account','errors')}">
-                                    <g:select optionKey="id" from="${Account.list()}" name="account.id" value="${studentInstance?.account?.id}" ></g:select>
+                                <td valign="top" class="value ${hasErrors(bean:workBookInstance,field:'student','errors')}">
+                                    <g:select optionKey="id" from="${Student.list()}" name="student.id" value="${workBookInstance?.student?.id}" ></g:select>
                                 </td>
                             </tr> 
                         
