@@ -11,10 +11,19 @@ class ApiController {
       render account as XML
     }
 	
-	def createStudentAccount = {
-		def student = accountService.createStudentAccount(params.account, params.username)
+	def loginAsStudent = {
+		def mainAccountName = params.mainAccountName
+		def studentAccountName = params.studentAccountName
 
-		render student as XML
+		def loginVerified = accountService.verifyStudentLogin(mainAccountName, studentAccountName)
+		if (!loginVerified && accountService.verifyFreeLicences(mainAccountName)) {
+			accountService.createStudentAccount(mainAccountName, studentAccountName)
+		} else if (!loginVerified) {
+			render false as XML
+			return
+		}
+
+		render true as XML
 	}
 
 	/**

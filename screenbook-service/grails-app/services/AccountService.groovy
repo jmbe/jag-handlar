@@ -16,12 +16,25 @@ class AccountService {
       return account
     }
 
-    def createStudentAccount(String accountUsername, String studentUsername) {
-      log.info("Creating student " + studentUsername)
+	/**
+	 * Check if the student account exists and that it is possible to login
+	 */
+	def verifyStudentLogin (String mainAccountName, String studentAccountName) {
+		return Student.findByUsernameAndMainAccount(studentAccountName, mainAccountName) != null
+	}
 
-	  def account = Account.findByUsername(accountUsername)
+	def verifyFreeLicences (String mainAccountName) {
+		log.info("Verifying free licenses for " + mainAccountName)
+		def account = Account.findByUsername(mainAccountName)
+		return account.hasFreeLicenses()
+	}
 
-      def student = new Student(username: studentUsername, account: account)
+    def createStudentAccount(String mainAccountName, String studentAccountName) {
+      log.info("Creating student " + studentAccountName)
+
+	  def account = Account.findByUsername(mainAccountName)
+
+      def student = new Student(username: studentAccountName, account: account)
       student.save()
 
       return student

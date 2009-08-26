@@ -18,4 +18,8 @@ class Account {
 		passwd(blank: false)
 		enabled()
 	}
+
+	def hasFreeLicenses() {
+		return true
+	}
 }

@@ -8,4 +8,8 @@ class Student {
     static constraints = {
       username(blank: false, unique: true)
     }
+
+	static def findByUsernameAndMainAccount(String username, String mainAccountName) {
+		return Student.find("from Student as s join s.account as a where s.username = :username and a.username = :mainAccountName ", [username: username,  mainAccountName: mainAccountName])
+	}
 }
