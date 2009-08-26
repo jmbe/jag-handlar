@@ -97,8 +97,6 @@ class StudentController {
         }
     }
 
-	def createStudentAccount = {
-		def student = accountService.createStudentAccount(params.username)
-	}
+	
 	
 }

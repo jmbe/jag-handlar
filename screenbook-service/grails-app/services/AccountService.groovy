@@ -16,10 +16,12 @@ class AccountService {
       return account
     }
 
-    def createStudentAccount(String username) {
-      log.info("Creating student " + username)
+    def createStudentAccount(String accountUsername, String studentUsername) {
+      log.info("Creating student " + studentUsername)
 
-      def student = new Student(username: username)
+	  def account = Account.findByUsername(accountUsername)
+
+      def student = new Student(username: studentUsername, account: account)
       student.save()
 
       return student

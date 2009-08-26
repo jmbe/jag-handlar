@@ -12,9 +12,11 @@ class AnswerService {
 		if (answerInstance == null) {
 			def student = Student.findByUsername(username)
 			def workBook = findWorkBook(username, bookname)
+
 			if(workBook == null) {
 				def book = Book.findByName(bookname)
 				workBook = new WorkBook(book: book, student: student)
+				workBook.save()
 			}
 
 			answerInstance = new Answer(student: student, question_key: question_key, answer: answer, book: workBook)
@@ -34,9 +36,9 @@ class AnswerService {
 	}
 
 	def findWorkBook(username, bookname) {
-		def workBook = WorkBook.find("from WorkBook as w join w.book as b join w.student as s where b.name = :bookname and s.username = :username", [username: username, bookname: bookname])[0]
-		if(workBook != null) {
-			return workBook
+		def result = WorkBook.find("from WorkBook as w join w.book as b join w.student as s where b.name = :bookname and s.username = :username", [username: username, bookname: bookname])
+		if(result != null) {
+			return result[0]
 		}
 	}
 }

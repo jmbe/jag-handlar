@@ -103,11 +103,4 @@ class AccountController {
             render(view:'create',model:[accountInstance:accountInstance])
         }
     }
-
-    def createMainAccount = {
-
-      def account = accountService.createMainAccount(params.username)
-
-      render account as XML
-    }
 }
