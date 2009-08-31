@@ -7,10 +7,11 @@ class ApiController {
 
 	def index = {
 		def methods = [loginAsStudent: "mainAccountName, studentAccountName", 
-				       getAnswer: "username, bookname, question_key",
 					   createMainAccount: "username",
 					   verifyLogin: "username, password",
-					   setAnswer: "username, bookname, question_key, answer"]
+				       getAnswer: "username, bookname, question_key",
+					   setAnswer: "username, bookname, question_key, answer",
+					   removeAnswer: "username, bookname, question_key"]
 		render methods as XML
 	}
 
@@ -62,4 +63,8 @@ class ApiController {
       def answerInstance = answerService.setAnswer(params.username, params.bookname, params.question_key, params.answer)
       render answerInstance as XML
     }
+
+	def removeAnswer = {
+		render answerService.removeAnswer(params.username, params.bookname, params.question_key) as XML
+	}
 }

@@ -27,6 +27,15 @@ class AnswerService {
 		return answerInstance
 	}
 
+	def removeAnswer(username, bookname, question_key) {
+		def answerInstance = findAnswer(username, bookname, question_key)
+		if(answerInstance != null) {
+			answerInstance.delete(flush:true)
+			return true
+		}
+		return false
+	}
+
 	def findAnswer(username, bookname, question_key) {
 		def result = Answer.find("from Answer as a join a.book as w join w.student as s join w.book as b where s.username = :username and a.question_key = :question_key and b.name = :bookname",
 				[username: username, question_key: question_key, bookname: bookname])
