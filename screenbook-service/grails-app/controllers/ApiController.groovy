@@ -4,13 +4,30 @@ class ApiController {
 
 	def accountService
 	def answerService
-	
+
+	def index = {
+		def methods = [loginAsStudent: "mainAccountName, studentAccountName", 
+				       getAnswer: "username, bookname, question_key",
+					   createMainAccount: "username",
+					   verifyLogin: "username, password",
+					   setAnswer: "username, bookname, question_key, answer"]
+		render methods as XML
+	}
+
+
 	def createMainAccount = {
       def account = accountService.createMainAccount(params.username)
 
       render account as XML
     }
-	
+
+	def verifyLogin = {
+		def username = params.username;
+		def password = params.password;
+		
+		render accountService.verifyLogin(username, password) as XML
+	}
+
 	def loginAsStudent = {
 		def mainAccountName = params.mainAccountName
 		def studentAccountName = params.studentAccountName

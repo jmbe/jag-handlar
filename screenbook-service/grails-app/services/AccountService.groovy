@@ -16,6 +16,11 @@ class AccountService {
       return account
     }
 
+	def verifyLogin(String username, String password) {
+		def account = Account.findByUsername(username);
+		return account != null && account.passwd == authenticateService.encodePassword(password)
+	}
+
 	/**
 	 * Check if the student account exists and that it is possible to login
 	 */
