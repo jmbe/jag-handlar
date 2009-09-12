@@ -35,7 +35,7 @@ grails.enable.native2ascii = true
 // set per-environment serverURL stem for creating absolute links
 environments {
     production {
-        grails.serverURL = "http://www.changeme.com"
+        grails.serverURL = "http://www.jaghandlar.se"
     }
 }
 
@@ -60,6 +60,10 @@ log4j = {
 	       'org.hibernate'
 
     warn   'org.mortbay.log'
+
+    info   'grails.app'
+
+    debug  'grails.app.controller'
 }
 
 
