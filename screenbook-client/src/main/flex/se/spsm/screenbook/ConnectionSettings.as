@@ -6,7 +6,7 @@ public class ConnectionSettings {
     private var _host:String;
     private var _context:String;
 
-    public function ConnectionSettings(hostSetting:String="jaghandlar.pictosys.se", contextSetting:String="/") {
+    public function ConnectionSettings(hostSetting:String="www.jaghandlar.se", contextSetting:String="/") {
         host = hostSetting;
         context = contextSetting;
     }
