@@ -43,6 +43,12 @@ class ApiController {
             return;
         }
 
+        if (!accountService.mainAccountExists(mainAccountName)) {
+            log.warn("Could not find main account '${mainAccountName}'");
+            render false as XML;
+            return; 
+        }
+
 		def loginVerified = accountService.verifyStudentLogin(mainAccountName, studentAccountName)
 		if (!loginVerified && accountService.verifyFreeLicences(mainAccountName)) {
 			accountService.createStudentAccount(mainAccountName, studentAccountName)
