@@ -1,15 +1,21 @@
 class BootStrap {
 
   def accountService
+  def roleService
 
   def init = {servletContext ->
-    def role = new Role(authority: "ROLE_ADMIN", description: "The main admin role")
-    role.save()
 
+    /* Check or add roles. */
+    ["ROLE_ADMIN", "ROLE_TEACHER"].each {
+      if (!roleService.roleExists(it)) {
+        roleService.addRole(it);
+      }
+    }
 
+    /* Check or add admin account. */
     if (!accountService.mainAccountExists("admin")) {
       log.info("Could not find admin account. Adding...")
-      accountService.createMainAccount("admin");
+      accountService.createAdminAccount("admin");
       accountService.setNewPassword("admin", "admin");
 
     }

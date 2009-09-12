@@ -4,17 +4,25 @@ class AccountService {
 
     boolean transactional = true
 
+
+  def createAccountWithRole(String username, String authority) {
+    log.info("Creating account " + username)
+
+    //TODO Set correct password
+    def account = new Account(username: username, passwd: authenticateService.encodePassword("aaa"), enabled: true)
+    account.save()
+
+    Role.findByAuthority(authority).addToPeople(account)
+
+    return account
+  }
+
     def createMainAccount(String username) {
-      log.info("Creating account " + username)
+      createAccountWithRole(username, "ROLE_TEACHER");
+    }
 
-      //TODO Set correct password
-      def account = new Account(username: username, passwd: authenticateService.encodePassword("aaa"), enabled: true)
-      account.save()
-
-      // TODO Teachers should not be admins
-      Role.findByAuthority("ROLE_ADMIN").addToPeople(account)
-      
-      return account
+    def createAdminAccount(String username) {
+      createAccountWithRole(username, "ROLE_ADMIN");
     }
 
 	def verifyLogin(String username, String password) {
