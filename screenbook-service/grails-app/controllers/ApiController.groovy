@@ -6,7 +6,7 @@ class ApiController {
 	def answerService
 
 	def index = {
-		def methods = [loginAsStudent: "mainAccountName, studentAccountName", 
+		def methods = [loginAsStudent: "mainAccountName, studentAccountName",
 					   createMainAccount: "username",
 					   verifyLogin: "username, password",
 				       getAnswer: "username, bookname, question_key",
@@ -25,13 +25,23 @@ class ApiController {
 	def verifyLogin = {
 		def username = params.username;
 		def password = params.password;
-		
+
 		render accountService.verifyLogin(username, password) as XML
 	}
 
 	def loginAsStudent = {
 		def mainAccountName = params.mainAccountName
 		def studentAccountName = params.studentAccountName
+
+        if (mainAccountName == null) {
+            log.warn("Main account name is empty");
+            return;
+        }
+
+        if (studentAccountName == null) {
+            log.warn("Student account name is empty");
+            return;
+        }
 
 		def loginVerified = accountService.verifyStudentLogin(mainAccountName, studentAccountName)
 		if (!loginVerified && accountService.verifyFreeLicences(mainAccountName)) {
