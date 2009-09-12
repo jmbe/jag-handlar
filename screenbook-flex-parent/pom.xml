@@ -15,7 +15,7 @@
     <name>Screenbook Flex Parent</name>
 
     <properties>
-        <flex.plugin.version>3.2.0</flex.plugin.version>
+        <flex.plugin.version>3.3.0</flex.plugin.version>
         <flex.framework.version>3.2.0.3958</flex.framework.version>
     </properties>
 
