@@ -25,17 +25,20 @@ public class StudentController extends EventDispatcher {
     }
 
     private function httpServiceFault(e:FaultEvent):void {
+        // TODO remove alert
+        Alert.show("Problem due to " + e.toString());
         throw new Error("There was a problem sending the request due to: " + e.toString());
     }
 
     public function createStudentAccount(username:String):String {
 
 
-        var service:HTTPService = settings.createService("/student/createStudentAccount");
+        var service:HTTPService = settings.createService("api/loginAsStudent");
 
 
         var params:Object = {
-            username: username
+            studentAccountName: username,
+            mainAccountName : "admin"
         };
 
 
