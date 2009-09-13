@@ -9,7 +9,8 @@ class AccountService {
     log.info("Creating account " + username)
 
     //TODO Set correct password
-    def account = new Account(username: username, passwd: authenticateService.encodePassword("aaa"), enabled: true)
+    def account = new Account(username: username, passwd: authenticateService.encodePassword("aaa"), apikey: UUID.randomUUID().toString(), enabled: true)
+    
     account.save()
 
     Role.findByAuthority(authority).addToPeople(account)
@@ -27,8 +28,16 @@ class AccountService {
 
 	def verifyLogin(String username, String password) {
 		def account = Account.findByUsername(username);
-		return account != null && account.passwd == authenticateService.encodePassword(password)
+        if (account != null && account.passwd == authenticateService.encodePassword(password)) {
+          return account.apikey
+        }
+		return null
 	}
+
+    def verifyApiLogin(String username, String apikey) {
+      def account = Account.findByUsername(username)
+      return account.apikey == apikey
+    }
 
   /**
     * Change password without checking previous password. This method should not be exposed to end users.

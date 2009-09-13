@@ -2,6 +2,11 @@ class AnswerService {
 
 	boolean transactional = true
 
+    def getAnswers(username, bookname) {
+      def answers = Answer.findByUsernameAndBookname(username, bookname)
+      return answers
+    }
+
 	def getAnswer(username, bookname, question_key) {
 		def answerInstance = findAnswer(username, bookname, question_key)
 		return answerInstance

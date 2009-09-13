@@ -5,6 +5,14 @@ class ApiController {
 	def accountService
 	def answerService
 
+    def beforeInterceptor = [action:this.&apiAuthentication,except:'index']
+
+    def apiAuthentication =  {
+      def id = params.id
+      def apikey = params.apikey
+      println "ApiAuthentictaion interceptor found id:" + id + ", apikey: " + apikey
+    }
+
 	def index = {
 		def methods = [loginAsStudent: "mainAccountName, studentAccountName",
 					   createMainAccount: "username",
@@ -28,6 +36,22 @@ class ApiController {
 
 		render accountService.verifyLogin(username, password) as XML
 	}
+
+    def loginAsTeacher = {
+      def username = params.username
+      def password = params.password
+
+      def apikey = accountService.verifyLogin(username, password)
+      
+      render text: "<apikey>" + apikey+ "</apikey>", contentType:"text/xml"
+    }
+
+    def verifyApiLogin = {
+      def username = params.username
+      def apikey = params.apikey
+
+      render accountService.verifyApiLogin(username, apikey) as XML
+    }
 
 	def loginAsStudent = {
 		def mainAccountName = params.mainAccountName
@@ -67,6 +91,16 @@ class ApiController {
     def getAnswer = {
       def answerInstance = answerService.getAnswer(params.username, params.bookname, params.question_key)
       render answerInstance as XML
+    }
+
+
+    /**
+    * @param username
+    * @param bookname
+    */
+    def getAnswers = {
+      def answers = answerService.getAnswers(username, bookname)
+      render answers as XML
     }
 
     /**

@@ -10,6 +10,7 @@ class Account {
 	String username
 	/** MD5 Password */
 	String passwd
+    String apikey
 	/** enabled */
 	boolean enabled
 
