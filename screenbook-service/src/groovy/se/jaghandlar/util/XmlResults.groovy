@@ -20,7 +20,7 @@ class XmlResults {
       apikey(apikeyString)
       error(errorString)
     }
-    return writer.toString()
+    return [text: writer.toString(), contentType: "text/xml"]
   }
 
   def static getAnswersResult(String studentString, String bookString, answerList) {
@@ -41,14 +41,15 @@ class XmlResults {
     }
 
 
-    return writer.toString()
+    return [text: writer.toString(), contentType: "text/xml"]
   }
 
-  def static getStudentsResult(studentList) {
+  def static getStudentsResult(String numberOfLicenses, studentList) {
     def writer = new StringWriter()
     def xml = new MarkupBuilder(writer)
 
     xml.result() {
+      numberOfLicenses(numberOfLicenses)
       students() {
         for (studentInstance in studentList) {
           student() {
@@ -59,6 +60,18 @@ class XmlResults {
       }
     }
 
-    return writer.toString()
+    return [text: writer.toString(), contentType: "text/xml"]
+  }
+
+  def static getNumberOfLicensesResult(String numberOfLicensesString) {
+    def writer = new StringWriter()
+    def xml = new MarkupBuilder(writer)
+
+    xml.result() {
+      numberOfLicenses(numberOfLicensesString)
+    }
+
+    return [text: writer.toString(), contentType: "text/xml"]
+
   }
 }

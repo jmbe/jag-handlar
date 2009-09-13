@@ -43,7 +43,7 @@ class AuthenticationController {
         error = e.message
       }
 
-      render text: XmlResults.getLoginAsTeacherResult(username, apikey, result, error), contentType:"text/xml"
+      render XmlResults.getLoginAsTeacherResult(username, apikey, result, error)
     }
 
     def verifyApiLogin = {

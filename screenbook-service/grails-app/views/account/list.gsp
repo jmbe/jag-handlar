@@ -25,7 +25,9 @@
                         
                    	        <g:sortableColumn property="username" title="Username" />
                         
-                   	        <g:sortableColumn property="passwd" title="Passwd" />
+                   	        <g:sortableColumn property="passwd" title="Password" />
+
+                            <g:sortableColumn property="passwd" title="Apikey" />
                         
                    	        <g:sortableColumn property="enabled" title="Enabled" />
                         
@@ -40,6 +42,8 @@
                             <td>${fieldValue(bean:accountInstance, field:'username')}</td>
                         
                             <td>${fieldValue(bean:accountInstance, field:'passwd')}</td>
+
+                            <td>${fieldValue(bean:accountInstance, field:'apikey')}</td>
                         
                             <td>${fieldValue(bean:accountInstance, field:'enabled')}</td>
                         
@@ -54,3 +58,4 @@
         </div>
     </body>
 </html>
+

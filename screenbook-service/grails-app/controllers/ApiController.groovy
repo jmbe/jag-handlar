@@ -40,7 +40,7 @@ class ApiController {
     def bookname = params.book
     def answers = answerService.getAnswers(accountName, studentName, bookname)
 
-    render text: XmlResults.getAnswersResult(studentName, bookname, answers), contentType: "text/xml"
+    render XmlResults.getAnswersResult(studentName, bookname, answers)
   }
 
   /**
@@ -78,7 +78,8 @@ class ApiController {
   def getStudents = {
     def accountName = params.account
     def students = studentService.getStudents(accountName)
-    render text: XmlResults.getStudentsResult(students), contentType: "text/xml"
+    def numberOfLicenses = 4
+    render XmlResults.getStudentsResult(numberOfLicenses, students)
   }
 
   def openBookAsStudent = {
@@ -115,7 +116,8 @@ class ApiController {
 
   def getNumberOfLicenses = {
     def accountName = params.account
-    render text: "<result><numberOfLicenses>4</numberOfLicenses></result>", contentType: "text/xml"
+    def result = XmlResults.getNumberOfLicensesResult("4")
+    render result
   }
 
 }
