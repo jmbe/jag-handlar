@@ -1,4 +1,5 @@
 import grails.converters.XML
+import api.ApiResults
 
 class ApiController {
 
@@ -8,9 +9,9 @@ class ApiController {
     def beforeInterceptor = [action:this.&apiAuthentication,except:'index']
 
     def apiAuthentication =  {
-      def id = params.id
-      def apikey = params.apikey
-      println "ApiAuthentictaion interceptor found id:" + id + ", apikey: " + apikey
+      //def id = params.id
+      //def apikey = params.apikey
+      //println "ApiAuthentictaion interceptor found id:" + id + ", apikey: " + apikey
     }
 
 	def index = {
@@ -42,8 +43,13 @@ class ApiController {
       def password = params.password
 
       def apikey = accountService.verifyLogin(username, password)
-      
-      render text: "<apikey>" + apikey+ "</apikey>", contentType:"text/xml"
+      def result
+      if (apikey) {
+        result ="success"
+      } else {
+        result = "failure"
+      }
+      render text: ApiResults.getLoginAsTeacherResult(username, apikey, result), contentType:"text/xml"
     }
 
     def verifyApiLogin = {
