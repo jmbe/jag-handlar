@@ -4,6 +4,8 @@
 *~
 target
 *.war
-*_temp_flex_config.xml
+*_temp_flex*_config.xml
 *.log
+classes
+
 
