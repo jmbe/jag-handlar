@@ -82,13 +82,11 @@
             <version>1.5.1</version>
         </dependency>
 
-        <!--
         <dependency>
             <groupId>se.internetapplications</groupId>
             <artifactId>stripes-ext</artifactId>
             <version>1.5-SNAPSHOT</version>
         </dependency>
-        -->
 
 	</dependencies>
 
