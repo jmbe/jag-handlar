@@ -18,6 +18,8 @@ class BootStrap {
       accountService.createAdminAccount("admin");
       accountService.setNewPassword("admin", "admin");
 
+      new Book(name:"book1").save()
+            
     }
 
   }

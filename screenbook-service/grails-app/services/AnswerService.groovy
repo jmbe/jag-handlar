@@ -3,7 +3,7 @@ class AnswerService {
 	boolean transactional = true
 
     def getAnswers(username, bookname) {
-      def answers = Answer.findByUsernameAndBookname(username, bookname)
+      def answers = findAnswers(username, bookname)
       return answers
     }
 
@@ -41,18 +41,26 @@ class AnswerService {
 		return false
 	}
 
+    def findAnswers(username, bookname) {
+        def result = Answer.findAll("from Answer as answer where answer.book.student.username = :username and answer.book.book.name = :bookname",
+				[username: username, bookname: bookname])
+        println result
+        return result
+	}
+
 	def findAnswer(username, bookname, question_key) {
-		def result = Answer.find("from Answer as a join a.book as w join w.student as s join w.book as b where s.username = :username and a.question_key = :question_key and b.name = :bookname",
+        def result = Answer.find("from Answer as answer where answer.book.student.username = :username and answer.question_key = :question_key and answer.book.book.name = :bookname",
 				[username: username, question_key: question_key, bookname: bookname])
 		if(result != null) {
-			return result[0]
+			return result
 		}
 	}
 
 	def findWorkBook(username, bookname) {
-		def result = WorkBook.find("from WorkBook as w join w.book as b join w.student as s where b.name = :bookname and s.username = :username", [username: username, bookname: bookname])
+        def result = WorkBook.find("from WorkBook as workbook where workbook.book.name = :bookname and workbook.student.username = :username",
+                [username: username, bookname: bookname])
 		if(result != null) {
-			return result[0]
+			return result
 		}
 	}
 }

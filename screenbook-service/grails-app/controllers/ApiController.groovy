@@ -96,6 +96,7 @@ class ApiController {
      */
     def getAnswer = {
       def answerInstance = answerService.getAnswer(params.username, params.bookname, params.question_key)
+      println answerInstance
       render answerInstance as XML
     }
 
@@ -105,9 +106,12 @@ class ApiController {
     * @param bookname
     */
     def getAnswers = {
+      def username = params.username
+      def bookname = params.bookname
       def answers = answerService.getAnswers(username, bookname)
-      render answers as XML
-    }
+
+      render text: ApiResults.getAnswersResult(username, bookname, answers), contentType: "text/xml"
+     }
 
     /**
      * @param username

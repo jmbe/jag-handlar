@@ -21,4 +21,26 @@ class ApiResults {
     }
     return writer.toString()
   }
+
+  def static getAnswersResult(String studentString, String bookString, answerList) {
+    def writer = new StringWriter()
+    def xml = new MarkupBuilder(writer)
+
+    xml.result() {
+      student(studentString)
+      book(bookString)
+      answers() {
+        for (answerInstance in answerList) {
+          answer() {
+            question_key(answerInstance.question_key)
+            answer(answerInstance.answer)
+          }
+        }
+      }
+      
+    }
+
+
+    return writer.toString()
+  }
 }
