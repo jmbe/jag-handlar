@@ -112,4 +112,10 @@ class ApiController {
 
     render true as XML
   }
+
+  def getNumberOfLicenses = {
+    def accountName = params.account
+    render text: "<result><numberOfLicenses>4</numberOfLicenses></result>", contentType: "text/xml"
+  }
+
 }
