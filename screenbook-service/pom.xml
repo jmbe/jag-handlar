@@ -16,17 +16,53 @@
 
     <name>Screenbook Grails Service</name>
 
+    <properties>
+        <grails.version>1.1.1</grails.version>
+    </properties>
+
 	<dependencies>
+        <dependency>
+            <groupId>org.grails</groupId>
+            <artifactId>grails-core</artifactId>
+            <version>${grails.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.grails</groupId>
+            <artifactId>grails-bootstrap</artifactId>
+            <version>${grails.version}</version>
+        </dependency>
+
 		<dependency>
 			<groupId>org.grails</groupId>
 			<artifactId>grails-crud</artifactId>
-			<version>1.1.1</version>
+			<version>${grails.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.grails</groupId>
 			<artifactId>grails-gorm</artifactId>
-			<version>1.1.1</version>
+			<version>${grails.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-spring</artifactId>
+			<version>${grails.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-resources</artifactId>
+    		<version>${grails.version}</version>
+		</dependency>
+
+        <dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-scripts</artifactId>
+    		<version>${grails.version}</version>
+		</dependency>
+
+
 
 		<!-- Grails defaults to OSCache for the second-level Hibernate cache. -->
 		<dependency>
