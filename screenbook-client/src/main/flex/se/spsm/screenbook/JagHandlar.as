@@ -3,6 +3,8 @@ import flash.events.EventDispatcher;
 
 import mx.controls.Alert;
 
+import se.spsm.screenbook.apikey.ApiKey;
+import se.spsm.screenbook.apikey.ApiLoginEvent;
 import se.spsm.screenbook.student.StudentCreatedEvent;
 import se.spsm.screenbook.teacher.AuthenticationController;
 import se.spsm.screenbook.teacher.LoginTeacherEvent;
@@ -28,6 +30,8 @@ public class JagHandlar extends EventDispatcher {
 
     private var _currentTeacher:Teacher;
 
+    private var _currentApiKey:ApiKey;
+
     [Event("LoginTeacherEvent.SUCCESS")]
     [Event("LoginTeacherEvent.FAILURE")]
 
@@ -43,20 +47,49 @@ public class JagHandlar extends EventDispatcher {
         this.authenticationController.addEventListener(LoginTeacherEvent.SUCCESS, onLoginTeacherSuccess);
         this.authenticationController.addEventListener(LoginTeacherEvent.FAILURE, onLoginTeacherFailure);
 
+        this.authenticationController.addEventListener(ApiLoginEvent.SUCCESS, onApiLoginSuccess);
+        this.authenticationController.addEventListener(ApiLoginEvent.FAILURE, onApiLoginFailure);
+
         this.message = "Not logged in";
         this.status = "";
+    }
+
+
+    public function doApiLogin(username:String, apiKey:String):void {
+        this.authenticationController.verifyApiLogin(username, apiKey);
+
+    }
+
+    private function onApiLoginSuccess(e:ApiLoginEvent):void {
+        //Alert.show("api login success");
+        dispatchEvent(new ApiLoginEvent(ApiLoginEvent.SUCCESS, e.result));
+    }
+
+    private function onApiLoginFailure(e:ApiLoginEvent):void {
+        //Alert.show("api login failure");
+
+        currentApiKey = null;
+
+        dispatchEvent(new ApiLoginEvent(ApiLoginEvent.FAILURE, e.result));
+    }
+
+    [Bindable]
+    public function get currentApiKey():ApiKey {
+        return _currentApiKey;
+    }
+
+    private function set currentApiKey(apiKey:ApiKey):void {
+        _currentApiKey = apiKey;
     }
 
     public function get isTeacherAuthenticated():Boolean {
         return currentTeacher != null;
     }
 
-
     [Bindable]
     public function get currentTeacher():Teacher {
         return _currentTeacher;
     }
-
 
     private function set currentTeacher(teacher:Teacher):void {
         _currentTeacher = teacher;
@@ -69,6 +102,8 @@ public class JagHandlar extends EventDispatcher {
     private function onLoginTeacherSuccess(e:LoginTeacherEvent):void {
         // Alert.show("Jag handlar: teacher logged in successfully");
         currentTeacher = e.teacher;
+
+        currentApiKey = e.apiKey;
 
         /* Seem that a new event has to be created, if the event should be re-dispatched. */
         dispatchEvent(new LoginTeacherEvent(LoginTeacherEvent.SUCCESS, e.result));
