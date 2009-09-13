@@ -53,6 +53,15 @@
             <type>swc</type>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+           <groupId>com.adobe.flexunit</groupId>
+           <artifactId>flexunit</artifactId>
+           <version>0.90</version>
+           <type>swc</type>
+           <scope>test</scope>
+       </dependency>
+
     </dependencies>
 
 
