@@ -34,8 +34,8 @@ class ApiController {
 	def verifyLogin = {
 		def username = params.username;
 		def password = params.password;
-
-		render accountService.verifyLogin(username, password) as XML
+        def result = accountService.verifyLogin(username, password) != null
+		render result as XML
 	}
 
     def loginAsTeacher = {
