@@ -1,12 +1,14 @@
 import grails.converters.XML
-import api.ApiResults
+import se.jaghandlar.api.ApiResults
+import se.jaghandlar.exceptions.UserNotFoundException
+import se.jaghandlar.exceptions.IncorrectPasswordException
 
 class ApiController {
 
 	def accountService
 	def answerService
 
-    def beforeInterceptor = [action:this.&apiAuthentication,except:['index', 'createMainAccount', 'verifyLogin', 'loginAsTeacher', 'verifyApiLogin', 'loginAsStudent']]
+    def beforeInterceptor = [action:this.&apiAuthentication,except:['createMainAccount', 'verifyLogin', 'loginAsTeacher', 'verifyApiLogin', 'loginAsStudent']]
 
     def apiAuthentication =  {
       def authId = params.id
@@ -17,17 +19,6 @@ class ApiController {
       }
     }
 
-	def index = {
-		def methods = [loginAsStudent: "mainAccountName, studentAccountName",
-					   createMainAccount: "username",
-					   verifyLogin: "username, password",
-				       getAnswer: "username, bookname, question_key",
-					   setAnswer: "username, bookname, question_key, answer",
-					   removeAnswer: "username, bookname, question_key"]
-		render methods as XML
-	}
-
-
 	def createMainAccount = {
       def account = accountService.createMainAccount(params.username)
 
@@ -37,22 +28,34 @@ class ApiController {
 	def verifyLogin = {
 		def username = params.username;
 		def password = params.password;
-        def result = accountService.verifyLogin(username, password) != null
-		render result as XML
+        def result = false
+        try {
+          result = accountService.verifyLogin(username, password) != null
+        } catch (UserNotFoundException e) {
+        } catch (IncorrectPasswordException) {}
+		
+        render result as XML
 	}
 
     def loginAsTeacher = {
       def username = params.username
       def password = params.password
 
-      def apikey = accountService.verifyLogin(username, password)
+      def apikey
       def result
-      if (apikey) {
+      def error
+      try {
+        apikey = accountService.verifyLogin(username, password)
         result ="success"
-      } else {
+      } catch (UserNotFoundException e) {
         result = "failure"
+        error = e.message
+      } catch (IncorrectPasswordException e) {
+        result = "failure"
+        error = e.message
       }
-      render text: ApiResults.getLoginAsTeacherResult(username, apikey, result), contentType:"text/xml"
+
+      render text: ApiResults.getLoginAsTeacherResult(username, apikey, result, error), contentType:"text/xml"
     }
 
     def verifyApiLogin = {

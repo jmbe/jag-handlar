@@ -1,4 +1,4 @@
-package api
+package se.jaghandlar.api
 
 import groovy.xml.MarkupBuilder
 
@@ -11,13 +11,14 @@ import groovy.xml.MarkupBuilder
  */
 class ApiResults {
 
-  def static getLoginAsTeacherResult(String usernameString, String apikeyString, String statusString) {
+  def static getLoginAsTeacherResult(String usernameString, String apikeyString, String statusString, String errorString) {
     def writer = new StringWriter()
     def xml = new MarkupBuilder(writer)
     xml.result() {
       status(statusString)
       username(usernameString)
       apikey(apikeyString)
+      error(errorString)
     }
     return writer.toString()
   }

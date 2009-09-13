@@ -1,3 +1,6 @@
+import se.jaghandlar.exceptions.UserNotFoundException
+import se.jaghandlar.exceptions.IncorrectPasswordException
+
 class AccountService {
 
     def authenticateService
@@ -8,8 +11,7 @@ class AccountService {
   def createAccountWithRole(String username, String authority) {
     log.info("Creating account " + username)
 
-    //TODO Set correct password
-    def account = new Account(username: username, passwd: authenticateService.encodePassword("aaa"), apikey: UUID.randomUUID().toString(), enabled: true)
+    def account = new Account(username: username, passwd: authenticateService.encodePassword("läraren"), apikey: UUID.randomUUID().toString(), enabled: true)
     
     account.save()
 
@@ -26,12 +28,18 @@ class AccountService {
       createAccountWithRole(username, "ROLE_ADMIN");
     }
 
-	def verifyLogin(String username, String password) {
+	def verifyLogin(String username, String password) throws UserNotFoundException, IncorrectPasswordException {
 		def account = Account.findByUsername(username);
-        if (account != null && account.passwd == authenticateService.encodePassword(password)) {
+        if (account == null) {
+          log.info("Bad account")
+          throw new UserNotFoundException("error.incorrect.username");
+        } else if (account.passwd != authenticateService.encodePassword(password)) {
+          log.info("Bad password")
+          throw new IncorrectPasswordException("error.incorrect.password");
+        } else {
           return account.apikey
         }
-		return null
+        return null
 	}
 
     def verifyApiLogin(String username, String apikey) {
