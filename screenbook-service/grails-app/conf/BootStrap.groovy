@@ -15,7 +15,9 @@ class BootStrap {
     /* Check or add admin account. */
     if (!accountService.mainAccountExists("admin")) {
       log.info("Could not find admin account. Adding...")
-      accountService.createAdminAccount("admin");
+      def account = accountService.createAdminAccount("admin");
+      account.apikey = "a1984cf7-c2eb-400c-abe6-a1ee9e151ee1"
+      account.save(flush:true)
       accountService.setNewPassword("admin", "admin");
 
       new Book(name:"book1").save()
