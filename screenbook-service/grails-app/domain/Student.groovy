@@ -4,6 +4,7 @@ class Student {
     static belongsTo = [account: Account]
 
     String username
+    boolean screenKeyboard
 
     static constraints = {
       username(blank: false, unique: true)

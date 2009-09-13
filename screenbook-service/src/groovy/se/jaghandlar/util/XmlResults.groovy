@@ -1,4 +1,4 @@
-package se.jaghandlar.api
+package se.jaghandlar.util
 
 import groovy.xml.MarkupBuilder
 
@@ -9,7 +9,7 @@ import groovy.xml.MarkupBuilder
  * Time: 2:15:46 PM
  * To change this template use File | Settings | File Templates.
  */
-class ApiResults {
+class XmlResults {
 
   def static getLoginAsTeacherResult(String usernameString, String apikeyString, String statusString, String errorString) {
     def writer = new StringWriter()
@@ -38,7 +38,6 @@ class ApiResults {
           }
         }
       }
-      
     }
 
 
@@ -54,6 +53,7 @@ class ApiResults {
         for (studentInstance in studentList) {
           student() {
             name(studentInstance.username)
+            screenKeyboard(studentInstance.screenKeyboard)
           }
         }
       }

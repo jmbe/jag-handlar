@@ -1,7 +1,5 @@
 import grails.converters.XML
-import se.jaghandlar.api.ApiResults
-import se.jaghandlar.exceptions.UserNotFoundException
-import se.jaghandlar.exceptions.IncorrectPasswordException
+import se.jaghandlar.util.XmlResults
 
 class ApiController {
 
@@ -37,7 +35,7 @@ class ApiController {
     def bookname = params.bookname
     def answers = answerService.getAnswers(username, bookname)
 
-    render text: ApiResults.getAnswersResult(username, bookname, answers), contentType: "text/xml"
+    render text: XmlResults.getAnswersResult(username, bookname, answers), contentType: "text/xml"
   }
 
   /**
@@ -57,6 +55,6 @@ class ApiController {
 
   def getStudents = {
     def students = studentService.getStudents(params.username)
-    render text: ApiResults.getStudentsResult(students), contentType: "text/xml"
+    render text: XmlResults.getStudentsResult(students), contentType: "text/xml"
   }
 }

@@ -1,7 +1,7 @@
 import grails.converters.XML
 import se.jaghandlar.exceptions.UserNotFoundException
 import se.jaghandlar.exceptions.IncorrectPasswordException
-import se.jaghandlar.api.ApiResults
+import se.jaghandlar.util.XmlResults
 
 class AuthenticationController {
     def accountService
@@ -43,7 +43,7 @@ class AuthenticationController {
         error = e.message
       }
 
-      render text: ApiResults.getLoginAsTeacherResult(username, apikey, result, error), contentType:"text/xml"
+      render text: XmlResults.getLoginAsTeacherResult(username, apikey, result, error), contentType:"text/xml"
     }
 
     def verifyApiLogin = {
