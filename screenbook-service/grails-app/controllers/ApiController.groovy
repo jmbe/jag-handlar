@@ -8,9 +8,9 @@ class ApiController {
   def answerService
 
   def beforeInterceptor = {
-    def authId = params.id
+    def accountName = params.account
     def authApikey = params.apikey
-    if (!accountService.verifyApiLogin(authId, authApikey)) {
+    if (!accountService.verifyApiLogin(accountName, authApikey)) {
       println "apiAuth not authorized"
       return false
     }
@@ -21,8 +21,12 @@ class ApiController {
    * @param question_key
    */
   def getAnswer = {
-    def answerInstance = answerService.getAnswer(params.username, params.bookname, params.question_key)
-    println answerInstance
+    def accountName = params.account
+    def studentname = params.student
+    def bookname = params.bookname
+    def questionkey = params.question_key
+    def answerInstance = answerService.getAnswer(accountName, studentname, bookname, questionkey)
+    
     render answerInstance as XML
   }
 
@@ -31,11 +35,12 @@ class ApiController {
    * @param bookname
    */
   def getAnswers = {
-    def username = params.username
+    def accountName = params.account
+    def studentName = params.student
     def bookname = params.bookname
-    def answers = answerService.getAnswers(username, bookname)
+    def answers = answerService.getAnswers(accountName, studentName, bookname)
 
-    render text: XmlResults.getAnswersResult(username, bookname, answers), contentType: "text/xml"
+    render text: XmlResults.getAnswersResult(studentName, bookname, answers), contentType: "text/xml"
   }
 
   /**
@@ -45,16 +50,57 @@ class ApiController {
    */
   def setAnswer = {
     //username, question_key, answer
-    def answerInstance = answerService.setAnswer(params.username, params.bookname, params.question_key, params.answer)
+    def accountName = params.account
+    def studentName = params.student
+    def bookname = params.bookname
+    def questionkey = params.question_key
+    def answer = params.answer
+    def answerInstance = answerService.setAnswer(accountName, studentName, bookname, questionkey, answer)
     render answerInstance as XML
   }
 
   def removeAnswer = {
-    render answerService.removeAnswer(params.username, params.bookname, params.question_key) as XML
+    def accountName = params.account
+    def studentName = params.student
+    def bookname = params.bookname
+    def questionkey = params.question_key
+    render answerService.removeAnswer(accountName, studentName, bookname, questionkey) as XML
   }
 
   def getStudents = {
-    def students = studentService.getStudents(params.username)
+    def accountName = params.account
+    def students = studentService.getStudents(accountName)
     render text: XmlResults.getStudentsResult(students), contentType: "text/xml"
+  }
+
+  def loginAsStudent = {
+    def accountName = params.account
+    def studentName = params.student
+
+    if (accountName == null) {
+      log.warn("Main account name is empty");
+      return;
+    }
+
+    if (studentName == null) {
+      log.warn("Student account name is empty");
+      return;
+    }
+
+    if (!accountService.mainAccountExists(accountName)) {
+      log.warn("Could not find main account '${accountName}'");
+      render false as XML;
+      return;
+    }
+
+    def loginVerified = accountService.verifyStudentLogin(accountName, studentName)
+    if (!loginVerified && accountService.verifyFreeLicences(accountName)) {
+      accountService.createStudentAccount(accountName, studentName)
+    } else if (!loginVerified) {
+      render false as XML
+      return
+    }
+
+    render true as XML
   }
 }

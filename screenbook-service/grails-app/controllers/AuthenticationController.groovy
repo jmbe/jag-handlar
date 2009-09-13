@@ -53,35 +53,6 @@ class AuthenticationController {
       render accountService.verifyApiLogin(username, apikey) as XML
     }
 
-	def loginAsStudent = {
-		def mainAccountName = params.mainAccountName
-		def studentAccountName = params.studentAccountName
-
-        if (mainAccountName == null) {
-            log.warn("Main account name is empty");
-            return;
-        }
-
-        if (studentAccountName == null) {
-            log.warn("Student account name is empty");
-            return;
-        }
-
-        if (!accountService.mainAccountExists(mainAccountName)) {
-            log.warn("Could not find main account '${mainAccountName}'");
-            render false as XML;
-            return;
-        }
-
-		def loginVerified = accountService.verifyStudentLogin(mainAccountName, studentAccountName)
-		if (!loginVerified && accountService.verifyFreeLicences(mainAccountName)) {
-			accountService.createStudentAccount(mainAccountName, studentAccountName)
-		} else if (!loginVerified) {
-			render false as XML
-			return
-		}
-
-		render true as XML
-	}
+	
 
 }
