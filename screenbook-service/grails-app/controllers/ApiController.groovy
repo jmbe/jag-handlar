@@ -6,12 +6,15 @@ class ApiController {
 	def accountService
 	def answerService
 
-    def beforeInterceptor = [action:this.&apiAuthentication,except:'index']
+    def beforeInterceptor = [action:this.&apiAuthentication,except:['index', 'createMainAccount', 'verifyLogin', 'loginAsTeacher', 'verifyApiLogin', 'loginAsStudent']]
 
     def apiAuthentication =  {
-      //def id = params.id
-      //def apikey = params.apikey
-      //println "ApiAuthentictaion interceptor found id:" + id + ", apikey: " + apikey
+      def authId = params.id
+      def authApikey = params.apikey
+      if (!accountService.verifyApiLogin(authId, authApikey)) {
+        println "apiAuth not authorized"
+        return false
+      }
     }
 
 	def index = {

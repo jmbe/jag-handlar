@@ -35,8 +35,19 @@ class AccountService {
 	}
 
     def verifyApiLogin(String username, String apikey) {
+      if(!username || !apikey) {
+        println "username or apikey was not set"
+        return false
+      }
       def account = Account.findByUsername(username)
-      return account.apikey == apikey
+      if(account) {
+        def result = account.apikey == apikey
+        println "apikey was correct? " + result
+        return result
+      } else {
+        println "no account was found"
+        return false
+      }
     }
 
   /**
