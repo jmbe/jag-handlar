@@ -3,11 +3,10 @@
 
 
     <mx:Script><![CDATA[
-        import mx.controls.Alert;
-
         import se.spsm.screenbook.App;
         import se.spsm.screenbook.ConnectionSettings;
         import se.spsm.screenbook.JagHandlar;
+        import se.spsm.screenbook.apikey.ApiLoginEvent;
         import se.spsm.screenbook.teacher.LoginTeacherEvent;
 
         [Bindable]
@@ -16,10 +15,20 @@
         private function onCreationComplete() :void {
             jagHandlar.addEventListener(LoginTeacherEvent.SUCCESS, onLoginTeacher);
             jagHandlar.addEventListener(LoginTeacherEvent.FAILURE, onLoginTeacher);
+
+            jagHandlar.addEventListener(ApiLoginEvent.SUCCESS, onApiLogin);
+            jagHandlar.addEventListener(ApiLoginEvent.FAILURE, onApiLogin);
         }
 
         private function onLoginTeacher(e:LoginTeacherEvent):void {
             teacherLoginResult.text = e.type;
+
+            apiUsername.text = e.result.username;
+            apiKey.text = e.result.key;
+        }
+
+        private function onApiLogin(e:ApiLoginEvent):void {
+            apiLoginResult.text = "" + e.result.isValid;
         }
 
         private function createStudent(student:String):void {
@@ -32,16 +41,21 @@
         }
 
 
+        private function doApiLogin(username:String, password:String):void {
+            jagHandlar.doApiLogin(username, password);
+        }
+
+
         ]]></mx:Script>
 
 
     <mx:Panel title="Logga in som lärare">
         <mx:Form>
             <mx:FormItem label="Användarnamn">
-                <mx:TextInput id="teacherUsername"/>
+                <mx:TextInput id="teacherUsername" text="admin"/>
             </mx:FormItem>
             <mx:FormItem label="Lösenord">
-                <mx:TextInput id="teacherPassword"/>
+                <mx:TextInput id="teacherPassword" text="admin"/>
             </mx:FormItem>
 
             <mx:FormItem>
@@ -52,6 +66,27 @@
             </mx:FormItem>
             <mx:FormItem label="Nuvarande lärare">
                 <mx:Label text="{jagHandlar.currentTeacher.username}"/>
+            </mx:FormItem>
+        </mx:Form>
+    </mx:Panel>
+
+    <mx:Panel title="API-inloggning">
+        <mx:Form>
+            <mx:FormItem label="Användarnamn">
+                <mx:TextInput id="apiUsername"/>
+            </mx:FormItem>
+            <mx:FormItem label="Lösenord">
+                <mx:TextInput id="apiKey"/>
+            </mx:FormItem>
+
+            <mx:FormItem>
+                <mx:Button click="doApiLogin(apiUsername.text, apiKey.text)" label="Logga in"/>
+            </mx:FormItem>
+            <mx:FormItem label="Resultat">
+                <mx:Label id="apiLoginResult"/>
+            </mx:FormItem>
+            <mx:FormItem label="Nuvarande API-login">
+                <mx:Label text="{jagHandlar.currentApiKey.username}"/>
             </mx:FormItem>
         </mx:Form>
     </mx:Panel>

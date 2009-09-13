@@ -3,6 +3,8 @@ package se.spsm.screenbook.teacher {
 
 import flash.events.Event;
 
+import se.spsm.screenbook.apikey.ApiKey;
+
 public class LoginTeacherEvent extends Event {
     public static const FAILURE:String = "FAILURE";
 
@@ -21,6 +23,10 @@ public class LoginTeacherEvent extends Event {
 
     public function get teacher():Teacher {
         return new Teacher(result.username);
+    }
+
+    public function get apiKey():ApiKey {
+        return new se.spsm.screenbook.apikey.ApiKey(result.username, result.key);
     }
 
 }

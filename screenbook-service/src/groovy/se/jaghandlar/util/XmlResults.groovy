@@ -2,14 +2,29 @@ package se.jaghandlar.util
 
 import groovy.xml.MarkupBuilder
 
-/**
- * Created by IntelliJ IDEA.
- * User: knifhen
- * Date: Sep 13, 2009
- * Time: 2:15:46 PM
- * To change this template use File | Settings | File Templates.
- */
 class XmlResults {
+
+  def writer
+  def xml
+
+  XmlResults() {
+    writer = new StringWriter()
+    xml = new MarkupBuilder(writer)
+  }
+
+
+  def toXml() {
+    return [text: writer.toString(), contentType: "text/xml"]
+  }
+
+  def withVerifyApiLoginResult(boolean isValid) {
+    xml.result() {
+      valid(isValid)
+    }
+    
+    return this;
+  }
+
 
   def static getLoginAsTeacherResult(String usernameString, String apikeyString, String statusString, String errorString) {
     def writer = new StringWriter()

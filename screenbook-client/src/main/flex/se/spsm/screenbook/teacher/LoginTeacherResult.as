@@ -1,13 +1,15 @@
 package se.spsm.screenbook.teacher {
+import mx.controls.Alert;
+
 public class LoginTeacherResult {
     private var _status:String;
     private var _username:String;
+    private var _key:String;
 
     public function LoginTeacherResult(result:XML) {
-
         _username = result.username;
         _status = result.status;
-
+        _key = result.apikey;
     }
 
     public function get isFailure():Boolean {
@@ -24,6 +26,10 @@ public class LoginTeacherResult {
 
     public function get username():String {
         return _username;
+    }
+
+    public function get key():String {
+        return _key;
     }
 }
 }
