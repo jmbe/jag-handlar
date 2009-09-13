@@ -41,9 +41,16 @@ class AnswerService {
 		return false
 	}
 
-    def findAnswers(accountName, studentName, bookname) {
-        def result = Answer.findAll("from Answer as answer where answer.book.student.account.username = :accountName and answer.book.student.username = :studentName and answer.book.book.name = :bookname",
-				[accountName: accountName, studentName: studentName, bookname: bookname])
+    def removeAnswers(accountName, studentName, bookName) {
+      def answers = findAnswers(accountName, studentName, bookName)
+      for (answer in answers) {
+        answer.delete(flush:true)
+      }
+    }
+
+    def findAnswers(accountName, studentName, bookName) {
+        def result = Answer.findAll("from Answer as answer where answer.book.student.account.username = :accountName and answer.book.student.username = :studentName and answer.book.book.name = :bookName",
+				[accountName: accountName, studentName: studentName, bookName: bookName])
         println result
         return result
 	}

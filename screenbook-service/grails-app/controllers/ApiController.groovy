@@ -37,7 +37,7 @@ class ApiController {
   def getAnswers = {
     def accountName = params.account
     def studentName = params.student
-    def bookname = params.bookname
+    def bookname = params.book
     def answers = answerService.getAnswers(accountName, studentName, bookname)
 
     render text: XmlResults.getAnswersResult(studentName, bookname, answers), contentType: "text/xml"
@@ -52,7 +52,7 @@ class ApiController {
     //username, question_key, answer
     def accountName = params.account
     def studentName = params.student
-    def bookname = params.bookname
+    def bookname = params.book
     def questionkey = params.question_key
     def answer = params.answer
     def answerInstance = answerService.setAnswer(accountName, studentName, bookname, questionkey, answer)
@@ -62,9 +62,17 @@ class ApiController {
   def removeAnswer = {
     def accountName = params.account
     def studentName = params.student
-    def bookname = params.bookname
+    def bookname = params.book
     def questionkey = params.question_key
     render answerService.removeAnswer(accountName, studentName, bookname, questionkey) as XML
+  }
+
+  def removeAnswers = {
+    def accountName = params.account
+    def studentName = params.student
+    def bookName = params.book
+    answerService.removeAnswers(accountName, studentName, bookName)
+    render true as XML
   }
 
   def getStudents = {
@@ -87,6 +95,7 @@ class ApiController {
       return;
     }
 
+    //TODO This is probably unneccesary since the account already has been verified
     if (!accountService.mainAccountExists(accountName)) {
       log.warn("Could not find main account '${accountName}'");
       render false as XML;
