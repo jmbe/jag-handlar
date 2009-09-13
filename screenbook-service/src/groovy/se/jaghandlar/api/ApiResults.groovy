@@ -44,4 +44,21 @@ class ApiResults {
 
     return writer.toString()
   }
+
+  def static getStudentsResult(studentList) {
+    def writer = new StringWriter()
+    def xml = new MarkupBuilder(writer)
+
+    xml.result() {
+      students() {
+        for (studentInstance in studentList) {
+          student() {
+            name(studentInstance.username)
+          }
+        }
+      }
+    }
+
+    return writer.toString()
+  }
 }

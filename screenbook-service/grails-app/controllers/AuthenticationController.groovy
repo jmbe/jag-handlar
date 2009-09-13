@@ -2,13 +2,7 @@ import grails.converters.XML
 import se.jaghandlar.exceptions.UserNotFoundException
 import se.jaghandlar.exceptions.IncorrectPasswordException
 import se.jaghandlar.api.ApiResults
-/**
- * Created by IntelliJ IDEA.
- * User: knifhen
- * Date: Sep 13, 2009
- * Time: 5:12:13 PM
- * To change this template use File | Settings | File Templates.
- */
+
 class AuthenticationController {
     def accountService
     def answerService

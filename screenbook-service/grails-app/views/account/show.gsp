@@ -42,6 +42,13 @@
                             <td valign="top" class="value">${fieldValue(bean:accountInstance, field:'passwd')}</td>
                             
                         </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="name">apikey:</td>
+
+                            <td valign="top" class="value">${fieldValue(bean:accountInstance, field:'apikey')}</td>
+
+                        </tr>
                     
                         <tr class="prop">
                             <td valign="top" class="name">Enabled:</td>
