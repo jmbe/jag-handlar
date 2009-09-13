@@ -50,7 +50,9 @@ class AuthenticationController {
       def username = params.username
       def apikey = params.apikey
 
-      render accountService.verifyApiLogin(username, apikey) as XML
+      def valid = accountService.verifyApiLogin(username, apikey);
+
+      render new XmlResults().withVerifyApiLoginResult(valid).toXml();
     }
 
 	
