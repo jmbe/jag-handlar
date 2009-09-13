@@ -73,7 +73,7 @@ class ApiController {
     render text: XmlResults.getStudentsResult(students), contentType: "text/xml"
   }
 
-  def loginAsStudent = {
+  def openBookAsStudent = {
     def accountName = params.account
     def studentName = params.student
 
