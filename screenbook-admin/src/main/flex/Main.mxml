@@ -1,22 +1,60 @@
 <?xml version="1.0"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical">
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" creationComplete="onCreationComplete()">
 
 
     <mx:Script><![CDATA[
+        import mx.controls.Alert;
+
         import se.spsm.screenbook.App;
         import se.spsm.screenbook.ConnectionSettings;
         import se.spsm.screenbook.JagHandlar;
-
+        import se.spsm.screenbook.teacher.LoginTeacherEvent;
 
         [Bindable]
-        private var jagHandlar:JagHandlar = new JagHandlar(new ConnectionSettings());
+        private var jagHandlar:JagHandlar = new JagHandlar(new ConnectionSettings("localhost:8080", "/screenbook-service/"));
+
+        private function onCreationComplete() :void {
+            jagHandlar.addEventListener(LoginTeacherEvent.SUCCESS, onLoginTeacher);
+            jagHandlar.addEventListener(LoginTeacherEvent.FAILURE, onLoginTeacher);
+        }
+
+        private function onLoginTeacher(e:LoginTeacherEvent):void {
+            teacherLoginResult.text = e.type;
+        }
 
         private function createStudent(student:String):void {
             jagHandlar.networkLoginAsStudent(student);
         }
 
 
+        private function loginAsTeacher(username:String, password:String):void {
+            jagHandlar.loginAsTeacher(username, password);
+        }
+
+
         ]]></mx:Script>
+
+
+    <mx:Panel title="Logga in som lärare">
+        <mx:Form>
+            <mx:FormItem label="Användarnamn">
+                <mx:TextInput id="teacherUsername"/>
+            </mx:FormItem>
+            <mx:FormItem label="Lösenord">
+                <mx:TextInput id="teacherPassword"/>
+            </mx:FormItem>
+
+            <mx:FormItem>
+                <mx:Button click="loginAsTeacher(teacherUsername.text, teacherPassword.text)" label="Logga in"/>
+            </mx:FormItem>
+            <mx:FormItem label="Resultat">
+                <mx:Label id="teacherLoginResult"/>
+            </mx:FormItem>
+            <mx:FormItem label="Nuvarande lärare">
+                <mx:Label text="{jagHandlar.currentTeacher.username}"/>
+            </mx:FormItem>
+        </mx:Form>
+    </mx:Panel>
 
 
     <mx:Form>
@@ -26,7 +64,6 @@
         <mx:FormItem label="Binding test">
             <mx:Label visible="{nameInput.text != ''}" top="20" text="{App.greeting(nameInput.text)}"></mx:Label>
         </mx:FormItem>
-
 
 
         <mx:FormItem label="Swc binding test">
@@ -45,6 +82,11 @@
         <mx:FormItem>
             <mx:TextArea height="200" text="{jagHandlar.studentCreatedResult}"/>
         </mx:FormItem>
+
+        <mx:FormItem>
+            <mx:TextArea height="200" text="{jagHandlar.progressMessage}"/>
+        </mx:FormItem>
+
 
     </mx:Form>
 </mx:Application>
