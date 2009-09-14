@@ -5,6 +5,7 @@ import mx.controls.Alert;
 
 import se.spsm.screenbook.apikey.ApiKey;
 import se.spsm.screenbook.apikey.ApiLoginEvent;
+import se.spsm.screenbook.network.NetworkProblemEvent;
 import se.spsm.screenbook.student.StudentCreatedEvent;
 import se.spsm.screenbook.teacher.AuthenticationController;
 import se.spsm.screenbook.teacher.LoginTeacherEvent;
@@ -34,6 +35,9 @@ public class JagHandlar extends EventDispatcher {
 
     [Event("LoginTeacherEvent.SUCCESS")]
     [Event("LoginTeacherEvent.FAILURE")]
+    [Event("ApiLoginEvent.SUCCESS")]
+    [Event("ApiLoginEvent.FAILURE")]
+    [Event("NetworkProblemEvent.FAILURE")]
 
     public function JagHandlar(newSettings:ConnectionSettings) {
         this.settings = newSettings;
@@ -50,10 +54,19 @@ public class JagHandlar extends EventDispatcher {
         this.authenticationController.addEventListener(ApiLoginEvent.SUCCESS, onApiLoginSuccess);
         this.authenticationController.addEventListener(ApiLoginEvent.FAILURE, onApiLoginFailure);
 
+
+        this.authenticationController.addEventListener(NetworkProblemEvent.FAILURE, onNetworkProblem);
+
         this.message = "Not logged in";
         this.status = "";
     }
 
+
+
+
+    public function onNetworkProblem(e:NetworkProblemEvent):void {
+        dispatchEvent(new NetworkProblemEvent(e.result));
+    }
 
     public function doApiLogin(username:String, apiKey:String):void {
         this.authenticationController.verifyApiLogin(username, apiKey);

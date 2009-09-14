@@ -9,6 +9,7 @@ import mx.rpc.http.HTTPService;
 import se.spsm.screenbook.*;
 import se.spsm.screenbook.apikey.ApiLoginEvent;
 import se.spsm.screenbook.apikey.ApiLoginResult;
+import se.spsm.screenbook.network.NetworkProblemEvent;
 
 public class AuthenticationController extends EventDispatcher{
     private var _settings:ConnectionSettings;
@@ -52,6 +53,7 @@ public class AuthenticationController extends EventDispatcher{
 
     private function httpServiceFault(e:ResultEvent):void {
         Alert.show("HTTP Failure");
+        dispatchEvent(new NetworkProblemEvent(e.result));
     }
 
     public function verifyApiLogin(username:String, apiKey:String):void {
