@@ -25,10 +25,16 @@
 
             apiUsername.text = e.result.username;
             apiKey.text = e.result.key;
+
+            testMode.text = jagHandlar.isTestMode.toString();
+
+
         }
 
         private function onApiLogin(e:ApiLoginEvent):void {
             apiLoginResult.text = "" + e.result.isValid;
+
+            testMode.text = jagHandlar.isTestMode.toString();
         }
 
         private function createStudent(student:String):void {
@@ -91,6 +97,11 @@
         </mx:Form>
     </mx:Panel>
 
+    <mx:Panel title="Testläge">
+        <mx:FormItem label="Testläge">
+            <mx:Label id="testMode" text="{jagHandlar.isTestMode}" />
+        </mx:FormItem>
+    </mx:Panel>
 
     <mx:Form>
         <mx:FormItem label="Name">

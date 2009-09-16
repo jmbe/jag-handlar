@@ -104,6 +104,11 @@ public class JagHandlar extends EventDispatcher {
         return _currentTeacher;
     }
 
+    [Bindable]
+    public function get isTestMode():Boolean {
+        return currentApiKey == null && currentTeacher == null;
+    }
+
     private function set currentTeacher(teacher:Teacher):void {
         _currentTeacher = teacher;
     }
