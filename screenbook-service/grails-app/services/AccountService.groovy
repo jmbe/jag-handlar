@@ -127,8 +127,15 @@ class AccountService {
 
     mailService.sendMail {
       to account.email
-      subject "Password reset"
-      body "Your new password is: " + password
+      subject "Jag handlar, lösenords återställning"
+      body """\
+Bäste kund hos Jag handlar,
+
+Detta är dina inloggningsuppgifter:
+
+Användarnamn: ${account.username}
+Lösenord: ${password}
+      """
     }
 
     log.info "Password reset mail sent to " + account.email + "."
