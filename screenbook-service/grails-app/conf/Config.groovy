@@ -36,6 +36,39 @@ grails.enable.native2ascii = true
 environments {
     production {
         grails.serverURL = "http://www.jaghandlar.se"
+        grails {
+          mail {
+            host = "localhost"
+            port = 25
+            username = ""
+            password = ""
+            /*
+            props = ["mail.smtp.auth":"true",
+                    "mail.smtp.socketFactory.port":"465",
+                    "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                    "mail.smtp.socketFactory.fallback":"false"]
+            */
+          }
+        }
+        grails.mail.default.from="root@spsm.se"
+    }
+    development {
+      grails {
+        mail {
+          host = "localhost"
+          port = 25
+          username = ""
+          password = ""
+          /*
+          props = ["mail.smtp.auth":"true",
+                  "mail.smtp.socketFactory.port":"465",
+                  "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                  "mail.smtp.socketFactory.fallback":"false"]
+          */
+        }
+      }
+
+      grails.mail.default.from="root@spsm.se"
     }
 }
 
@@ -65,8 +98,5 @@ log4j = {
 
     debug  'grails.app.controller'
 }
-
-
-     
 
 //log4j.logger.org.springframework.security='off,stdout'

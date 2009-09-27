@@ -11,6 +11,9 @@ class Account {
 	/** MD5 Password */
 	String passwd
     String apikey
+
+    String email
+
 	/** enabled */
 	boolean enabled
 

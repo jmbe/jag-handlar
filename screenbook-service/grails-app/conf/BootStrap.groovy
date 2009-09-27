@@ -8,17 +8,18 @@ class BootStrap {
     /* Check or add roles. */
     ["ROLE_ADMIN", "ROLE_TEACHER"].each {
       if (!roleService.roleExists(it)) {
-        roleService.addRole(it);
+        roleService.addRole(it)
       }
     }
 
     /* Check or add admin account. */
     if (!accountService.mainAccountExists("admin")) {
       log.info("Could not find admin account. Adding...")
-      def account = accountService.createAdminAccount("admin");
+      def account = accountService.createAdminAccount("admin")
       account.apikey = "a1984cf7-c2eb-400c-abe6-a1ee9e151ee1"
+      account.email="admin@spsm.se"
       account.save(flush:true)
-      accountService.setNewPassword("admin", "admin");
+      accountService.setNewPassword("admin", "admin")
 
       new Book(name:"book1").save()
             

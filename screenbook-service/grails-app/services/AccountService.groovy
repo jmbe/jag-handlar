@@ -4,6 +4,7 @@ import se.jaghandlar.exceptions.IncorrectPasswordException
 class AccountService {
 
   def authenticateService
+  def mailService
 
   boolean transactional = true
 
@@ -104,6 +105,33 @@ class AccountService {
     student.save()
 
     return student
+  }
+
+  def resetPassword(String accountIdentifier) {
+    def account
+    if(accountIdentifier.contains("@")) {
+      account = Account.findByEmail(accountIdentifier)
+    } else {
+      account = Account.findByUsername(accountIdentifier)
+    }
+
+    if(account == null) {
+      return false
+    }
+
+    def password = "password"
+    account.passwd = authenticateService.encodePassword(password)
+    account.save()
+
+    mailService.sendMail {
+      to account.email
+      subject "Password reset"
+      body "Your new password is '" + password + "'"
+    }
+
+    log.info "Password reset mail sent."
+
+    return true
   }
 
 }

@@ -119,5 +119,5 @@ class ApiController {
     def result = XmlResults.getNumberOfLicensesResult("4")
     render result
   }
-
+ 
 }

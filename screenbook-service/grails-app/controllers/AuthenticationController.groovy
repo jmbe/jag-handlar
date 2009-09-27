@@ -6,7 +6,7 @@ import se.jaghandlar.util.XmlResults
 class AuthenticationController {
     def accountService
     def answerService
-    
+
     def createMainAccount = {
       def account = accountService.createMainAccount(params.username)
 
@@ -55,6 +55,10 @@ class AuthenticationController {
       render new XmlResults().withVerifyApiLoginResult(valid).toXml();
     }
 
-	
+
+    def resetPassword = {
+      def accountIdentifier = params.accountIdentifier
+      render accountService.resetPassword(accountIdentifier) as XML
+    }
 
 }
