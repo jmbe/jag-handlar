@@ -1,5 +1,6 @@
 import se.jaghandlar.exceptions.UserNotFoundException
 import se.jaghandlar.exceptions.IncorrectPasswordException
+import cr.co.arquetipos.password.PasswordTools
 
 class AccountService {
 
@@ -119,17 +120,18 @@ class AccountService {
       return false
     }
 
-    def password = "password"
+    
+    def password = PasswordTools.generateRandomPassword(10)
     account.passwd = authenticateService.encodePassword(password)
     account.save()
 
     mailService.sendMail {
       to account.email
       subject "Password reset"
-      body "Your new password is '" + password + "'"
+      body "Your new password is: " + password
     }
 
-    log.info "Password reset mail sent."
+    log.info "Password reset mail sent to " + account.email + "."
 
     return true
   }

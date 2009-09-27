@@ -42,7 +42,16 @@
                                 <td valign="top" class="value ${hasErrors(bean:accountInstance,field:'passwd','errors')}">
                                     <input type="text" id="passwd" name="passwd" value="${fieldValue(bean:accountInstance,field:'passwd')}"/>
                                 </td>
-                            </tr> 
+                            </tr>
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="email">Email:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:accountInstance,field:'email','errors')}">
+                                    <input type="text" id="email" name="email" value="${fieldValue(bean:accountInstance,field:'email')}"/>
+                                </td>
+                            </tr>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
