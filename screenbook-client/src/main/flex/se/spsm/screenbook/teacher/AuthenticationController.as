@@ -34,7 +34,7 @@ public class AuthenticationController extends EventDispatcher{
         service.addEventListener(ResultEvent.RESULT, loginTeacherResult);
         service.addEventListener(FaultEvent.FAULT, httpServiceFault);
 
-        service.requestTimeout;
+        service.requestTimeout = 5;
 
         service.send(params);
 
@@ -67,7 +67,7 @@ public class AuthenticationController extends EventDispatcher{
         service.addEventListener(ResultEvent.RESULT, apiLoginResult);
         service.addEventListener(FaultEvent.FAULT, httpServiceFault);
 
-        service.requestTimeout;
+        service.requestTimeout = 5;
 
         service.send(params);
     }
