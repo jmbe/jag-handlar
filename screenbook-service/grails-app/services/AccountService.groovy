@@ -127,11 +127,11 @@ class AccountService {
 
     mailService.sendMail {
       to account.email
-      subject "Jag handlar, lösenords återställning"
+      subject "Jag handlar, lösenordsåterställning"
       body """\
 Bäste kund hos Jag handlar,
 
-Detta är dina inloggningsuppgifter:
+Detta är dina nya inloggningsuppgifter:
 
 Användarnamn: ${account.username}
 Lösenord: ${password}
