@@ -3,6 +3,7 @@ dataSource {
 	driverClassName = "com.mysql.jdbc.Driver"
 	username = "screenbook-dev"
 	password = "screenbook-dev"
+    dbCreate = "update"
 }
 hibernate {
     cache.use_second_level_cache=true
