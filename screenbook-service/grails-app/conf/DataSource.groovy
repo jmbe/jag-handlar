@@ -11,19 +11,8 @@ hibernate {
 }
 // environment specific settings
 environments {
-	development {
-		dataSource {
-			dbCreate = "create-drop" // one of 'create', 'create-drop','update'
-			url = "jdbc:mysql://localhost/screenbook-dev?autoReconnect=true"
-		}
-	}
 
-	production {
-		dataSource {
-			dbCreate = "update"
-			url = "jdbc:mysql://localhost/screenbook-dev?autoReconnect=true"
-		}
-	}
+    /* Production and Development data sources are defined in resources.groovy. */
 
 	test {
 		dataSource {
