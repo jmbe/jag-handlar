@@ -10,10 +10,10 @@ class AccountService {
   boolean transactional = true
 
 
-  def createAccountWithRole(String username, String authority) {
+  def createAccountWithRole(String username, String email, String authority) {
     log.info("Creating account " + username)
 
-    def account = new Account(username: username, passwd: authenticateService.encodePassword("läraren"), apikey: UUID.randomUUID().toString(), enabled: true)
+    def account = new Account(username: username, passwd: authenticateService.encodePassword("läraren"), apikey: UUID.randomUUID().toString(), enabled: true, email: email)
 
     account.save()
 
@@ -22,12 +22,12 @@ class AccountService {
     return account
   }
 
-  def createMainAccount(String username) {
-    createAccountWithRole(username, "ROLE_TEACHER");
+  def createMainAccount(String username, String email) {
+    createAccountWithRole(username, email, "ROLE_TEACHER");
   }
 
-  def createAdminAccount(String username) {
-    createAccountWithRole(username, "ROLE_ADMIN");
+  def createAdminAccount(String username, String email) {
+    createAccountWithRole(username, email, "ROLE_ADMIN");
   }
 
   def verifyLogin(String username, String password) throws UserNotFoundException, IncorrectPasswordException {

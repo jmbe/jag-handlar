@@ -8,7 +8,7 @@ class AuthenticationController {
     def answerService
 
     def createMainAccount = {
-      def account = accountService.createMainAccount(params.username)
+      def account = accountService.createMainAccount(params.username, params.email)
 
       render account as XML
     }
