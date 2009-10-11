@@ -19,7 +19,8 @@ beans = {
 				password = "screenbook-dev"
 				testOnBorrow = "true"
 				validationQuery = "SELECT 1 FROM DUAL;"
-				defaultAutoCommit = "false"
+                /* Warning! Setting auto commit to true since Grails seems to expect(?) it. */
+				defaultAutoCommit = "true"
 			}
 		}
 }
