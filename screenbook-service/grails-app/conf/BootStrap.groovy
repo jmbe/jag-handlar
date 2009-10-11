@@ -2,6 +2,7 @@ class BootStrap {
 
   def accountService
   def roleService
+  def bookService
 
   def init = {servletContext ->
 
@@ -15,16 +16,15 @@ class BootStrap {
 
     /* Check or add admin account. */
     if (!accountService.mainAccountExists("admin")) {
+      log.info("Could not find admin account. Adding...")
+      def account = accountService.createAdminAccount("admin", "jm.bergqvist@gmail.com")
+      log.info("Created account ${account}")
 
-      Account.withTransaction { status ->
-        log.info("Could not find admin account. Adding...")
-        def account = accountService.createAdminAccount("admin", "jm.bergqvist@gmail.com")
-        log.info("Created account ${account}")
-
-        accountService.setNewPassword("admin", "admin")
-      }
-
+      accountService.setNewPassword("admin", "admin")
     }
+
+    /* Check or add book for Jag handlar */
+    bookService.findOrCreate("jag-handlar")
 
   }
 
