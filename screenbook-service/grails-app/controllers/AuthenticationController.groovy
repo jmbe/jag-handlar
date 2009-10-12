@@ -56,8 +56,9 @@ class AuthenticationController {
     }
 
 
-    def resetPassword = {
+    def lostPassword = {
       def accountIdentifier = params.accountIdentifier
+      log.info("Received new password request for ${accountIdentifier}.")
       render accountService.resetPassword(accountIdentifier) as XML
     }
 

@@ -9,6 +9,7 @@ import mx.rpc.http.HTTPService;
 import se.spsm.screenbook.*;
 import se.spsm.screenbook.apikey.ApiLoginEvent;
 import se.spsm.screenbook.apikey.ApiLoginResult;
+import se.spsm.screenbook.lostpassword.LostPasswordEvent;
 import se.spsm.screenbook.network.NetworkProblemEvent;
 
 public class AuthenticationController extends EventDispatcher{
@@ -22,6 +23,7 @@ public class AuthenticationController extends EventDispatcher{
     [Event("LoginTeacherEvent.FAILURE")]
     [Event("ApiLoginEvent.SUCCESS")]
     [Event("ApiLoginEvent.FAILURE")]
+    [Event("LostPasswordEvent.RESULT")]
 
     public function loginTeacher(username:String, password:String):void {
         var service:HTTPService = _settings.createService("authentication/loginAsTeacher");
@@ -78,9 +80,36 @@ public class AuthenticationController extends EventDispatcher{
 
         var eventName:String = result.isValid ? ApiLoginEvent.SUCCESS : ApiLoginEvent.FAILURE;
 
-        var loginEvent:ApiLoginEvent = new se.spsm.screenbook.apikey.ApiLoginEvent(eventName, result);
+        var loginEvent:ApiLoginEvent = new ApiLoginEvent(eventName, result);
         dispatchEvent(loginEvent);
     }
+
+    public function lostPassword(accountIdentifier:String):void {
+        var service:HTTPService = _settings.createService("authentication/lostPassword");
+
+        var params:Object = {
+            accountIdentifier: accountIdentifier
+        }
+
+        service.addEventListener(ResultEvent.RESULT, lostPasswordResult);
+        service.addEventListener(FaultEvent.FAULT, httpServiceFault);
+
+        service.send(params);
+
+    }
+
+    private function lostPasswordResult(e:ResultEvent):void {
+        var xml:XML = XML(e.result);
+
+        
+        var success = "true" == xml.toLowerCase();
+
+        var resultEvent:LostPasswordEvent = new LostPasswordEvent(LostPasswordEvent.RESULT, success);
+
+        dispatchEvent(resultEvent);
+
+    }
+
 
 }
 }

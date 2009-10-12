@@ -7,6 +7,7 @@
         import se.spsm.screenbook.ConnectionSettings;
         import se.spsm.screenbook.JagHandlar;
         import se.spsm.screenbook.apikey.ApiLoginEvent;
+        import se.spsm.screenbook.lostpassword.LostPasswordEvent;
         import se.spsm.screenbook.teacher.LoginTeacherEvent;
 
         [Bindable]
@@ -18,6 +19,7 @@
 
             jagHandlar.addEventListener(ApiLoginEvent.SUCCESS, onApiLogin);
             jagHandlar.addEventListener(ApiLoginEvent.FAILURE, onApiLogin);
+            jagHandlar.addEventListener(LostPasswordEvent.RESULT, onLostPasswordResult);
         }
 
         private function onLoginTeacher(e:LoginTeacherEvent):void {
@@ -49,6 +51,16 @@
 
         private function doApiLogin(username:String, password:String):void {
             jagHandlar.doApiLogin(username, password);
+        }
+
+
+        /* Lost password */
+        private function lostPassword(accountIdentifier:String):void {
+            jagHandlar.lostPassword(accountIdentifier);
+        }
+
+        private function onLostPasswordResult(e:LostPasswordEvent):void {
+           lostPasswordResult.text = e.isNewPasswordSent().toString();
         }
 
 
@@ -101,6 +113,21 @@
         <mx:FormItem label="Testläge">
             <mx:Label id="testMode" text="{jagHandlar.isTestMode}" />
         </mx:FormItem>
+    </mx:Panel>
+
+    <mx:Panel title="Glömt lösenord">
+        <mx:Form>
+            <mx:FormItem label="Epostadress eller kontonamn">
+                <mx:TextInput id="accountIdentifier" />
+            </mx:FormItem>
+            <mx:FormItem>
+                <mx:Button click="lostPassword(accountIdentifier.text)" label="Skicka nytt lösenord"/>
+            </mx:FormItem>
+
+            <mx:FormItem label="Lösenord skickades">
+                <mx:Label id="lostPasswordResult" text="" />
+            </mx:FormItem>
+        </mx:Form>
     </mx:Panel>
 
     <mx:Form>

@@ -5,6 +5,7 @@ import mx.controls.Alert;
 
 import se.spsm.screenbook.apikey.ApiKey;
 import se.spsm.screenbook.apikey.ApiLoginEvent;
+import se.spsm.screenbook.lostpassword.LostPasswordEvent;
 import se.spsm.screenbook.network.NetworkProblemEvent;
 import se.spsm.screenbook.student.StudentCreatedEvent;
 import se.spsm.screenbook.teacher.AuthenticationController;
@@ -54,6 +55,7 @@ public class JagHandlar extends EventDispatcher {
         this.authenticationController.addEventListener(ApiLoginEvent.SUCCESS, onApiLoginSuccess);
         this.authenticationController.addEventListener(ApiLoginEvent.FAILURE, onApiLoginFailure);
 
+        this.authenticationController.addEventListener(LostPasswordEvent.RESULT, onLostPasswordResult);
 
         this.authenticationController.addEventListener(NetworkProblemEvent.FAILURE, onNetworkProblem);
 
@@ -148,7 +150,7 @@ public class JagHandlar extends EventDispatcher {
     }
 
     private function handleStudentCreated(e:StudentCreatedEvent):void {
-        //Alert("Student created success");
+        //Alert.show("Student created success");
         this.studentCreatedResult = e.info;
     }
 
@@ -193,6 +195,14 @@ public class JagHandlar extends EventDispatcher {
         this.student = student;
     }
 
+
+    public function lostPassword(accountIdentifier:String):void {
+        this.authenticationController.lostPassword(accountIdentifier);        
+    }
+
+    private function onLostPasswordResult(e:LostPasswordEvent):void {
+        dispatchEvent(new LostPasswordEvent(LostPasswordEvent.RESULT, e.isNewPasswordSent()));
+    }
 
 }
 }

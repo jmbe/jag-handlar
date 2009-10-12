@@ -50,7 +50,7 @@ environments {
             */
           }
         }
-        grails.mail.default.from="root@spsm.se"
+        grails.mail.default.from="no-reply@jaghandlar.se"
     }
     development {
       grails {
@@ -68,7 +68,7 @@ environments {
         }
       }
 
-      grails.mail.default.from="root@spsm.se"
+      grails.mail.default.from="no-reply@jaghandlar.se"
     }
 }
 
