@@ -17,5 +17,12 @@ public class ApiKey {
     public function get username():String {
         return _username;
     }
+
+    public function toParameters():Object {
+        return {
+            account : username,
+            apikey : key
+        }
+    }
 }
 }

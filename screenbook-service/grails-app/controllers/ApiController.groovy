@@ -40,7 +40,7 @@ class ApiController {
     def bookname = params.book
     def answers = answerService.getAnswers(accountName, studentName, bookname)
 
-    render XmlResults.getAnswersResult(studentName, bookname, answers)
+    render XmlResults.getAnswersResult(studentName, answers, bookname)
   }
 
   /**
@@ -82,10 +82,12 @@ class ApiController {
     render XmlResults.getStudentsResult(numberOfLicenses, students)
   }
 
-  def openBookAsStudent = {
+  def createStudent = {
     def accountName = params.account
     def studentName = params.student
 
+    log.info("Creating student '${studentName}' on account '${accountName}'.")
+    
     if (accountName == null) {
       log.warn("Main account name is empty");
       return;
@@ -93,13 +95,6 @@ class ApiController {
 
     if (studentName == null) {
       log.warn("Student account name is empty");
-      return;
-    }
-
-    //TODO This is probably unneccesary since the account already has been verified
-    if (!accountService.mainAccountExists(accountName)) {
-      log.warn("Could not find main account '${accountName}'");
-      render false as XML;
       return;
     }
 
@@ -111,7 +106,29 @@ class ApiController {
       return
     }
 
-    render true as XML
+    def answers = answerService.getAnswers(accountName, studentName)
+    render XmlResults.getAnswersResult(studentName, answers)
+  }
+
+  /**
+   * Requires that the client is logged in using API account, and that the student account already exists (non-case
+   * sensitive student account name).
+   */
+  def openBookAsStudent = {
+    def accountName = params.account
+    def studentName = params.student
+
+    log.info("Opening book for student '${studentName}' on account '${accountName}'.")
+
+    def studentExists = accountService.verifyStudentLogin(accountName, studentName)
+
+    if (!studentExists) {
+      render false as XML
+      return
+    }
+
+    def answers = answerService.getAnswers(accountName, studentName)
+    render XmlResults.getAnswersResult(studentName, answers)
   }
 
   def getNumberOfLicenses = {

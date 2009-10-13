@@ -3,9 +3,11 @@
 
 
     <mx:Script><![CDATA[
-        import se.spsm.screenbook.App;
+        import mx.controls.Alert;
+
         import se.spsm.screenbook.ConnectionSettings;
         import se.spsm.screenbook.JagHandlar;
+        import se.spsm.screenbook.apikey.ApiKeyRequiredEvent;
         import se.spsm.screenbook.apikey.ApiLoginEvent;
         import se.spsm.screenbook.lostpassword.LostPasswordEvent;
         import se.spsm.screenbook.teacher.LoginTeacherEvent;
@@ -20,6 +22,38 @@
             jagHandlar.addEventListener(ApiLoginEvent.SUCCESS, onApiLogin);
             jagHandlar.addEventListener(ApiLoginEvent.FAILURE, onApiLogin);
             jagHandlar.addEventListener(LostPasswordEvent.RESULT, onLostPasswordResult);
+            jagHandlar.addEventListener(ApiKeyRequiredEvent.REQUIRED, onApiKeyRequired);
+        }
+
+        /* Common functions */
+        private function onApiKeyRequired(e:ApiKeyRequiredEvent):void {
+            Alert.show("API-inloggning krävs för denna funktion.")
+        }
+
+        /* API-inloggning */
+        private function doApiLogin(username:String, password:String):void {
+            jagHandlar.doApiLogin(username, password);
+        }
+
+        private function onApiLogin(e:ApiLoginEvent):void {
+            apiLoginResult.text = "" + e.result.isValid;
+
+            testMode.text = jagHandlar.isTestMode.toString();
+        }
+
+        /* Add new student account */
+        private function createStudent(student:String, screenKeyboard:Boolean):void {
+            jagHandlar.createStudent(student, screenKeyboard);
+        }
+
+        /* Open book as student */
+        private function openBookAsStudent(student:String):void {
+            jagHandlar.openBookAsStudent(student);
+        }
+
+        /* Log in as teacher */
+        private function loginAsTeacher(username:String, password:String):void {
+            jagHandlar.loginAsTeacher(username, password);
         }
 
         private function onLoginTeacher(e:LoginTeacherEvent):void {
@@ -29,30 +63,7 @@
             apiKey.text = e.result.key;
 
             testMode.text = jagHandlar.isTestMode.toString();
-
-
         }
-
-        private function onApiLogin(e:ApiLoginEvent):void {
-            apiLoginResult.text = "" + e.result.isValid;
-
-            testMode.text = jagHandlar.isTestMode.toString();
-        }
-
-        private function createStudent(student:String):void {
-            jagHandlar.networkLoginAsStudent(student);
-        }
-
-
-        private function loginAsTeacher(username:String, password:String):void {
-            jagHandlar.loginAsTeacher(username, password);
-        }
-
-
-        private function doApiLogin(username:String, password:String):void {
-            jagHandlar.doApiLogin(username, password);
-        }
-
 
         /* Lost password */
         private function lostPassword(accountIdentifier:String):void {
@@ -60,7 +71,7 @@
         }
 
         private function onLostPasswordResult(e:LostPasswordEvent):void {
-           lostPasswordResult.text = e.isNewPasswordSent().toString();
+            lostPasswordResult.text = e.isNewPasswordSent().toString();
         }
 
 
@@ -130,36 +141,25 @@
         </mx:Form>
     </mx:Panel>
 
-    <mx:Form>
-        <mx:FormItem label="Name">
-            <mx:TextInput id="nameInput"/>
-        </mx:FormItem>
-        <mx:FormItem label="Binding test">
-            <mx:Label visible="{nameInput.text != ''}" top="20" text="{App.greeting(nameInput.text)}"></mx:Label>
-        </mx:FormItem>
+    <mx:Panel title="Skapa elevkonto/Öppna bok">
+        <mx:Form>
+            <mx:FormItem label="Elevnamn">
+                <mx:TextInput id="nameInput" text="elev" />
+            </mx:FormItem>
+            <mx:FormItem>
+                <mx:CheckBox id="screenKeyboard" label="Skärmtangentbord" />
+            </mx:FormItem>
+            <mx:FormItem>
+                <mx:Button label="Skapa elevkonto" click="createStudent(nameInput.text, screenKeyboard.selected)" />
+            </mx:FormItem>
+            <mx:FormItem>
+                <mx:Button label="Öppna bok" click="openBookAsStudent(nameInput.text)" />
+            </mx:FormItem>
 
+            <mx:FormItem>
+                <mx:TextArea height="200" text="{jagHandlar.studentCreatedResult}"/>
+            </mx:FormItem>
+        </mx:Form>
+    </mx:Panel>
 
-        <mx:FormItem label="Swc binding test">
-            <mx:Button label="Log in" click="jagHandlar.fakeLoginAsStudent(nameInput.text)"/>
-        </mx:FormItem>
-
-        <mx:FormItem label="Network">
-            <mx:Button label="Create student" click="createStudent(nameInput.text)"/>
-        </mx:FormItem>
-
-        <mx:FormItem>
-            <mx:Label text="{jagHandlar.lastMessage}"/>
-            <mx:Label text="{jagHandlar.lastStatus}"/>
-        </mx:FormItem>
-
-        <mx:FormItem>
-            <mx:TextArea height="200" text="{jagHandlar.studentCreatedResult}"/>
-        </mx:FormItem>
-
-        <mx:FormItem>
-            <mx:TextArea height="200" text="{jagHandlar.progressMessage}"/>
-        </mx:FormItem>
-
-
-    </mx:Form>
 </mx:Application>

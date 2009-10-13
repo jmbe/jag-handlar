@@ -4,10 +4,11 @@ import flash.events.EventDispatcher;
 import mx.controls.Alert;
 
 import se.spsm.screenbook.apikey.ApiKey;
+import se.spsm.screenbook.apikey.ApiKeyRequiredEvent;
 import se.spsm.screenbook.apikey.ApiLoginEvent;
 import se.spsm.screenbook.lostpassword.LostPasswordEvent;
 import se.spsm.screenbook.network.NetworkProblemEvent;
-import se.spsm.screenbook.student.StudentCreatedEvent;
+import se.spsm.screenbook.student.StudentEvent;
 import se.spsm.screenbook.teacher.AuthenticationController;
 import se.spsm.screenbook.teacher.LoginTeacherEvent;
 import se.spsm.screenbook.teacher.Teacher;
@@ -39,14 +40,17 @@ public class JagHandlar extends EventDispatcher {
     [Event("ApiLoginEvent.SUCCESS")]
     [Event("ApiLoginEvent.FAILURE")]
     [Event("NetworkProblemEvent.FAILURE")]
+    [Event("ApiKeyRequiredEvent.REQUIRED")]
 
     public function JagHandlar(newSettings:ConnectionSettings) {
         this.settings = newSettings;
 
         this.studentController = new StudentController(this.settings);
-        this.studentController.addEventListener(StudentCreatedEvent.STUDENT_CREATED, handleStudentCreated);
+        this.studentController.addEventListener(StudentEvent.STUDENT_CREATED, handleStudentCreated);
+        this.studentController.addEventListener(StudentEvent.BOOK_OPENED, handleStudentCreated);
 
         this.studentController.addEventListener(LoginTeacherEvent.SUCCESS, handleLoginSuccess);
+        this.studentController.addEventListener(ApiKeyRequiredEvent.REQUIRED, onApiKeyRequired);
 
         this.authenticationController = new AuthenticationController(this.settings);
         this.authenticationController.addEventListener(LoginTeacherEvent.SUCCESS, onLoginTeacherSuccess);
@@ -149,9 +153,10 @@ public class JagHandlar extends EventDispatcher {
         this.authenticationController.loginTeacher(username, password);
     }
 
-    private function handleStudentCreated(e:StudentCreatedEvent):void {
-        //Alert.show("Student created success");
-        this.studentCreatedResult = e.info;
+    private function handleStudentCreated(e:StudentEvent):void {
+        Alert.show("Student created success");
+        Alert.show(e.result.toString());
+        this.studentCreatedResult = e.result.toString();
     }
 
     public function fakeLoginAsStudent(username:String):void {
@@ -160,8 +165,12 @@ public class JagHandlar extends EventDispatcher {
         currentStudent = username;
     }
 
-    public function networkLoginAsStudent(username:String):void {
-        this.studentController.createStudentAccount(username);
+    public function createStudent(student:String, screenKeyboard:Boolean = false):void {
+        this.studentController.createStudent(currentApiKey, student, screenKeyboard);
+    }
+
+    public function openBookAsStudent(username:String):void {
+        this.studentController.openBookAsStudent(currentApiKey, username);
         lastMessage = "Created student " + username;
         currentStudent = username;
     }
@@ -202,6 +211,10 @@ public class JagHandlar extends EventDispatcher {
 
     private function onLostPasswordResult(e:LostPasswordEvent):void {
         dispatchEvent(new LostPasswordEvent(LostPasswordEvent.RESULT, e.isNewPasswordSent()));
+    }
+
+    private function onApiKeyRequired(e:ApiKeyRequiredEvent):void {
+        dispatchEvent(new ApiKeyRequiredEvent());
     }
 
 }

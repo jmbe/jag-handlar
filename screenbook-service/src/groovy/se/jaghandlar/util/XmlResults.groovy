@@ -38,7 +38,7 @@ class XmlResults {
     return [text: writer.toString(), contentType: "text/xml"]
   }
 
-  def static getAnswersResult(String studentString, String bookString, answerList) {
+  def static getAnswersResult(String studentString, answerList, String bookString = "jag-handlar") {
     def writer = new StringWriter()
     def xml = new MarkupBuilder(writer)
 
