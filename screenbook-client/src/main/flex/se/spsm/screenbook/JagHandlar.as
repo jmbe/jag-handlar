@@ -46,8 +46,8 @@ public class JagHandlar extends EventDispatcher {
         this.settings = newSettings;
 
         this.studentController = new StudentController(this.settings);
-        this.studentController.addEventListener(StudentEvent.STUDENT_CREATED, handleStudentCreated);
-        this.studentController.addEventListener(StudentEvent.BOOK_OPENED, handleStudentCreated);
+        this.studentController.addEventListener(StudentEvent.STUDENT_CREATED, onStudentCreated);
+        this.studentController.addEventListener(StudentEvent.BOOK_OPENED, onOpenBookAsStudent);
 
         this.studentController.addEventListener(LoginTeacherEvent.SUCCESS, handleLoginSuccess);
         this.studentController.addEventListener(ApiKeyRequiredEvent.REQUIRED, onApiKeyRequired);
@@ -153,47 +153,32 @@ public class JagHandlar extends EventDispatcher {
         this.authenticationController.loginTeacher(username, password);
     }
 
-    private function handleStudentCreated(e:StudentEvent):void {
-        Alert.show("Student created success");
-        Alert.show(e.result.toString());
-        this.studentCreatedResult = e.result.toString();
-    }
-
-    public function fakeLoginAsStudent(username:String):void {
-        lastMessage = "Logged in as " + username;
-        lastStatus = "OK";
-        currentStudent = username;
-    }
-
     public function createStudent(student:String, screenKeyboard:Boolean = false):void {
         this.studentController.createStudent(currentApiKey, student, screenKeyboard);
     }
 
+    private function onStudentCreated(e:StudentEvent):void {
+        dispatchEvent(new StudentEvent(StudentEvent.STUDENT_CREATED, e.result));
+    }
+
     public function openBookAsStudent(username:String):void {
         this.studentController.openBookAsStudent(currentApiKey, username);
-        lastMessage = "Created student " + username;
-        currentStudent = username;
     }
 
-    [Bindable]
-    public function get lastMessage():String {
-        return this.message;
+    private function onOpenBookAsStudent(e:StudentEvent):void {
+        var student = e.result.student;
+        currentStudent = student;
+
+        dispatchEvent(new StudentEvent(StudentEvent.BOOK_OPENED, e.result));
     }
 
-    private function set lastMessage(newMessage:String):void {
-        this.message = newMessage;
+    public function logoutStudent():void {
+        currentStudent = null;
     }
 
-
-    [Bindable]
-    public function get lastStatus():String {
-        return this.status;
+    public function isStudentLoggedIn():Boolean {
+        return currentStudent != null;
     }
-
-    private function set lastStatus(newStatus:String):void {
-        this.status = newStatus;
-    }
-
 
     [Bindable]
     public function get currentStudent():String {

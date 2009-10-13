@@ -10,6 +10,7 @@
         import se.spsm.screenbook.apikey.ApiKeyRequiredEvent;
         import se.spsm.screenbook.apikey.ApiLoginEvent;
         import se.spsm.screenbook.lostpassword.LostPasswordEvent;
+        import se.spsm.screenbook.student.StudentEvent;
         import se.spsm.screenbook.teacher.LoginTeacherEvent;
 
         [Bindable]
@@ -23,6 +24,9 @@
             jagHandlar.addEventListener(ApiLoginEvent.FAILURE, onApiLogin);
             jagHandlar.addEventListener(LostPasswordEvent.RESULT, onLostPasswordResult);
             jagHandlar.addEventListener(ApiKeyRequiredEvent.REQUIRED, onApiKeyRequired);
+
+            jagHandlar.addEventListener(StudentEvent.STUDENT_CREATED, onStudentResult);
+            jagHandlar.addEventListener(StudentEvent.BOOK_OPENED, onStudentResult);
         }
 
         /* Common functions */
@@ -44,6 +48,10 @@
         /* Add new student account */
         private function createStudent(student:String, screenKeyboard:Boolean):void {
             jagHandlar.createStudent(student, screenKeyboard);
+        }
+
+        private function onStudentResult(e:StudentEvent):void {
+            studentResult.text = e.result.toString();
         }
 
         /* Open book as student */
@@ -135,7 +143,7 @@
                 <mx:Button click="lostPassword(accountIdentifier.text)" label="Skicka nytt lösenord"/>
             </mx:FormItem>
 
-            <mx:FormItem label="Lösenord skickades">
+            <mx:FormItem label="Lösenord skickades:">
                 <mx:Label id="lostPasswordResult" text="" />
             </mx:FormItem>
         </mx:Form>
@@ -155,9 +163,16 @@
             <mx:FormItem>
                 <mx:Button label="Öppna bok" click="openBookAsStudent(nameInput.text)" />
             </mx:FormItem>
+            <mx:FormItem>
+                <mx:Button label="Logga ut elev" click="jagHandlar.logoutStudent()" />
+            </mx:FormItem>
 
             <mx:FormItem>
-                <mx:TextArea height="200" text="{jagHandlar.studentCreatedResult}"/>
+                <mx:TextArea height="200" id="studentResult" />
+            </mx:FormItem>
+
+            <mx:FormItem label="Nuvarande inloggad elev">
+                <mx:Label text="{jagHandlar.currentStudent}" />
             </mx:FormItem>
         </mx:Form>
     </mx:Panel>
