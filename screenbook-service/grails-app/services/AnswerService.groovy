@@ -9,6 +9,11 @@ class AnswerService {
 
 	def getAnswer(accountName, studentName, bookname, question_key) {
 		def answerInstance = findAnswer(accountName, studentName, bookname, question_key)
+
+        if (answerInstance == null) {
+          return new Answer(question_key: question_key, answer: "")
+        }
+
 		return answerInstance
 	}
 

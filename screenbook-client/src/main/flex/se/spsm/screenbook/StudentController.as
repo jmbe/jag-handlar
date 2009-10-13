@@ -7,6 +7,8 @@ import mx.rpc.events.FaultEvent;
 import mx.rpc.events.ResultEvent;
 import mx.rpc.http.HTTPService;
 
+import se.spsm.screenbook.answer.Answer;
+import se.spsm.screenbook.answer.AnswerEvent;
 import se.spsm.screenbook.apikey.ApiKey;
 import se.spsm.screenbook.apikey.ApiKeyRequiredEvent;
 import se.spsm.screenbook.student.StudentEvent;
@@ -89,6 +91,51 @@ public class StudentController extends EventDispatcher {
         service.send(params);
     }
 
+
+    public function saveAnswer(apiKey:ApiKey, student:String, question:String, answer:String):void {
+        if (!checkApiKey(apiKey)) {
+            return;
+        }
+
+        var service:HTTPService = settings.createService("api/saveAnswer");
+
+        var params:Object = apiKey.toParameters();
+        params.student = student;
+        params.book = "jag-handlar";
+        params.question_key = question;
+        params.answer = answer;
+
+        service.addEventListener(ResultEvent.RESULT, onAnswerSaved);
+        service.addEventListener(FaultEvent.FAULT, httpServiceFault);
+
+        service.send(params);
+    }
+
+    private function onAnswerSaved(e:ResultEvent):void {
+        dispatchEvent(new AnswerEvent(AnswerEvent.SAVED, new Answer().fromXml(XML(e.result))));
+    }
+
+    public function loadAnswer(apiKey:ApiKey, student:String, question:String):void {
+        if (!checkApiKey(apiKey)) {
+            return;
+        }
+
+        var service:HTTPService = settings.createService("api/loadAnswer");
+
+        var params:Object = apiKey.toParameters();
+        params.student = student;
+        params.question_key = question;
+        params.book = "jag-handlar";
+
+        service.addEventListener(ResultEvent.RESULT, onAnswerLoaded);
+        service.addEventListener(FaultEvent.FAULT, httpServiceFault);
+
+        service.send(params);
+    }
+
+    private function onAnswerLoaded(e:ResultEvent):void {
+        dispatchEvent(new AnswerEvent(AnswerEvent.LOADED, new Answer().fromXml(XML(e.result))));
+    }
 
 
 }

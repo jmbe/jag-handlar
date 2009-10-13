@@ -20,13 +20,13 @@ class ApiController {
    * @param username
    * @param question_key
    */
-  def getAnswer = {
+  def loadAnswer = {
     def accountName = params.account
     def studentname = params.student
-    def bookname = params.bookname
+    def bookname = params.book
     def questionkey = params.question_key
     def answerInstance = answerService.getAnswer(accountName, studentname, bookname, questionkey)
-    
+
     render answerInstance as XML
   }
 
@@ -48,7 +48,7 @@ class ApiController {
    * @param question_key
    * @param answer
    */
-  def setAnswer = {
+  def saveAnswer = {
     //username, question_key, answer
     def accountName = params.account
     def studentName = params.student

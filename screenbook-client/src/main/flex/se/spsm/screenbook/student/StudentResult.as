@@ -14,10 +14,10 @@ public class StudentResult {
 
         _answers = new Object();
 
-        Alert.show(xml.toString());
+        //Alert.show(xml.toString());
 
         var answersXml = xml.answers;
-        Alert.show(answersXml.toString());
+        //Alert.show(answersXml.toString());
 
 
         for each (var answer:XML in xml.answers.children()) {

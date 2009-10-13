@@ -3,6 +3,7 @@ import flash.events.EventDispatcher;
 
 import mx.controls.Alert;
 
+import se.spsm.screenbook.answer.AnswerEvent;
 import se.spsm.screenbook.apikey.ApiKey;
 import se.spsm.screenbook.apikey.ApiKeyRequiredEvent;
 import se.spsm.screenbook.apikey.ApiLoginEvent;
@@ -62,6 +63,10 @@ public class JagHandlar extends EventDispatcher {
         this.authenticationController.addEventListener(LostPasswordEvent.RESULT, onLostPasswordResult);
 
         this.authenticationController.addEventListener(NetworkProblemEvent.FAILURE, onNetworkProblem);
+
+
+        this.studentController.addEventListener(AnswerEvent.LOADED, handleAnswerEvent);
+        this.studentController.addEventListener(AnswerEvent.SAVED, handleAnswerEvent);
 
         this.message = "Not logged in";
         this.status = "";
@@ -178,6 +183,18 @@ public class JagHandlar extends EventDispatcher {
 
     public function isStudentLoggedIn():Boolean {
         return currentStudent != null;
+    }
+
+    public function loadAnswer(question:String):void {
+        this.studentController.loadAnswer(currentApiKey, currentStudent, question);
+    }
+
+    public function saveAnswer(question:String, answer:String):void {
+        this.studentController.saveAnswer(currentApiKey, currentStudent, question, answer);
+    }
+
+    public function handleAnswerEvent(e:AnswerEvent):void {
+        dispatchEvent(new AnswerEvent(e.type, e.answer));
     }
 
     [Bindable]

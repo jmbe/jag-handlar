@@ -7,6 +7,7 @@
 
         import se.spsm.screenbook.ConnectionSettings;
         import se.spsm.screenbook.JagHandlar;
+        import se.spsm.screenbook.answer.AnswerEvent;
         import se.spsm.screenbook.apikey.ApiKeyRequiredEvent;
         import se.spsm.screenbook.apikey.ApiLoginEvent;
         import se.spsm.screenbook.lostpassword.LostPasswordEvent;
@@ -27,6 +28,9 @@
 
             jagHandlar.addEventListener(StudentEvent.STUDENT_CREATED, onStudentResult);
             jagHandlar.addEventListener(StudentEvent.BOOK_OPENED, onStudentResult);
+
+            jagHandlar.addEventListener(AnswerEvent.SAVED, onAnswerEvent);
+            jagHandlar.addEventListener(AnswerEvent.LOADED, onAnswerEvent);
         }
 
         /* Common functions */
@@ -82,6 +86,11 @@
             lostPasswordResult.text = e.isNewPasswordSent().toString();
         }
 
+        /* Save/load answer */
+        private function onAnswerEvent(e:AnswerEvent):void {
+            question.text = e.answer.questionKey;
+            answer.text = e.answer.answer;
+        }
 
         ]]></mx:Script>
 
@@ -173,6 +182,23 @@
 
             <mx:FormItem label="Nuvarande inloggad elev">
                 <mx:Label text="{jagHandlar.currentStudent}" />
+            </mx:FormItem>
+        </mx:Form>
+    </mx:Panel>
+
+    <mx:Panel title="Svar i bok">
+        <mx:Form>
+            <mx:FormItem label="Fråga">
+                <mx:TextInput id="question" text="jag-handlar.question.1" />
+            </mx:FormItem>
+            <mx:FormItem label="Svar">
+                <mx:TextInput id="answer" text="" />
+            </mx:FormItem>
+            <mx:FormItem>
+                <mx:Button label="Ladda" click="jagHandlar.loadAnswer(question.text)" />
+            </mx:FormItem>
+            <mx:FormItem>
+                <mx:Button label="Spara" click="jagHandlar.saveAnswer(question.text, answer.text)" />
             </mx:FormItem>
         </mx:Form>
     </mx:Panel>
