@@ -56,7 +56,7 @@ class AnswerService {
 	}
 
 	def findAnswer(accountName, studentName, bookname, question_key) {
-        println accountName + " " + studentName + " " + question_key + " " + bookname
+        log.info("Looking up answer for account ${accountName}, student ${studentName}, question ${question_key} in book ${bookname}")
         def result = Answer.find("from Answer as answer where answer.book.student.account.username = :accountName and answer.book.student.username = :studentName and answer.question_key = :question_key and answer.book.book.name = :bookname",
 				[accountName: accountName, studentName: studentName, question_key: question_key, bookname: bookname])
 		return result
