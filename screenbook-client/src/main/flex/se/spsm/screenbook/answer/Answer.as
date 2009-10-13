@@ -21,7 +21,7 @@ public class Answer {
         return this._question_key;
     }
 
-    public function get answer():String {
+    public function get answerAsString():String {
         return this._answer;
     }
 
@@ -31,7 +31,7 @@ public class Answer {
 
 
     public function toString():String {
-        return questionKey + ": " + answer;
+        return questionKey + ": " + answerAsString;
     }
 
 }

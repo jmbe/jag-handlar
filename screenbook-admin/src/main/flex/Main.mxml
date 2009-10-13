@@ -89,7 +89,7 @@
         /* Save/load answer */
         private function onAnswerEvent(e:AnswerEvent):void {
             question.text = e.answer.questionKey;
-            answer.text = e.answer.answer;
+            answer.text = e.answer.answerAsString;
         }
 
         ]]></mx:Script>
