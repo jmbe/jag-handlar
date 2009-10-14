@@ -85,7 +85,7 @@ public class JagHandlar extends EventDispatcher {
 
     public function doApiLogin(username:String, apiKey:String):void {
         this.authenticationController.verifyApiLogin(username, apiKey);
-
+        currentApiKey = new ApiKey(username, apiKey);
     }
 
     private function onApiLoginSuccess(e:ApiLoginEvent):void {
@@ -193,6 +193,20 @@ public class JagHandlar extends EventDispatcher {
         currentStudent = null;
     }
 
+    /**
+     * Logs out all accounts; API, teacher and student.
+     */
+    public function logout():void {
+        logoutStudent();
+        logoutTeacher();
+        logoutApi();
+
+    }
+
+    public function logoutApi():void {
+        currentApiKey = null;
+    }
+    
     public function isStudentLoggedIn():Boolean {
         return currentStudent != null;
     }

@@ -114,6 +114,9 @@
             <mx:FormItem label="Nuvarande lärare">
                 <mx:Label text="{jagHandlar.currentTeacher.username}"/>
             </mx:FormItem>
+            <mx:FormItem>
+                <mx:Button label="Logga ut lärare/API/elev" click="jagHandlar.logout()" />
+            </mx:FormItem>
         </mx:Form>
     </mx:Panel>
 
