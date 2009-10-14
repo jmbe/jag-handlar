@@ -34,7 +34,7 @@ class ApiController {
    * @param username
    * @param bookname
    */
-  def getAnswers = {
+  def loadAllAnswers = {
     def accountName = params.account
     def studentName = params.student
     def bookname = params.book

@@ -83,12 +83,38 @@ public class StudentController extends EventDispatcher {
 
         var params:Object = apiKey.toParameters();
         params.student = student;
+        params.book = "jag-handlar"
 
 
         service.addEventListener(ResultEvent.RESULT, studentBookOpenedResult);
         service.addEventListener(FaultEvent.FAULT, httpServiceFault);
 
         service.send(params);
+    }
+
+    public function loadAllAnswers(apiKey:ApiKey, student:String):void {
+        if (!checkApiKey(apiKey)) {
+            return;
+        }
+
+        var service:HTTPService = settings.createService("api/loadAllAnswers");
+
+        var params:Object = apiKey.toParameters();
+        params.student = student;
+        params.book = "jag-handlar"
+
+
+        service.addEventListener(ResultEvent.RESULT, onLoadAllAnswers);
+        service.addEventListener(FaultEvent.FAULT, httpServiceFault);
+
+        service.send(params);
+
+    }
+
+    private function onLoadAllAnswers(e:ResultEvent):void {
+        var result:StudentResult = new StudentResult(XML(e.result));
+        var event:Event = new StudentEvent(StudentEvent.ALL_ANSWERS_LOADED, result);
+        dispatchEvent(event);
     }
 
 

@@ -42,6 +42,9 @@ public class JagHandlar extends EventDispatcher {
     [Event("ApiLoginEvent.FAILURE")]
     [Event("NetworkProblemEvent.FAILURE")]
     [Event("ApiKeyRequiredEvent.REQUIRED")]
+    [Event("StudentEvent.ALL_ANSWERS_LOADED")]
+    [Event("StudentEvent.STUDENT_CREATED")]
+    [Event("StudentEvent.BOOK_OPENED")]
 
     public function JagHandlar(newSettings:ConnectionSettings) {
         this.settings = newSettings;
@@ -49,6 +52,7 @@ public class JagHandlar extends EventDispatcher {
         this.studentController = new StudentController(this.settings);
         this.studentController.addEventListener(StudentEvent.STUDENT_CREATED, onStudentCreated);
         this.studentController.addEventListener(StudentEvent.BOOK_OPENED, onOpenBookAsStudent);
+        this.studentController.addEventListener(StudentEvent.ALL_ANSWERS_LOADED, onAllAnswersLoaded);
 
         this.studentController.addEventListener(LoginTeacherEvent.SUCCESS, handleLoginSuccess);
         this.studentController.addEventListener(ApiKeyRequiredEvent.REQUIRED, onApiKeyRequired);
@@ -177,6 +181,14 @@ public class JagHandlar extends EventDispatcher {
         dispatchEvent(new StudentEvent(StudentEvent.BOOK_OPENED, e.result));
     }
 
+    public function loadAllAnswers(student:String):void {
+        this.studentController.loadAllAnswers(currentApiKey, student);
+    }
+
+    private function onAllAnswersLoaded(e:StudentEvent):void {
+        dispatchEvent(new StudentEvent(StudentEvent.ALL_ANSWERS_LOADED, e.result));
+    }
+
     public function logoutStudent():void {
         currentStudent = null;
     }
@@ -195,6 +207,7 @@ public class JagHandlar extends EventDispatcher {
 
     public function handleAnswerEvent(e:AnswerEvent):void {
         dispatchEvent(new AnswerEvent(e.type, e.answer));
+
     }
 
     [Bindable]
