@@ -206,6 +206,10 @@ public class JagHandlar extends EventDispatcher {
     public function logoutApi():void {
         currentApiKey = null;
     }
+
+    public function isApiLoggedIn():Boolean {
+        return currentApiKey != null;
+    }
     
     public function isStudentLoggedIn():Boolean {
         return currentStudent != null;
