@@ -15,8 +15,6 @@ public class StudentResult {
 
         _answers = new Object();
 
-        var answersXml = xml.answers;
-
         for each (var xmlAnswer:XML in xml.answers.children()) {
             var answer:Answer = new Answer().fromXml(xmlAnswer);
             _answers[answer.questionKey] = answer;
