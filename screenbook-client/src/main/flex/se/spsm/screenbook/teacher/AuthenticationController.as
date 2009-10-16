@@ -99,10 +99,8 @@ public class AuthenticationController extends EventDispatcher{
     }
 
     private function lostPasswordResult(e:ResultEvent):void {
-        var xml:XML = XML(e.result);
-
         
-        var success = "true" == xml.toLowerCase();
+        var success:Boolean = "true" == e.result;
 
         var resultEvent:LostPasswordEvent = new LostPasswordEvent(LostPasswordEvent.RESULT, success);
 
