@@ -12,6 +12,7 @@
         import se.spsm.screenbook.apikey.ApiLoginEvent;
         import se.spsm.screenbook.lostpassword.LostPasswordEvent;
         import se.spsm.screenbook.student.StudentEvent;
+        import se.spsm.screenbook.student.StudentListEvent;
         import se.spsm.screenbook.teacher.LoginTeacherEvent;
 
         [Bindable]
@@ -32,6 +33,8 @@
 
             jagHandlar.addEventListener(AnswerEvent.SAVED, onAnswerEvent);
             jagHandlar.addEventListener(AnswerEvent.LOADED, onAnswerEvent);
+
+            jagHandlar.addEventListener(StudentListEvent.LOADED, onStudentListLoaded);
         }
 
         /* Common functions */
@@ -92,6 +95,12 @@
             question.text = e.answer.questionKey;
             answer.text = e.answer.answerAsString;
         }
+
+        /* Load student list */
+        private function onStudentListLoaded(event:StudentListEvent):void {
+            studentListResult.text  = event.studentList.toString();
+        }
+
 
         ]]></mx:Script>
 
@@ -208,6 +217,18 @@
                 <mx:Button label="Spara" click="jagHandlar.saveAnswer(question.text, answer.text)" />
             </mx:FormItem>
         </mx:Form>
+    </mx:Panel>
+
+    <mx:Panel title="Lista med elever">
+        <mx:Form>
+            <mx:FormItem>
+                <mx:Button label="Hämta" click="jagHandlar.loadAllStudents()" />
+            </mx:FormItem>
+            <mx:FormItem label="Resultat">
+                <mx:TextArea height="200" id="studentListResult" />
+            </mx:FormItem>
+        </mx:Form>
+
     </mx:Panel>
 
 </mx:Application>

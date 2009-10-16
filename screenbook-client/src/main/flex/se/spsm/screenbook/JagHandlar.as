@@ -10,6 +10,7 @@ import se.spsm.screenbook.apikey.ApiLoginEvent;
 import se.spsm.screenbook.lostpassword.LostPasswordEvent;
 import se.spsm.screenbook.network.NetworkProblemEvent;
 import se.spsm.screenbook.student.StudentEvent;
+import se.spsm.screenbook.student.StudentListEvent;
 import se.spsm.screenbook.teacher.AuthenticationController;
 import se.spsm.screenbook.teacher.LoginTeacherEvent;
 import se.spsm.screenbook.teacher.Teacher;
@@ -28,8 +29,6 @@ public class JagHandlar extends EventDispatcher {
     [Bindable]
     public var progressMessage:String;
 
-    [Bindable]
-    public var studentCreatedResult;
 
 
     private var _currentTeacher:Teacher;
@@ -56,6 +55,8 @@ public class JagHandlar extends EventDispatcher {
 
         this.studentController.addEventListener(LoginTeacherEvent.SUCCESS, handleLoginSuccess);
         this.studentController.addEventListener(ApiKeyRequiredEvent.REQUIRED, onApiKeyRequired);
+
+        this.studentController.addEventListener(StudentListEvent.LOADED, onStudentListLoaded);
 
         this.authenticationController = new AuthenticationController(this.settings);
         this.authenticationController.addEventListener(LoginTeacherEvent.SUCCESS, onLoginTeacherSuccess);
@@ -119,7 +120,6 @@ public class JagHandlar extends EventDispatcher {
         return _currentTeacher;
     }
 
-    [Bindable]
     public function get isTestMode():Boolean {
         return currentApiKey == null && currentTeacher == null;
     }
@@ -175,8 +175,7 @@ public class JagHandlar extends EventDispatcher {
     }
 
     private function onOpenBookAsStudent(e:StudentEvent):void {
-        var student = e.result.student;
-        currentStudent = student;
+        currentStudent = e.result.student;
 
         dispatchEvent(new StudentEvent(StudentEvent.BOOK_OPENED, e.result));
     }
@@ -248,6 +247,15 @@ public class JagHandlar extends EventDispatcher {
 
     private function onApiKeyRequired(e:ApiKeyRequiredEvent):void {
         dispatchEvent(new ApiKeyRequiredEvent());
+    }
+
+
+    public function loadAllStudents():void {
+        this.studentController.loadAllStudents(currentApiKey);
+    }
+
+    private function onStudentListLoaded(event:StudentListEvent):void {
+        dispatchEvent(new StudentListEvent(event.type, event.studentList));
     }
 
 }

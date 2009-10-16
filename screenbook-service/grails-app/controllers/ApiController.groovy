@@ -75,7 +75,7 @@ class ApiController {
     render true as XML
   }
 
-  def getStudents = {
+  def loadStudents = {
     def accountName = params.account
     def students = studentService.getStudents(accountName)
     def numberOfLicenses = 4

@@ -59,12 +59,12 @@ class XmlResults {
     return [text: writer.toString(), contentType: "text/xml"]
   }
 
-  def static getStudentsResult(String numberOfLicenses, studentList) {
+  def static getStudentsResult(numberOfLicensesString, studentList) {
     def writer = new StringWriter()
     def xml = new MarkupBuilder(writer)
 
     xml.result() {
-      numberOfLicenses(numberOfLicenses)
+      numberOfLicenses(numberOfLicensesString)
       students() {
         for (studentInstance in studentList) {
           student() {

@@ -12,6 +12,8 @@ import se.spsm.screenbook.answer.AnswerEvent;
 import se.spsm.screenbook.apikey.ApiKey;
 import se.spsm.screenbook.apikey.ApiKeyRequiredEvent;
 import se.spsm.screenbook.student.StudentEvent;
+import se.spsm.screenbook.student.StudentList;
+import se.spsm.screenbook.student.StudentListEvent;
 import se.spsm.screenbook.student.StudentResult;
 
 public class StudentController extends EventDispatcher {
@@ -83,7 +85,7 @@ public class StudentController extends EventDispatcher {
 
         var params:Object = apiKey.toParameters();
         params.student = student;
-        params.book = "jag-handlar"
+        params.book = "jag-handlar";
 
 
         service.addEventListener(ResultEvent.RESULT, studentBookOpenedResult);
@@ -101,7 +103,7 @@ public class StudentController extends EventDispatcher {
 
         var params:Object = apiKey.toParameters();
         params.student = student;
-        params.book = "jag-handlar"
+        params.book = "jag-handlar";
 
 
         service.addEventListener(ResultEvent.RESULT, onLoadAllAnswers);
@@ -161,6 +163,25 @@ public class StudentController extends EventDispatcher {
 
     private function onAnswerLoaded(e:ResultEvent):void {
         dispatchEvent(new AnswerEvent(AnswerEvent.LOADED, new Answer().fromXml(XML(e.result))));
+    }
+
+    public function loadAllStudents(apiKey:ApiKey):void {
+        if (!checkApiKey(apiKey)) {
+            return;
+        }
+
+        var service:HTTPService = settings.createService("api/loadStudents");
+
+        var params:Object = apiKey.toParameters();
+
+        service.addEventListener(ResultEvent.RESULT, onAllStudentsLoaded);
+        service.addEventListener(FaultEvent.FAULT, httpServiceFault);
+
+        service.send(params);
+    }
+
+    private function onAllStudentsLoaded(event:ResultEvent):void {
+        dispatchEvent(new StudentListEvent(StudentListEvent.LOADED, new StudentList().fromXml(XML(event.result))))
     }
 
 
