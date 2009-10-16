@@ -11,9 +11,10 @@ class ApiController {
     def accountName = params.account
     def authApikey = params.apikey
     if (!accountService.verifyApiLogin(accountName, authApikey)) {
-      println "apiAuth not authorized"
+      log.warn "api authentication failed for ${accountName}"
       return false
     }
+    return true
   }
 
   /**
@@ -132,7 +133,7 @@ class ApiController {
   }
 
   def getNumberOfLicenses = {
-    def accountName = params.account
+    //def accountName = params.account
     def result = XmlResults.getNumberOfLicensesResult("4")
     render result
   }
