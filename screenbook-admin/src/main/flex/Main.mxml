@@ -31,6 +31,7 @@
             jagHandlar.addEventListener(StudentEvent.BOOK_OPENED, onStudentResult);
             jagHandlar.addEventListener(StudentEvent.ALL_ANSWERS_LOADED, onStudentResult);
             jagHandlar.addEventListener(StudentEvent.ALL_ANSWERS_REMOVED, onStudentResult);
+            jagHandlar.addEventListener(StudentEvent.SCREEN_KEYBOARD_CHANGED, onStudentResult);
 
             jagHandlar.addEventListener(AnswerEvent.SAVED, onAnswerEvent);
             jagHandlar.addEventListener(AnswerEvent.LOADED, onAnswerEvent);
@@ -61,6 +62,7 @@
 
         private function onStudentResult(e:StudentEvent):void {
             studentResult.text = e.result.toString();
+            screenKeyboard.selected  = e.result.useScreenKeyboard;
         }
 
         /* Open book as student */
@@ -178,7 +180,7 @@
                 <mx:TextInput id="nameInput" text="elev" />
             </mx:FormItem>
             <mx:FormItem>
-                <mx:CheckBox id="screenKeyboard" label="Skärmtangentbord" />
+                <mx:CheckBox id="screenKeyboard" label="Skärmtangentbord" change="jagHandlar.changeScreenKeyboard(nameInput.text, screenKeyboard.selected)" />
             </mx:FormItem>
             <mx:FormItem>
                 <mx:Button label="Skapa elevkonto" click="createStudent(nameInput.text, screenKeyboard.selected)" />

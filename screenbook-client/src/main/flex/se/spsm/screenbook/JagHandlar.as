@@ -263,6 +263,10 @@ public class JagHandlar extends EventDispatcher {
     public function clearAllAnswers(student:String):void {
         this.studentController.clearAllAnswers(currentApiKey, student);
     }
+
+    public function changeScreenKeyboard(student:String, useScreenKeyboard:Boolean):void {
+        this.studentController.changeScreenKeyboard(currentApiKey, student, useScreenKeyboard);
+    }
 }
 }
 

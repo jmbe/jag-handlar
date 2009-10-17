@@ -40,8 +40,9 @@ class ApiController {
     def studentName = params.student
     def bookName = params.book
     def answers = answerService.getAnswers(accountName, studentName, bookName)
+    def studentInstance = studentService.findStudent(accountName, studentName)
 
-    render XmlResults.getAnswersResult(studentName, answers, bookName)
+    render XmlResults.getAnswersResult(studentInstance, answers, bookName)
   }
 
   /**
@@ -75,8 +76,9 @@ class ApiController {
     answerService.removeAnswers(accountName, studentName, bookName)
 
     def answers = answerService.getAnswers(accountName, studentName, bookName)
+    def studentInstance = studentService.findStudent(accountName, studentName)
 
-    render XmlResults.getAnswersResult(studentName, answers, bookName)
+    render XmlResults.getAnswersResult(studentInstance, answers, bookName)
   }
 
   def loadStudents = {
@@ -111,7 +113,9 @@ class ApiController {
     }
 
     def answers = answerService.getAnswers(accountName, studentName)
-    render XmlResults.getAnswersResult(studentName, answers)
+    def studentInstance = studentService.findStudent(accountName, studentName)
+
+    render XmlResults.getAnswersResult(studentInstance, answers)
   }
 
   /**
@@ -132,13 +136,32 @@ class ApiController {
     }
 
     def answers = answerService.getAnswers(accountName, studentName)
-    render XmlResults.getAnswersResult(studentName, answers)
+    def studentInstance = studentService.findStudent(accountName, studentName)
+    render XmlResults.getAnswersResult(studentInstance, answers)
   }
 
   def getNumberOfLicenses = {
     //def accountName = params.account
     def result = XmlResults.getNumberOfLicensesResult("4")
     render result
+  }
+
+  def changeScreenKeyboard = {
+    def accountName = params.account
+    def studentName = params.student
+    def screenKeyboard = params.screenKeyboard
+
+    log.info("Changing screen keyboard for ${accountName}:${studentName} to ${screenKeyboard}")
+
+    Boolean useScreenKeyboard = Boolean.valueOf(screenKeyboard)
+
+    studentService.changeScreenKeyboard(accountName, studentName, useScreenKeyboard)
+
+    def answers = answerService.getAnswers(accountName, studentName)
+    def studentInstance = studentService.findStudent(accountName, studentName)
+
+    render XmlResults.getAnswersResult(studentInstance, answers)
+
   }
  
 }

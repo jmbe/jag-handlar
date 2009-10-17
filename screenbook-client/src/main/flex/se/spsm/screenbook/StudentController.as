@@ -209,5 +209,32 @@ public class StudentController extends EventDispatcher {
     private function onAllAnswersCleared(event:ResultEvent):void {
         var studentResult:StudentResult = new StudentResult().fromXml(XML(event.result));
         dispatchEvent(new StudentEvent(StudentEvent.ALL_ANSWERS_REMOVED, studentResult));
-    }}
+    }
+
+    public function changeScreenKeyboard(apiKey:ApiKey, student:String, useScreenKeyboard:Boolean):void {
+        if (!checkApiKey(apiKey)) {
+            return;
+        }
+
+        var service:HTTPService = settings.createService("api/changeScreenKeyboard");
+
+        var params:Object = apiKey.toParameters();
+        params.student = student;
+        params.screenKeyboard = useScreenKeyboard;
+
+
+        service.addEventListener(ResultEvent.RESULT, onScreenKeyboardChanged);
+        service.addEventListener(FaultEvent.FAULT, httpServiceFault);
+
+        service.send(params);
+
+    }
+
+    private function onScreenKeyboardChanged(event:ResultEvent):void {
+        var studentResult:StudentResult = new StudentResult().fromXml(XML(event.result));
+        dispatchEvent(new StudentEvent(StudentEvent.SCREEN_KEYBOARD_CHANGED, studentResult));
+    }
+
+
+}
 }

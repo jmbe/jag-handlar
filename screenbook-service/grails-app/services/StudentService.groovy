@@ -8,8 +8,19 @@
  */
 class StudentService {
 
-  def getStudents(String username) {
-    def students = Student.findAll("from Student as student where student.account.username = :username", [username: username])
+  def getStudents(String accountName) {
+    def students = Student.findAll("from Student as student where student.account.username = :accountName", [accountName: accountName])
     return students
+  }
+
+  def findStudent(String accountName, String studentName) {
+    def student = Student.find("from Student s where s.account.username = :accountName and s.username = :studentName", [accountName: accountName, studentName: studentName])
+    log.info("Found student ${student}")
+    return student
+  }
+
+  def changeScreenKeyboard(accountName, studentName, Boolean screenKeyboard) {
+    def student = findStudent(accountName, studentName)
+    student.screenKeyboard = screenKeyboard
   }
 }

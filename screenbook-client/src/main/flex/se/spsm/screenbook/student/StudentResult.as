@@ -8,6 +8,7 @@ public class StudentResult {
     private var _student:String;
     private var _book:String;
     private var _answers:Object;
+    private var _useScreenKeyboard:Boolean;
 
     public function StudentResult() {
     }
@@ -15,6 +16,7 @@ public class StudentResult {
     public function fromXml(xml:XML):StudentResult {
         _student = xml.student;
         _book = xml.book;
+        _useScreenKeyboard = xml.screenKeyboard == "true";
 
         _answers = new Object();
 
@@ -30,7 +32,7 @@ public class StudentResult {
     public function toString():String {
 
 
-        return "Student: " + student + ", Book: " + book + ", Answers: " + ObjectUtil.toString(_answers);
+        return "Student: " + student + "Screen keyboard: " + useScreenKeyboard + ", Book: " + book + ", Answers: " + ObjectUtil.toString(_answers);
     }
 
     public function get student():String {
@@ -47,5 +49,8 @@ public class StudentResult {
     public function get answers():Object {
         return _answers;
     }
-}
+
+    public function get useScreenKeyboard():Boolean {
+        return _useScreenKeyboard;
+    }}
 }

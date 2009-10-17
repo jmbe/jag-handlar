@@ -38,13 +38,14 @@ class XmlResults {
     return [text: writer.toString(), contentType: "text/xml"]
   }
 
-  def static getAnswersResult(String studentString, answerList, String bookString = "jag-handlar") {
+  def static getAnswersResult(studentInstance, answerList, String bookString = "jag-handlar") {
     def writer = new StringWriter()
     def xml = new MarkupBuilder(writer)
 
     xml.result() {
-      student(studentString)
+      student(studentInstance)
       book(bookString)
+      screenKeyboard(studentInstance.screenKeyboard)
       answers() {
         for (answerInstance in answerList) {
           answer() {
