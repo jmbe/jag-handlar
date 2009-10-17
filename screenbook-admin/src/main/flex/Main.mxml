@@ -30,6 +30,7 @@
             jagHandlar.addEventListener(StudentEvent.STUDENT_CREATED, onStudentResult);
             jagHandlar.addEventListener(StudentEvent.BOOK_OPENED, onStudentResult);
             jagHandlar.addEventListener(StudentEvent.ALL_ANSWERS_LOADED, onStudentResult);
+            jagHandlar.addEventListener(StudentEvent.ALL_ANSWERS_REMOVED, onStudentResult);
 
             jagHandlar.addEventListener(AnswerEvent.SAVED, onAnswerEvent);
             jagHandlar.addEventListener(AnswerEvent.LOADED, onAnswerEvent);
@@ -190,6 +191,9 @@
             </mx:FormItem>
             <mx:FormItem>
                 <mx:Button label="Ladda alla svar" click="jagHandlar.loadAllAnswers(nameInput.text)" />
+            </mx:FormItem>
+            <mx:FormItem>
+                <mx:Button label="Rensa alla svar" click="jagHandlar.clearAllAnswers(nameInput.text)" />
             </mx:FormItem>
 
             <mx:FormItem>

@@ -29,13 +29,13 @@ public class StudentController extends EventDispatcher {
     }
 
     private function studentCreatedResult(e:ResultEvent):void {
-        var result:StudentResult = new StudentResult(XML(e.result));
+        var result:StudentResult = new StudentResult().fromXml(XML(e.result));
         var event:Event = new StudentEvent(StudentEvent.STUDENT_CREATED, result);
         dispatchEvent(event);
     }
 
     private function studentBookOpenedResult(e:ResultEvent):void {
-        var result:StudentResult = new StudentResult(XML(e.result));
+        var result:StudentResult = new StudentResult().fromXml(XML(e.result));
         var event:Event = new StudentEvent(StudentEvent.BOOK_OPENED, result);
         dispatchEvent(event);
     }
@@ -114,7 +114,7 @@ public class StudentController extends EventDispatcher {
     }
 
     private function onLoadAllAnswers(e:ResultEvent):void {
-        var result:StudentResult = new StudentResult(XML(e.result));
+        var result:StudentResult = new StudentResult().fromXml(XML(e.result));
         var event:Event = new StudentEvent(StudentEvent.ALL_ANSWERS_LOADED, result);
         dispatchEvent(event);
     }
@@ -185,5 +185,29 @@ public class StudentController extends EventDispatcher {
     }
 
 
-}
+    public function clearAllAnswers(apiKey:ApiKey, student:String):void {
+        if (!checkApiKey(apiKey)) {
+            return;
+        }
+
+        var service:HTTPService = settings.createService("api/removeAllAnswers");
+
+        var params:Object = apiKey.toParameters();
+        params.student = student;
+        params.book = "jag-handlar";
+
+
+
+        service.addEventListener(ResultEvent.RESULT, onAllAnswersCleared);
+        service.addEventListener(FaultEvent.FAULT, httpServiceFault);
+
+        service.send(params);
+
+
+    }
+
+    private function onAllAnswersCleared(event:ResultEvent):void {
+        var studentResult:StudentResult = new StudentResult().fromXml(XML(event.result));
+        dispatchEvent(new StudentEvent(StudentEvent.ALL_ANSWERS_REMOVED, studentResult));
+    }}
 }

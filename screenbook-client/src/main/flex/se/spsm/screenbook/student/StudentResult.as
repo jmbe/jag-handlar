@@ -9,7 +9,10 @@ public class StudentResult {
     private var _book:String;
     private var _answers:Object;
 
-    public function StudentResult(xml:XML) {
+    public function StudentResult() {
+    }
+
+    public function fromXml(xml:XML):StudentResult {
         _student = xml.student;
         _book = xml.book;
 
@@ -20,6 +23,7 @@ public class StudentResult {
             _answers[answer.questionKey] = answer;
         }
 
+        return this;
     }
 
 

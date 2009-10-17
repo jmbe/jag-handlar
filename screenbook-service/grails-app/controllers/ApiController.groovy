@@ -24,9 +24,9 @@ class ApiController {
   def loadAnswer = {
     def accountName = params.account
     def studentname = params.student
-    def bookname = params.book
+    def bookName = params.book
     def questionkey = params.question_key
-    def answerInstance = answerService.getAnswer(accountName, studentname, bookname, questionkey)
+    def answerInstance = answerService.getAnswer(accountName, studentname, bookName, questionkey)
 
     render answerInstance as XML
   }
@@ -38,10 +38,10 @@ class ApiController {
   def loadAllAnswers = {
     def accountName = params.account
     def studentName = params.student
-    def bookname = params.book
-    def answers = answerService.getAnswers(accountName, studentName, bookname)
+    def bookName = params.book
+    def answers = answerService.getAnswers(accountName, studentName, bookName)
 
-    render XmlResults.getAnswersResult(studentName, answers, bookname)
+    render XmlResults.getAnswersResult(studentName, answers, bookName)
   }
 
   /**
@@ -53,27 +53,30 @@ class ApiController {
     //username, question_key, answer
     def accountName = params.account
     def studentName = params.student
-    def bookname = params.book
+    def bookName = params.book
     def questionkey = params.question_key
     def answer = params.answer
-    def answerInstance = answerService.setAnswer(accountName, studentName, bookname, questionkey, answer)
+    def answerInstance = answerService.setAnswer(accountName, studentName, bookName, questionkey, answer)
     render answerInstance as XML
   }
 
   def removeAnswer = {
     def accountName = params.account
     def studentName = params.student
-    def bookname = params.book
+    def bookName = params.book
     def questionkey = params.question_key
-    render answerService.removeAnswer(accountName, studentName, bookname, questionkey) as XML
+    render answerService.removeAnswer(accountName, studentName, bookName, questionkey) as XML
   }
 
-  def removeAnswers = {
+  def removeAllAnswers = {
     def accountName = params.account
     def studentName = params.student
     def bookName = params.book
     answerService.removeAnswers(accountName, studentName, bookName)
-    render true as XML
+
+    def answers = answerService.getAnswers(accountName, studentName, bookName)
+
+    render XmlResults.getAnswersResult(studentName, answers, bookName)
   }
 
   def loadStudents = {

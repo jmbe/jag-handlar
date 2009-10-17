@@ -51,7 +51,8 @@ public class JagHandlar extends EventDispatcher {
         this.studentController = new StudentController(this.settings);
         this.studentController.addEventListener(StudentEvent.STUDENT_CREATED, onStudentCreated);
         this.studentController.addEventListener(StudentEvent.BOOK_OPENED, onOpenBookAsStudent);
-        this.studentController.addEventListener(StudentEvent.ALL_ANSWERS_LOADED, onAllAnswersLoaded);
+        this.studentController.addEventListener(StudentEvent.ALL_ANSWERS_LOADED, onAnswerListLoaded);
+        this.studentController.addEventListener(StudentEvent.ALL_ANSWERS_REMOVED, onAnswerListLoaded);
 
         this.studentController.addEventListener(LoginTeacherEvent.SUCCESS, handleLoginSuccess);
         this.studentController.addEventListener(ApiKeyRequiredEvent.REQUIRED, onApiKeyRequired);
@@ -177,15 +178,15 @@ public class JagHandlar extends EventDispatcher {
     private function onOpenBookAsStudent(e:StudentEvent):void {
         currentStudent = e.result.student;
 
-        dispatchEvent(new StudentEvent(StudentEvent.BOOK_OPENED, e.result));
+        dispatchEvent(new StudentEvent(e.type, e.result));
     }
 
     public function loadAllAnswers(student:String):void {
         this.studentController.loadAllAnswers(currentApiKey, student);
     }
 
-    private function onAllAnswersLoaded(e:StudentEvent):void {
-        dispatchEvent(new StudentEvent(StudentEvent.ALL_ANSWERS_LOADED, e.result));
+    private function onAnswerListLoaded(e:StudentEvent):void {
+        dispatchEvent(new StudentEvent(e.type, e.result));
     }
 
     public function logoutStudent():void {
@@ -258,6 +259,10 @@ public class JagHandlar extends EventDispatcher {
         dispatchEvent(new StudentListEvent(event.type, event.studentList));
     }
 
+
+    public function clearAllAnswers(student:String):void {
+        this.studentController.clearAllAnswers(currentApiKey, student);
+    }
 }
 }
 
