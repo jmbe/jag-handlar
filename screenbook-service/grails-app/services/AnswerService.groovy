@@ -56,7 +56,7 @@ class AnswerService {
     def findAnswers(accountName, studentName, bookName) {
         def result = Answer.findAll("from Answer as answer where answer.book.student.account.username = :accountName and answer.book.student.username = :studentName and answer.book.book.name = :bookName",
 				[accountName: accountName, studentName: studentName, bookName: bookName])
-        println result
+        log.info("Found answers for ${studentName}: " +  result.toString())
         return result
 	}
 
