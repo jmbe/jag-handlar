@@ -10,6 +10,7 @@ import se.spsm.screenbook.*;
 import se.spsm.screenbook.apikey.ApiLoginEvent;
 import se.spsm.screenbook.apikey.ApiLoginResult;
 import se.spsm.screenbook.lostpassword.LostPasswordEvent;
+import se.spsm.screenbook.lostpassword.ChangedPasswordEvent;
 import se.spsm.screenbook.network.NetworkProblemEvent;
 
 public class AuthenticationController extends EventDispatcher{
@@ -89,7 +90,7 @@ public class AuthenticationController extends EventDispatcher{
 
         var params:Object = {
             accountIdentifier: accountIdentifier
-        }
+        };
 
         service.addEventListener(ResultEvent.RESULT, lostPasswordResult);
         service.addEventListener(FaultEvent.FAULT, httpServiceFault);
@@ -100,7 +101,7 @@ public class AuthenticationController extends EventDispatcher{
 
     private function lostPasswordResult(e:ResultEvent):void {
         
-        var success:Boolean = "true" == e.result;
+        var success:Boolean = "true" == XML(e.result).toString();
 
         var resultEvent:LostPasswordEvent = new LostPasswordEvent(LostPasswordEvent.RESULT, success);
 
@@ -109,5 +110,28 @@ public class AuthenticationController extends EventDispatcher{
     }
 
 
-}
+    public function changeTeacherPassword(teacher:Teacher, currentPassword:String, newPassword:String):void {
+
+
+        var service:HTTPService = _settings.createService("authentication/changeTeacherPassword");
+
+        var params:Object = {
+            account : teacher.username,
+            oldPassword : currentPassword,
+            newPassword : newPassword
+        };
+
+        service.addEventListener(ResultEvent.RESULT, onTeacherPasswordChanged);
+        service.addEventListener(FaultEvent.FAULT, httpServiceFault);
+
+        service.send(params);
+
+
+    }
+
+    private function onTeacherPasswordChanged(event:ResultEvent):void {
+        var success:Boolean = "true" == XML(event.result).toString();
+        var resultEvent:ChangedPasswordEvent = new ChangedPasswordEvent(ChangedPasswordEvent.RESULT, success);
+        dispatchEvent(resultEvent);
+    }}
 }

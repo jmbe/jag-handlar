@@ -41,7 +41,23 @@ class AccountService {
     } else {
       return account.apikey
     }
-    return null
+  }
+
+  def changePassword(accountName, oldPassword, newPassword) {
+    def account = Account.findByUsername(accountName);
+    if (account == null) {
+      log.warn("Tried to change password for ${accountName}, but that account cannot be found.");
+      return false
+    }
+
+    if (account.passwd != authenticateService.encodePassword(oldPassword)) {
+      log.warn("Tried to change password for ${accountName}, but given password doesn't match stored password.")
+      return false
+    }
+
+    log.info("Changing password for ${accountName}.")
+    account.passwd = authenticateService.encodePassword(newPassword)
+    return true
   }
 
   def verifyApiLogin(String accountName, String apikey) {

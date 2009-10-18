@@ -8,6 +8,7 @@ import se.spsm.screenbook.apikey.ApiKey;
 import se.spsm.screenbook.apikey.ApiKeyRequiredEvent;
 import se.spsm.screenbook.apikey.ApiLoginEvent;
 import se.spsm.screenbook.lostpassword.LostPasswordEvent;
+import se.spsm.screenbook.lostpassword.ChangedPasswordEvent;
 import se.spsm.screenbook.network.NetworkProblemEvent;
 import se.spsm.screenbook.student.StudentEvent;
 import se.spsm.screenbook.student.StudentListEvent;
@@ -68,6 +69,7 @@ public class JagHandlar extends EventDispatcher {
         this.authenticationController.addEventListener(ApiLoginEvent.FAILURE, onApiLoginFailure);
 
         this.authenticationController.addEventListener(LostPasswordEvent.RESULT, onLostPasswordResult);
+        this.authenticationController.addEventListener(ChangedPasswordEvent.RESULT, onChangedPasswordResult);
 
         this.authenticationController.addEventListener(NetworkProblemEvent.FAILURE, onNetworkProblem);
 
@@ -247,6 +249,10 @@ public class JagHandlar extends EventDispatcher {
         dispatchEvent(new LostPasswordEvent(LostPasswordEvent.RESULT, e.isNewPasswordSent()));
     }
 
+    private function onChangedPasswordResult(event:ChangedPasswordEvent):void {
+        dispatchEvent(new ChangedPasswordEvent(event.type, event.isPasswordChanged()));
+    }
+
     private function onApiKeyRequired(e:ApiKeyRequiredEvent):void {
         dispatchEvent(new ApiKeyRequiredEvent());
     }
@@ -271,6 +277,10 @@ public class JagHandlar extends EventDispatcher {
 
     public function changeStudentName(currentStudentName:String, newStudentName:String):void {
         this.studentController.changeStudentName(currentApiKey, currentStudentName, newStudentName);
+    }
+
+    public function changeTeacherPassword(currentPassword:String, newPassword:String):void {
+        this.authenticationController.changeTeacherPassword(currentTeacher, currentPassword, newPassword)
     }
 }
 }

@@ -46,6 +46,17 @@ class AuthenticationController {
       render XmlResults.getLoginAsTeacherResult(username, apikey, result, error)
     }
 
+    def changeTeacherPassword = {
+      def accountName = params.account
+      def oldPassword = params.oldPassword
+      def newPassword = params.newPassword
+
+      def result = accountService.changePassword(accountName, oldPassword, newPassword)
+
+      render result as XML
+
+    }
+
     def verifyApiLogin = {
       def username = params.username
       def apikey = params.apikey

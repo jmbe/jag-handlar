@@ -11,6 +11,7 @@
         import se.spsm.screenbook.apikey.ApiKeyRequiredEvent;
         import se.spsm.screenbook.apikey.ApiLoginEvent;
         import se.spsm.screenbook.lostpassword.LostPasswordEvent;
+        import se.spsm.screenbook.lostpassword.ChangedPasswordEvent;
         import se.spsm.screenbook.student.StudentEvent;
         import se.spsm.screenbook.student.StudentListEvent;
         import se.spsm.screenbook.teacher.LoginTeacherEvent;
@@ -18,7 +19,7 @@
         [Bindable]
         private var jagHandlar:JagHandlar = new JagHandlar(new ConnectionSettings("localhost:8080", "/screenbook-service/"));
 
-        private function onCreationComplete() :void {
+        private function onCreationComplete():void {
             jagHandlar.addEventListener(LoginTeacherEvent.SUCCESS, onLoginTeacher);
             jagHandlar.addEventListener(LoginTeacherEvent.FAILURE, onLoginTeacher);
 
@@ -26,6 +27,8 @@
             jagHandlar.addEventListener(ApiLoginEvent.FAILURE, onApiLogin);
             jagHandlar.addEventListener(LostPasswordEvent.RESULT, onLostPasswordResult);
             jagHandlar.addEventListener(ApiKeyRequiredEvent.REQUIRED, onApiKeyRequired);
+
+            jagHandlar.addEventListener(ChangedPasswordEvent.RESULT, onPasswordChanged);
 
             jagHandlar.addEventListener(StudentEvent.STUDENT_CREATED, onStudentResult);
             jagHandlar.addEventListener(StudentEvent.BOOK_OPENED, onStudentResult);
@@ -56,6 +59,17 @@
             testMode.text = jagHandlar.isTestMode.toString();
         }
 
+        /* Change teacher password */
+        private function onPasswordChanged(event:ChangedPasswordEvent):void {
+            changePasswordResult.text = "" + event.isPasswordChanged();
+
+            if (event.isPasswordChanged()) {
+                teacherPassword.text = newTeacherPassword.text;
+                newTeacherPassword.text = "";
+            }
+        }
+
+
         /* Add new student account */
         private function createStudent(student:String, screenKeyboard:Boolean):void {
             jagHandlar.createStudent(student, screenKeyboard);
@@ -64,7 +78,7 @@
         private function onStudentResult(e:StudentEvent):void {
             nameInput.text = e.result.student;
             studentResult.text = e.result.toString();
-            screenKeyboard.selected  = e.result.useScreenKeyboard;
+            screenKeyboard.selected = e.result.useScreenKeyboard;
         }
 
         /* Open book as student */
@@ -103,7 +117,7 @@
 
         /* Load student list */
         private function onStudentListLoaded(event:StudentListEvent):void {
-            studentListResult.text  = event.studentList.toString();
+            studentListResult.text = event.studentList.toString();
         }
 
 
@@ -130,6 +144,17 @@
             </mx:FormItem>
             <mx:FormItem>
                 <mx:Button label="Logga ut lärare/API/elev" click="jagHandlar.logout()" />
+            </mx:FormItem>
+
+            <mx:FormHeading label="Ändra lösenord" />
+            <mx:FormItem label="Nytt lösenord">
+                <mx:TextInput id="newTeacherPassword" />
+            </mx:FormItem>
+            <mx:FormItem>
+                <mx:Button label="Ändra" click="jagHandlar.changeTeacherPassword(teacherPassword.text, newTeacherPassword.text)" />
+            </mx:FormItem>
+            <mx:FormItem label="Lösenordet ändrat:">
+                <mx:Label id="changePasswordResult" />
             </mx:FormItem>
         </mx:Form>
     </mx:Panel>
