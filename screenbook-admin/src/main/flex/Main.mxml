@@ -32,6 +32,7 @@
             jagHandlar.addEventListener(StudentEvent.ALL_ANSWERS_LOADED, onStudentResult);
             jagHandlar.addEventListener(StudentEvent.ALL_ANSWERS_REMOVED, onStudentResult);
             jagHandlar.addEventListener(StudentEvent.SCREEN_KEYBOARD_CHANGED, onStudentResult);
+            jagHandlar.addEventListener(StudentEvent.STUDENT_NAME_CHANGED, onStudentResult);
 
             jagHandlar.addEventListener(AnswerEvent.SAVED, onAnswerEvent);
             jagHandlar.addEventListener(AnswerEvent.LOADED, onAnswerEvent);
@@ -61,6 +62,7 @@
         }
 
         private function onStudentResult(e:StudentEvent):void {
+            nameInput.text = e.result.student;
             studentResult.text = e.result.toString();
             screenKeyboard.selected  = e.result.useScreenKeyboard;
         }
@@ -186,10 +188,12 @@
                 <mx:Button label="Skapa elevkonto" click="createStudent(nameInput.text, screenKeyboard.selected)" />
             </mx:FormItem>
             <mx:FormItem>
-                <mx:Button label="Öppna bok" click="openBookAsStudent(nameInput.text)" />
-            </mx:FormItem>
-            <mx:FormItem>
                 <mx:Button label="Logga ut elev" click="jagHandlar.logoutStudent()" />
+            </mx:FormItem>
+
+            <mx:FormHeading label="Svar" />
+            <mx:FormItem>
+                <mx:Button label="Öppna bok" click="openBookAsStudent(nameInput.text)" />
             </mx:FormItem>
             <mx:FormItem>
                 <mx:Button label="Ladda alla svar" click="jagHandlar.loadAllAnswers(nameInput.text)" />
@@ -205,6 +209,15 @@
             <mx:FormItem label="Nuvarande inloggad elev">
                 <mx:Label text="{jagHandlar.currentStudent}" />
             </mx:FormItem>
+
+            <mx:FormHeading label="Ändra namn" />
+            <mx:FormItem label="Nytt namn">
+                <mx:TextInput id="newNameInput" />
+            </mx:FormItem>
+            <mx:FormItem>
+                <mx:Button label="Ändra" click="jagHandlar.changeStudentName(nameInput.text, newNameInput.text)"/>
+            </mx:FormItem>
+            
         </mx:Form>
     </mx:Panel>
 

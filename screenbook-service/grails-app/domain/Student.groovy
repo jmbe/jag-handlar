@@ -7,7 +7,7 @@ class Student {
     boolean screenKeyboard
 
     static constraints = {
-      username(blank: false, unique: true)
+      username(blank: false, unique: false)
     }
 
 	static def findByUsernameAndMainAccount(String username, String mainAccountName) {

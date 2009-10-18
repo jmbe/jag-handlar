@@ -23,4 +23,23 @@ class StudentService {
     def student = findStudent(accountName, studentName)
     student.screenKeyboard = screenKeyboard
   }
+
+  /**
+   * @return name of student
+   */
+  def changeStudentName(accountName,  oldStudentName,  newStudentName) {
+    if (newStudentName == null || newStudentName.trim().length() == 0) {
+      log.warn("New student name was empty when renaming ${accountName}:${oldStudentName}.")
+      return oldStudentName
+    }
+
+    def student = findStudent(accountName, oldStudentName)
+    if (student == null) {
+      log.warn("Could not find student named ${accountName}:${oldStudentName} when renaming. Aborting...")
+      return oldStudentName
+    }
+
+    student.username = newStudentName
+    return student.username
+  }
 }

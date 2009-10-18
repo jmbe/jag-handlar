@@ -53,6 +53,7 @@ public class JagHandlar extends EventDispatcher {
         this.studentController.addEventListener(StudentEvent.BOOK_OPENED, onOpenBookAsStudent);
         this.studentController.addEventListener(StudentEvent.ALL_ANSWERS_LOADED, onAnswerListLoaded);
         this.studentController.addEventListener(StudentEvent.ALL_ANSWERS_REMOVED, onAnswerListLoaded);
+        this.studentController.addEventListener(StudentEvent.STUDENT_NAME_CHANGED, onAnswerListLoaded);
 
         this.studentController.addEventListener(LoginTeacherEvent.SUCCESS, handleLoginSuccess);
         this.studentController.addEventListener(ApiKeyRequiredEvent.REQUIRED, onApiKeyRequired);
@@ -266,6 +267,10 @@ public class JagHandlar extends EventDispatcher {
 
     public function changeScreenKeyboard(student:String, useScreenKeyboard:Boolean):void {
         this.studentController.changeScreenKeyboard(currentApiKey, student, useScreenKeyboard);
+    }
+
+    public function changeStudentName(currentStudentName:String, newStudentName:String):void {
+        this.studentController.changeStudentName(currentApiKey, currentStudentName, newStudentName);
     }
 }
 }

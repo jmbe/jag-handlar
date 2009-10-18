@@ -236,5 +236,27 @@ public class StudentController extends EventDispatcher {
     }
 
 
-}
+    public function changeStudentName(apiKey:ApiKey, currentStudentName:String, newStudentName:String):void {
+        if (!checkApiKey(apiKey)) {
+            return;
+        }
+
+        var service:HTTPService = settings.createService("api/changeStudentName");
+
+        var params:Object = apiKey.toParameters();
+        params.student = currentStudentName;
+        params.newStudentName = newStudentName;
+
+
+        service.addEventListener(ResultEvent.RESULT, onStudentNameChanged);
+        service.addEventListener(FaultEvent.FAULT, httpServiceFault);
+
+        service.send(params);
+
+    }
+
+    private function onStudentNameChanged(event:ResultEvent):void {
+        var studentResult:StudentResult = new StudentResult().fromXml(XML(event.result));
+        dispatchEvent(new StudentEvent(StudentEvent.STUDENT_NAME_CHANGED, studentResult));
+    }}
 }

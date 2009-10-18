@@ -163,5 +163,20 @@ class ApiController {
     render XmlResults.getAnswersResult(studentInstance, answers)
 
   }
+
+  def changeStudentName = {
+    def accountName = params.account
+    def oldStudentName = params.student
+    def newStudentName = params.newStudentName
+
+    log.info("Changing name for student ${accountName}:${oldStudentName} to ${newStudentName}")
+
+    def changedName = studentService.changeStudentName(accountName, oldStudentName, newStudentName)
+
+    def answers = answerService.getAnswers(accountName, changedName)
+    def studentInstance = studentService.findStudent(accountName, changedName)
+
+    render XmlResults.getAnswersResult(studentInstance, answers)
+  }
  
 }

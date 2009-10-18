@@ -43,7 +43,7 @@ class XmlResults {
     def xml = new MarkupBuilder(writer)
 
     xml.result() {
-      student(studentInstance)
+      student(studentInstance.username)
       book(bookString)
       screenKeyboard(studentInstance.screenKeyboard)
       answers() {
