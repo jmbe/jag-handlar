@@ -50,7 +50,7 @@
 
         /* API-inloggning */
         private function doApiLogin(username:String, password:String):void {
-            jagHandlar.doApiLogin(username, password);
+            jagHandlar.loginAsApi(username, password);
         }
 
         private function onApiLogin(e:ApiLoginEvent):void {

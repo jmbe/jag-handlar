@@ -88,7 +88,18 @@ public class JagHandlar extends EventDispatcher {
         dispatchEvent(new NetworkProblemEvent(e.result));
     }
 
-    public function doApiLogin(username:String, apiKey:String):void {
+    /**
+     * Performs API login.
+     *
+     * Events:
+     *
+     * ApiLoginEvent.SUCCESS
+     * ApiLoginEvent.FAILURE
+     *
+     * @param username main account username
+     * @param apiKey api key which was read from URL query parameters
+     */
+    public function loginAsApi(username:String, apiKey:String):void {
         this.authenticationController.verifyApiLogin(username, apiKey);
         currentApiKey = new ApiKey(username, apiKey);
     }
@@ -124,6 +135,10 @@ public class JagHandlar extends EventDispatcher {
         return _currentTeacher;
     }
 
+
+    /**
+     * Determines whether the user is running in testmode, i.e. whether no one is logged in.
+     */
     public function get isTestMode():Boolean {
         return currentApiKey == null && currentTeacher == null;
     }
@@ -132,6 +147,9 @@ public class JagHandlar extends EventDispatcher {
         _currentTeacher = teacher;
     }
 
+    /**
+     * Logs out the currently logged in teacher.
+     */
     public function logoutTeacher():void {
         currentTeacher = null;
     }
@@ -160,14 +178,32 @@ public class JagHandlar extends EventDispatcher {
         //Alert("Student login success");
     }
 
-
+    /**
+     * Validates teacher login. Returns API key in the result event.
+     *
+     * Events:
+     *
+     * LoginTeacherEvent.SUCCESS
+     * LoginTeacherEvent.FAILURE
+     *
+     * @param username main account username
+     * @param password password
+     */
     public function loginAsTeacher(username: String, password:String):void {
         this.progressMessage = "Logging in as teacher";
         this.authenticationController.loginTeacher(username, password);
     }
 
+    /**
+     * Adds a new student to the currently logged in main account.
+     *
+     * @param student student name
+     * @param screenKeyboard whether the student should use screen keyboard
+     */
     public function createStudent(student:String, screenKeyboard:Boolean = false):void {
-        this.studentController.createStudent(currentApiKey, student, screenKeyboard);
+        if (!isTestMode) {
+            this.studentController.createStudent(currentApiKey, student, screenKeyboard);
+        }
     }
 
     private function onStudentCreated(e:StudentEvent):void {
@@ -192,6 +228,9 @@ public class JagHandlar extends EventDispatcher {
         dispatchEvent(new StudentEvent(e.type, e.result));
     }
 
+    /**
+     * Logs out the currently logged in student.
+     */
     public function logoutStudent():void {
         currentStudent = null;
     }
@@ -222,8 +261,21 @@ public class JagHandlar extends EventDispatcher {
         this.studentController.loadAnswer(currentApiKey, currentStudent, question);
     }
 
+    /**
+     * Saves an answer in the database for the currently logged in student.
+     *
+     * Does not work in test mode - requires that an account is logged in and a student is active.
+     *
+     * Events:
+     * AnswerEvent.SAVED
+     *
+     * @param question
+     * @param answer
+     */
     public function saveAnswer(question:String, answer:String):void {
-        this.studentController.saveAnswer(currentApiKey, currentStudent, question, answer);
+        if (!isTestMode) {
+            this.studentController.saveAnswer(currentApiKey, currentStudent, question, answer);
+        }
     }
 
     public function handleAnswerEvent(e:AnswerEvent):void {
@@ -231,6 +283,9 @@ public class JagHandlar extends EventDispatcher {
 
     }
 
+    /**
+     * @return currently logged in student.
+     */
     [Bindable]
     public function get currentStudent():String {
         return this.student;
@@ -258,6 +313,13 @@ public class JagHandlar extends EventDispatcher {
     }
 
 
+    /**
+     * Loads a list of all students for the currently logged in account.
+     *
+     * Events:
+     *
+     * StudentListEvent.LOADED
+     */
     public function loadAllStudents():void {
         this.studentController.loadAllStudents(currentApiKey);
     }
@@ -266,13 +328,24 @@ public class JagHandlar extends EventDispatcher {
         dispatchEvent(new StudentListEvent(event.type, event.studentList));
     }
 
-
+    /**
+     * Erases all answers in the book for the given student.
+     * @param student student name
+     */
     public function clearAllAnswers(student:String):void {
         this.studentController.clearAllAnswers(currentApiKey, student);
     }
 
+    /**
+     * Sets new screen keyboard setting for the given student.
+     *
+     * @param student student name.
+     * @param useScreenKeyboard whether screen keyboard should be used.
+     */
     public function changeScreenKeyboard(student:String, useScreenKeyboard:Boolean):void {
-        this.studentController.changeScreenKeyboard(currentApiKey, student, useScreenKeyboard);
+        if (!isTestMode) {
+            this.studentController.changeScreenKeyboard(currentApiKey, student, useScreenKeyboard);
+        }
     }
 
     public function changeStudentName(currentStudentName:String, newStudentName:String):void {
