@@ -1,7 +1,4 @@
 package se.spsm.screenbook.student {
-import mx.controls.Alert;
-import mx.utils.ArrayUtil;
-
 public class StudentList {
     public function StudentList() {
     }
@@ -14,7 +11,7 @@ public class StudentList {
 
         for each (var xmlStudent:XML in xml.students.children()) {
             _students.push(new StudentInfo().fromXml(xmlStudent));
-                       
+
         }
 
         return this;
@@ -33,7 +30,7 @@ public class StudentList {
     }
 
     public function toString():String {
-        return licenses +  " licenses, students: " + students.toString();
+        return licenses + " licenses, students: " + students.toString();
     }
 
 }

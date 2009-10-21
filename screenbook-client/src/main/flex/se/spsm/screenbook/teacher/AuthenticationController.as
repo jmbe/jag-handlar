@@ -1,7 +1,6 @@
 package se.spsm.screenbook.teacher {
 import flash.events.EventDispatcher;
 
-import mx.controls.Alert;
 import mx.rpc.events.FaultEvent;
 import mx.rpc.events.ResultEvent;
 import mx.rpc.http.HTTPService;
@@ -9,11 +8,11 @@ import mx.rpc.http.HTTPService;
 import se.spsm.screenbook.*;
 import se.spsm.screenbook.apikey.ApiLoginEvent;
 import se.spsm.screenbook.apikey.ApiLoginResult;
-import se.spsm.screenbook.lostpassword.LostPasswordEvent;
 import se.spsm.screenbook.lostpassword.ChangedPasswordEvent;
+import se.spsm.screenbook.lostpassword.LostPasswordEvent;
 import se.spsm.screenbook.network.NetworkProblemEvent;
 
-public class AuthenticationController extends EventDispatcher{
+public class AuthenticationController extends EventDispatcher {
     private var _settings:ConnectionSettings;
 
     public function AuthenticationController(connectionSettings:ConnectionSettings) {
@@ -54,9 +53,8 @@ public class AuthenticationController extends EventDispatcher{
         dispatchEvent(loginEvent);
     }
 
-    private function httpServiceFault(e:ResultEvent):void {
-        Alert.show("HTTP Failure");
-        dispatchEvent(new NetworkProblemEvent(e.result));
+    private function httpServiceFault(event:FaultEvent):void {
+        dispatchEvent(new NetworkProblemEvent(event));
     }
 
     public function verifyApiLogin(username:String, apiKey:String):void {
@@ -100,7 +98,7 @@ public class AuthenticationController extends EventDispatcher{
     }
 
     private function lostPasswordResult(e:ResultEvent):void {
-        
+
         var success:Boolean = "true" == XML(e.result).toString();
 
         var resultEvent:LostPasswordEvent = new LostPasswordEvent(LostPasswordEvent.RESULT, success);
@@ -133,5 +131,6 @@ public class AuthenticationController extends EventDispatcher{
         var success:Boolean = "true" == XML(event.result).toString();
         var resultEvent:ChangedPasswordEvent = new ChangedPasswordEvent(ChangedPasswordEvent.RESULT, success);
         dispatchEvent(resultEvent);
-    }}
+    }
+}
 }

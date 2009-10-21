@@ -1,6 +1,4 @@
 package se.spsm.screenbook.teacher {
-import mx.controls.Alert;
-
 public class LoginTeacherResult {
     private var _status:String;
     private var _username:String;

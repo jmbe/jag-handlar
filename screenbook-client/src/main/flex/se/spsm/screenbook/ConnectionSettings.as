@@ -1,12 +1,11 @@
 package se.spsm.screenbook {
-import mx.controls.Alert;
 import mx.rpc.http.HTTPService;
 
 public class ConnectionSettings {
     private var _host:String;
     private var _context:String;
 
-    public function ConnectionSettings(hostSetting:String="www.jaghandlar.se", contextSetting:String="/") {
+    public function ConnectionSettings(hostSetting:String = "www.jaghandlar.se", contextSetting:String = "/") {
         host = hostSetting;
         context = contextSetting;
     }
@@ -27,7 +26,7 @@ public class ConnectionSettings {
         this._context = newContext;
     }
 
-    public function get baseUrl() :String{
+    public function get baseUrl():String {
         return "http://" + _host + _context;
     }
 

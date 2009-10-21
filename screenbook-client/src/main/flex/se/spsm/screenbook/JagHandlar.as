@@ -72,6 +72,7 @@ public class JagHandlar extends EventDispatcher {
         this.authenticationController.addEventListener(ChangedPasswordEvent.RESULT, onChangedPasswordResult);
 
         this.authenticationController.addEventListener(NetworkProblemEvent.FAILURE, onNetworkProblem);
+        this.studentController.addEventListener(NetworkProblemEvent.FAILURE, onNetworkProblem);
 
 
         this.studentController.addEventListener(AnswerEvent.LOADED, handleAnswerEvent);

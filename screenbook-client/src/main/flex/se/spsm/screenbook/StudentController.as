@@ -2,7 +2,6 @@ package se.spsm.screenbook {
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
-import mx.controls.Alert;
 import mx.rpc.events.FaultEvent;
 import mx.rpc.events.ResultEvent;
 import mx.rpc.http.HTTPService;
@@ -11,6 +10,7 @@ import se.spsm.screenbook.answer.Answer;
 import se.spsm.screenbook.answer.AnswerEvent;
 import se.spsm.screenbook.apikey.ApiKey;
 import se.spsm.screenbook.apikey.ApiKeyRequiredEvent;
+import se.spsm.screenbook.network.NetworkProblemEvent;
 import se.spsm.screenbook.student.StudentEvent;
 import se.spsm.screenbook.student.StudentList;
 import se.spsm.screenbook.student.StudentListEvent;
@@ -41,9 +41,7 @@ public class StudentController extends EventDispatcher {
     }
 
     private function httpServiceFault(e:FaultEvent):void {
-        // TODO remove alert
-        Alert.show("Problem due to " + e.toString());
-        throw new Error("There was a problem sending the request due to: " + e.toString());
+        dispatchEvent(new NetworkProblemEvent(e));
     }
 
     public function createStudent(apiKey:ApiKey, student:String, screenKeyboard:Boolean):void {

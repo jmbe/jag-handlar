@@ -1,5 +1,4 @@
 package se.spsm.screenbook.answer {
-import mx.controls.Alert;
 
 public class Answer {
     private var _question_key:String;

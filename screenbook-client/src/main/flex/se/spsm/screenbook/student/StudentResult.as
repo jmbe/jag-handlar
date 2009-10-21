@@ -1,5 +1,4 @@
 package se.spsm.screenbook.student {
-import mx.controls.Alert;
 import mx.utils.ObjectUtil;
 
 import se.spsm.screenbook.answer.Answer;
@@ -52,5 +51,6 @@ public class StudentResult {
 
     public function get useScreenKeyboard():Boolean {
         return _useScreenKeyboard;
-    }}
+    }
+}
 }

@@ -1,6 +1,4 @@
 package se.spsm.screenbook.apikey {
-import mx.controls.Alert;
-
 public class ApiLoginResult {
 
     private var _valid:Boolean;
