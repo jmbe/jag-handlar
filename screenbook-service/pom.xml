@@ -160,6 +160,12 @@
 			<scope>runtime</scope>
 		</dependency>
 
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.5.5</version>
+        </dependency>
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
@@ -197,6 +203,52 @@
 			<version>5.1.6</version>
 		</dependency>
 
-	</dependencies>
+        <dependency>
+            <groupId>se.pictosys</groupId>
+            <artifactId>payment-api</artifactId>
+            <version>2.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>se.pictosys</groupId>
+            <artifactId>payment-web</artifactId>
+            <version>2.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+        	<groupId>se.pictosys</groupId>
+        	<artifactId>country-service</artifactId>
+        	<version>2.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+        	<groupId>se.pictosys</groupId>
+        	<artifactId>license-service</artifactId>
+        	<version>2.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>se.pictosys</groupId>
+            <artifactId>pictosys-web</artifactId>
+            <version>2.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>packtag</groupId>
+            <artifactId>packtag</artifactId>
+            <version>3.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.yahoo.platform.yui</groupId>
+            <artifactId>yuicompressor</artifactId>
+            <version>2.3.6</version>
+        </dependency>
+    </dependencies>
 
 </project>
