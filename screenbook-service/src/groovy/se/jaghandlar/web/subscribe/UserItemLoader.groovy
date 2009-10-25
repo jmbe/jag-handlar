@@ -16,7 +16,7 @@ class UserItemLoader implements se.pictosys.payment.web.api.UserItemLoader {
   }
 
   void saveUserItem(HttpServletRequest request, String username) {
-    userItemLoader.set(request, new Username({username: username}));
+    userItemLoader.set(request, new Username(username: username));
   }
 
   boolean hasUserItem(HttpServletRequest request) {
