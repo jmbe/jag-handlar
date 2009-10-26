@@ -1,18 +1,30 @@
 package se.jaghandlar.web.subscribe
 
+import javax.annotation.Resource
 import javax.servlet.http.HttpServletRequest
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import se.pictosys.license.LicenseSelection
 import se.pictosys.payment.api.ContactInformation
 import se.pictosys.payment.api.data.NewPurchaseInfo
 import se.pictosys.payment.web.api.SubscriptionHandler
+import se.pictosys.web.api.Scope
+import se.pictosys.web.api.ScopeObjectLoader
 import se.pictosys.web.stripes.subscribe.invoice.CreateInvoiceForm
 import se.pictosys.web.stripes.subscribe.invoice.CreatePaynovaPurchaseForm
 
 @Component("subscriptionHandler")
 class JagHandlarSubscriptionHandler implements SubscriptionHandler {
 
-  java.lang.Object addPendingPurchase(String username, LicenseSelection licenseSelection, String type) {
+  def licenseLoader = new ScopeObjectLoader<LicenseSelection>("licenseSelection", Scope.SESSION)
+  def purchaseInfoLoader = new ScopeObjectLoader<NewPurchaseInfo>("pendingUser", Scope.SESSION)
+
+  def log = LoggerFactory.getLogger(JagHandlarSubscriptionHandler.class)
+
+  @Resource(name = "accountService")
+  def accountService
+
+  Object addPendingPurchase(String username, LicenseSelection licenseSelection, String type) {
     throw new UnsupportedOperationException("Not implemented");
   }
 
@@ -29,23 +41,24 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
   }
 
   void savePurchaseInfo(HttpServletRequest request, NewPurchaseInfo purchaseInfo) {
-    throw new UnsupportedOperationException("Not implemented");
+    purchaseInfoLoader.set(request, purchaseInfo)
   }
 
   NewPurchaseInfo loadPurchaseInfo(HttpServletRequest request) {
-    throw new UnsupportedOperationException("Not implemented");
+    return purchaseInfoLoader.get(request)
   }
 
-  void saveLicenseSelection(HttpServletRequest request, LicenseSelection licenseSelection) {
-    throw new UnsupportedOperationException("Not implemented");
+  void saveLicenseSelection(HttpServletRequest request, LicenseSelection license) {
+    licenseLoader.set(request, license);
   }
 
   LicenseSelection loadLicenseSelection(HttpServletRequest request) {
-    throw new UnsupportedOperationException("Not implemented");
+    return licenseLoader.get(request)
   }
 
   boolean doesUserExist(String username) {
-    throw new UnsupportedOperationException("Not implemented");
+    log.info "Checking if main account ${username} exists."
+    return accountService.mainAccountExists(username)
   }
 
   String getLoggedInUsername(HttpServletRequest request) {
@@ -57,26 +70,33 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
   }
 
   boolean isLoggedInAsCustomer(HttpServletRequest request) {
-    throw new UnsupportedOperationException("Not implemented");
+    return false;
   }
 
   void addUser(HttpServletRequest request, NewPurchaseInfo newPurchaseInfo) {
-    throw new UnsupportedOperationException("Not implemented");
+    // TODO add user without password, and notify admin
+    accountService.createMainAccount(newPurchaseInfo.getUsername(), newPurchaseInfo.getEmail())
   }
 
   boolean isRenewal(HttpServletRequest request) {
-    throw new UnsupportedOperationException("Not implemented");
+    // TODO hantera renewal
+    return false
   }
 
   void loadAccountFormValues(HttpServletRequest request, CreateInvoiceForm createInvoiceForm) {
-    throw new UnsupportedOperationException("Not implemented");
+    // TODO load account form values
   }
 
   void loadAddressFormValues(HttpServletRequest request, CreatePaynovaPurchaseForm createPaynovaPurchaseForm) {
-    throw new UnsupportedOperationException("Not implemented");
+    // TODO load address form values
   }
 
   void onSubscriptionRenewedEvent(HttpServletRequest request, String username) {
-    throw new UnsupportedOperationException("Not implemented");
+    /* Nothing to do in Jag handlar */
+  }
+
+  boolean isPayPalSupported() {
+    /* All customers must pay by invoice. */
+    return false
   }
 }

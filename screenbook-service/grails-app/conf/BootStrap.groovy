@@ -1,3 +1,7 @@
+import se.pictosys.country.CountryLoadFailedException
+import se.pictosys.country.api.Country
+import se.pictosys.country.UneceCountryRepository
+
 class BootStrap {
 
   def accountService
@@ -25,6 +29,21 @@ class BootStrap {
 
     /* Check or add book for Jag handlar */
     bookService.findOrCreate("jag-handlar")
+
+
+    try {
+      log.info("Loading countries...");
+      Collection<Country> countries = UneceCountryRepository.getInstance().getAll();
+      if (countries.size() < 10) {
+        log.error("Country collection is very small, "
+                + "just ${countries.size()} entries.");
+      }
+
+      servletContext.countries = countries
+      log.info("Loaded ${countries.size()} countries.");
+    } catch (CountryLoadFailedException e) {
+      log.error("Could not load countries.");
+    }
 
   }
 
