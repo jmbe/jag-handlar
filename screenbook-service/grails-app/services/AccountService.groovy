@@ -17,7 +17,9 @@ class AccountService {
 
     account.save()
 
-    Role.findByAuthority(authority).addToPeople(account)
+    Role role = Role.findByAuthority(authority)
+    role.refresh() // attach to session
+    role.addToPeople(account)
 
     return account
   }
