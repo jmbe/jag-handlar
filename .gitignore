@@ -7,5 +7,5 @@ target
 *_temp_flex*_config.xml
 *.log
 classes
-
+*/infinitest.settings
 
