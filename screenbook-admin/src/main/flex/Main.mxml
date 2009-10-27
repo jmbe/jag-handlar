@@ -17,7 +17,7 @@
         import se.spsm.screenbook.teacher.LoginTeacherEvent;
 
         [Bindable]
-        private var jagHandlar:JagHandlar = new JagHandlar(new ConnectionSettings("localhost:8080", "/screenbook-service/"));
+        private var jagHandlar:JagHandlar = new JagHandlar(new ConnectionSettings("localhost:8080"));
 
         private function onCreationComplete():void {
             jagHandlar.addEventListener(LoginTeacherEvent.SUCCESS, onLoginTeacher);
