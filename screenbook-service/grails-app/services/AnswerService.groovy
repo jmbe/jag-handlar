@@ -1,6 +1,6 @@
 class AnswerService {
 
-	boolean transactional = true
+	static transactional = true
 
     def getAnswers(accountName, studentName, bookname = "jag-handlar") {
       def answers = findAnswers(accountName, studentName, bookname)

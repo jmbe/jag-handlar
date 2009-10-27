@@ -1,6 +1,6 @@
 class RoleService {
 
-  boolean transactional = true
+  static transactional = true
 
 
 

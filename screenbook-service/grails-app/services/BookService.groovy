@@ -1,6 +1,6 @@
 class BookService {
 
-    boolean transactional = true
+    static transactional = true
 
     def findOrCreate(String name) {
       def book = Book.findByName(name);

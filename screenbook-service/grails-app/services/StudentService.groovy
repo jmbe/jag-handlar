@@ -8,6 +8,8 @@
  */
 class StudentService {
 
+  static transactional = true
+
   def getStudents(String accountName) {
     def students = Student.findAll("from Student as student where student.account.username = :accountName", [accountName: accountName])
     return students
