@@ -7,7 +7,7 @@ class AccountService {
   def authenticateService
   def mailService
 
-  boolean transactional = true
+  static transactional = true
 
 
   def createAccountWithRole(String username, String email, String authority) {
@@ -17,9 +17,12 @@ class AccountService {
 
     account.save()
 
-    Role role = Role.findByAuthority(authority)
-    role.refresh() // attach to session
-    role.addToPeople(account)
+
+    Role.withTransaction { status ->
+      Role role = Role.findByAuthority(authority, [fetch: [people:"eager"]])
+      log.info "Found role ${role}"
+      role.addToPeople(account)
+    }
 
     return account
   }

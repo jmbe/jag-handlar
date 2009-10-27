@@ -3,7 +3,11 @@
  */
 class Account {
 	static hasMany = [authorities: Role,
-                      students: Student]
+                      students: Student,
+                      purchases : Purchase]
+
+    static mappedBy = [purchases:"account"]
+
     static belongsTo = Role
 
 	/** Username */

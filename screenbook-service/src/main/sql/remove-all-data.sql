@@ -6,3 +6,4 @@ delete from work_book;
 delete from student;
 delete from account;
 delete from book;
+delete from purchase;

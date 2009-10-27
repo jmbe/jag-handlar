@@ -21,6 +21,9 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
 
   def log = LoggerFactory.getLogger(JagHandlarSubscriptionHandler.class)
 
+  @Resource(name = "purchaseService")
+  def purchaseService
+
   @Resource(name = "accountService")
   def accountService
 
@@ -29,7 +32,7 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
   }
 
   void addPurchase(String username, LicenseSelection licenseSelection, ContactInformation contactInformation, String type) {
-    throw new UnsupportedOperationException("Not implemented");
+    purchaseService.addInvoicePurchase(username, licenseSelection, contactInformation)
   }
 
   String getCurrentLicense(String username) {
