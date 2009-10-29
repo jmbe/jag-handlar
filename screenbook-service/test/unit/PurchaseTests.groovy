@@ -4,6 +4,7 @@ import se.pictosys.payment.api.Address
 import se.pictosys.payment.api.ContactInformation
 import se.pictosys.payment.api.Name
 import se.pictosys.payment.api.Street
+import se.jaghandlar.web.subscribe.JagHandlarLicenseRepository
 
 class PurchaseTests extends GrailsUnitTestCase {
   protected void setUp() {
@@ -23,7 +24,7 @@ class PurchaseTests extends GrailsUnitTestCase {
     ContactInformation contactInformation = new ContactInformation(
             "Contact", address, address, "", "", "");
 
-    def purchase = new Purchase(licenseSelection, contactInformation)
+    def purchase = new Purchase(licenseSelection, contactInformation, new JagHandlarLicenseRepository())
     assert "1" == purchase.license
 
   }
