@@ -15,7 +15,7 @@
 
 <table>
     <tr>
-        <td valign="top" style="width: 240px;"><span class="text header"><fmt:message
+        <td valign="top" style="width: 190px;"><span class="text header"><fmt:message
             key="contact.license" /></span>
         <p class="note">
         <c:choose>

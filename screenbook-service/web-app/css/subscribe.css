@@ -1,0 +1,211 @@
+.subscribe .upperblock, .subscribe .lowerblock {
+    padding-left: 190px;
+}
+
+.subscribe span.text.header {
+	font-size: large;
+	font-weight: bold;
+	display: block;
+	white-space: nowrap;
+	margin-right: 15px;
+}
+
+.subscribe ul {
+    list-style-type: none;
+}
+
+.subscribe .note {
+	font-size: x-small;
+	font-weight: bold;
+	color: #555;
+	font-family: Arial, Helvetica, sans-serif;
+	font-style:
+}
+
+
+div.backnext {
+	left: 190px;
+	width: 570px;
+	text-align: right;
+	margin: 30px 0;
+}
+
+.backnext .next, .backnext a.back {
+	color: black;
+	text-decoration: none;
+	font-size: smaller;
+	height: 46px;
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+	border: none;
+	font-weight: normal;
+	background-color: white;
+	background-repeat: no-repeat;
+	padding-top: 26px;
+}
+
+.backnext .next {
+	background-image: url(/images/subscribe/next.png);
+	background-position: top right;
+	padding-left: 0;
+	padding-right: 0;
+	cursor: pointer;
+}
+
+.backnext a.back {
+	background-image: url(/images/subscribe/back.png);
+	float: left;
+	background-position: top left;
+	cursor: pointer;
+}
+
+.backnext input.next:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#invoice fieldset {
+	width: 445px;
+}
+
+
+html > body fieldset.x-fieldset {
+	/* background-color doesn't look good in IE */
+	/*background-color: #f7f7ff;*/
+}
+
+fieldset.x-fieldset {
+	border: none;
+}
+
+fieldset.x-fieldset {
+	width: 475px;
+}
+
+.subscribe fieldset .item input, .subscribe  fieldset .item select, .subscribe  fieldset .item textarea {
+	font-size: 16px;
+	padding: 2px;
+	border: 1px solid #B5B8C8;
+	width: 250px;
+	background-color: white;
+
+}
+
+.subscribe fieldset .item select {
+	width: 255px;
+}
+
+.subscribe fieldset .item input:focus, .subscribe fieldset .item textarea:focus {
+	border: 1px solid #666;
+	background-color: #efefff;
+
+}
+
+.subscribe fieldset legend, fieldset.x-fieldset legend {
+	padding: 2px 5px;
+	font-size: 12px;
+	color: #444;
+}
+
+.subscribe fieldset .item {
+	text-align: right;
+	margin-bottom: 7px;
+	clear: both;
+}
+
+.subscribe .error-messages ul {
+    float: right;
+    color: red;
+    clear: both;
+}
+
+
+
+.subscribe fieldset .item label {
+	/*float: left;*/
+	margin-right: 10px;
+	font-weight: bold;
+	color: #333;
+	font-family: tahoma,arial,helvetica,sans-serif;
+	font-size: 12px;
+	padding: 3px 0;
+}
+
+.subscribe fieldset .item.optional {
+	margin-bottom: 2px;
+}
+
+.subscribe fieldset .item.optional label {
+	font-weight: normal;
+}
+
+.subscribe fieldset .item .notify, .subscribe fieldset .item .checkbox {
+	float: right;
+}
+
+.subscribe .item div.note {
+	float: right;
+	text-align: left;
+	width: 250px;
+	margin-bottom: 2em;
+}
+
+.subscribe fieldset .item .notify label {
+	/* need to make this text smaller since the Polish text is so long. */
+	font-size: 10px;
+}
+
+.x-panel-collapsed .item {
+	display: none;
+}
+
+fieldset.x-fieldset.x-panel-collapsed {
+	background-color: white;
+	padding-bottom: 0px;
+}
+
+
+form#invoice div.header {
+	border-bottom: 1px solid #B5B8C8;
+	width: 445px;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	margin-bottom: 15px;
+	margin-top: 15px;
+	font-size: 20px;
+
+}
+
+form#invoice div.header h2 {
+	font-size: large;
+	float: left;
+	font-weight: normal;
+	color: #333;
+}
+
+form#invoice div.header .checkbox {
+	font-size: 12px;
+}
+
+.paypal-summary {
+   border-collapse: collapse;
+   margin: 2em 0em;
+}
+
+.paypal-summary th {
+    color: #444;
+    font-weight: bold;
+    font-size: small;
+}
+
+.paypal-summary td, .paypal-summary th {
+    padding: 0.3em 0.7em;
+}
+
+td.number {
+    text-align: right;
+}
+
+.paypal-summary tbody {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid black;
+
+}
