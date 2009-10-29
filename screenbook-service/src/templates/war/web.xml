@@ -57,6 +57,10 @@
 			</param-value>
         </init-param>
         <init-param>
+            <param-name>Extension.Packages</param-name>
+            <param-value>se.jaghandlar.localization</param-value>
+        </init-param>
+        <init-param>
             <param-name>PopulationStrategy.Class</param-name>
             <param-value>net.sourceforge.stripes.tag.BeanFirstPopulationStrategy</param-value>
         </init-param>
@@ -108,6 +112,19 @@
         <servlet-name>gsp</servlet-name>
         <servlet-class>org.codehaus.groovy.grails.web.pages.GroovyPagesServlet</servlet-class>
     </servlet>
+
+    <servlet>
+        <description>This is the servlet needed for cache.type servlet, returns the packed resources</description>
+        <display-name>PackServlet</display-name>
+        <servlet-name>PackServlet</servlet-name>
+        <servlet-class>net.sf.packtag.servlet.PackServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PackServlet</servlet-name>
+        <url-pattern>*.pack</url-pattern>
+    </servlet-mapping>
+    
 
     <servlet-mapping>
         <servlet-name>gsp</servlet-name>
