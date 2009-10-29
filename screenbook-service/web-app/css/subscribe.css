@@ -1,3 +1,9 @@
+/* Hide stripes error header */
+.error-header,.errorHeader {
+    display: none;
+}
+
+
 .subscribe .upperblock, .subscribe .lowerblock {
     padding-left: 190px;
 }
@@ -116,8 +122,15 @@ fieldset.x-fieldset {
     float: right;
     color: red;
     clear: both;
+    margin: 0;
+
 }
 
+.subscribe .error-messages ul li {
+    padding: 0;
+    margin: 0;
+    font-size: 10px;
+}
 
 
 .subscribe fieldset .item label {
@@ -179,6 +192,7 @@ form#invoice div.header h2 {
 	float: left;
 	font-weight: normal;
 	color: #333;
+    margin: 0 0 6px;
 }
 
 form#invoice div.header .checkbox {
