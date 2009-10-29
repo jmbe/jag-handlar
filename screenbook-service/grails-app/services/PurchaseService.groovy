@@ -5,6 +5,8 @@ class PurchaseService {
 
   static transactional = true
 
+  def licenseRepository
+
   def addInvoicePurchase(String username,
                          LicenseSelection licenseSelection,
                          ContactInformation contactInformation) {
@@ -12,12 +14,13 @@ class PurchaseService {
     log.info "Adding invoice purchase to account ${username}"
 
 
+    log.debug "License repository is ${licenseRepository}"
 
     def purchase = null
 
     Purchase.withTransaction {status ->
       log.info "Saving purchase"
-      purchase = new Purchase(licenseSelection, contactInformation)
+      purchase = new Purchase(licenseSelection, contactInformation, licenseRepository)
       purchase.save()
       log.info "Saved purchase ${purchase}."
     }

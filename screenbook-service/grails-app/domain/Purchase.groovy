@@ -1,6 +1,7 @@
 import se.pictosys.license.LicenseSelection
 import se.pictosys.payment.api.ContactInformation
 import se.pictosys.payment.api.Address
+import se.pictosys.license.api.LicenseRepository
 
 class Purchase {
 
@@ -37,11 +38,11 @@ class Purchase {
     /* Required for Hibernate */
   }
 
-  Purchase(LicenseSelection licenseSelection, ContactInformation contactInformation) {
+  Purchase(LicenseSelection licenseSelection, ContactInformation contactInformation, LicenseRepository licenseRepository) {
     this.license = licenseSelection.license
 
-    this.amount = licenseSelection.price.amount
-    this.currency = licenseSelection.price.currency
+    this.amount = licenseSelection.getPrice(licenseRepository).amount
+    this.currency = licenseSelection.getPrice(licenseRepository).currency
 
     this.contactPerson = contactInformation.contactPerson
     this.phoneNumber = contactInformation.phoneNumber
