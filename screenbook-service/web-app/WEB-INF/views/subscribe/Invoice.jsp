@@ -176,7 +176,7 @@
 
 
     <div class="backnext" style="width: 455px; margin-bottom: 150px;">
-      <a href="/subscribe/method/" class="back"><fmt:message key="common.back" /></a>
+      <a href="/subscribe/account/" class="back"><fmt:message key="common.back" /></a>
 
     <button type="submit" class="next" name="createInvoice"><fmt:message
         key="common.next" /></button>
