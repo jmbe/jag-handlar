@@ -4,6 +4,11 @@
 }
 
 
+.subscribe .centeredcontent {
+    padding-left: 190px;
+    width: 380px;
+}
+
 .subscribe .upperblock, .subscribe .lowerblock {
     padding-left: 190px;
 }
