@@ -281,6 +281,12 @@
             <version>2.3.6</version>
         </dependency>
 
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+            <scope>provided</scope>               
+        </dependency>
 
         <!-- Explicit version to avoid duplicate dependencies -->
         <dependency>
