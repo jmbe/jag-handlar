@@ -18,11 +18,11 @@ class AccountService {
     account.save()
 
 
-    Role.withTransaction { status ->
-      Role role = Role.findByAuthority(authority, [fetch: [people:"eager"]])
-      log.info "Found role ${role}"
-      role.addToPeople(account)
-    }
+    log.info "Adding role ${authority} to account ${username}."
+
+    Role role = Role.findByAuthority(authority)
+    log.debug "Found role ${role}"
+    role.addToPeople(account)
 
     return account
   }
