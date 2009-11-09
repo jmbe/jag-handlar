@@ -2,35 +2,39 @@
  * User domain class.
  */
 class Account {
-	static hasMany = [authorities: Role,
-                      students: Student,
-                      purchases : Purchase]
+  static hasMany = [authorities: Role,
+          students: Student,
+          purchases: Purchase]
 
-    static mappedBy = [purchases:"account"]
+  static mappedBy = [purchases: "account"]
 
-    static belongsTo = Role
+  static belongsTo = Role
 
-	/** Username */
-	String username
-	/** MD5 Password */
-	String passwd
-    String apikey
+  /** Username   */
+  String username
+  /** MD5 Password   */
+  String passwd
+  String apikey
 
-    String email
+  String email
 
-    Date lastUpdated
-    Date dateCreated
+  Date lastUpdated
+  Date dateCreated
 
-	/** enabled */
-	boolean enabled
+  /** enabled   */
+  boolean enabled
 
-	static constraints = {
-		username(blank: false, unique: true)
-		passwd(blank: false)
-		enabled()
-	}
+  static constraints = {
+    username(blank: false, unique: true)
+    passwd(blank: false)
+    enabled()
 
-	def hasFreeLicenses() {
-		return true
-	}
+    lastUpdated(nullable: true)
+    dateCreated(nullable: true)
+
+  }
+
+  def hasFreeLicenses() {
+    return true
+  }
 }
