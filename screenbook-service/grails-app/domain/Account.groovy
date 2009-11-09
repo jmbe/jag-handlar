@@ -18,6 +18,9 @@ class Account {
 
     String email
 
+    Date lastUpdated
+    Date dateCreated
+
 	/** enabled */
 	boolean enabled
 
