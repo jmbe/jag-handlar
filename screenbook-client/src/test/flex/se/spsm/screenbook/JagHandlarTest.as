@@ -3,12 +3,19 @@ import flexunit.framework.TestCase;
 
 import se.spsm.screenbook.teacher.LoginTeacherEvent;
 
+/**
+ * Note: this test requires that Grails is running.
+ */
 public class JagHandlarTest extends TestCase {
 
     private var jagHandlar:JagHandlar;
 
+    public function JagHandlarTest() {
+        
+    }
+
     override public function setUp():void {
-        jagHandlar = new JagHandlar(new ConnectionSettings("localhost:8080", "/screenbook-service/"));
+        jagHandlar = new JagHandlar(new ConnectionSettings("localhost:8080", "/"));
     }
 
 
