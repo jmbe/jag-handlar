@@ -19,8 +19,11 @@ beans = {
 				password = "screenbook-dev"
 				testOnBorrow = "true"
 				validationQuery = "SELECT 1 FROM DUAL;"
-                /* Warning! Setting auto commit to true since Grails seems to expect(?) it. */
+                /* Warning! Setting auto commit to true since Grails seems to expect it. Grails does this itself when
+                 * configuring a datasource to be pooled. */
 				defaultAutoCommit = "true"
 			}
-		}
+		} else {
+            println "Using datasources from DataSource.groovy."
+        }
 }
