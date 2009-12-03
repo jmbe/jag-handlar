@@ -63,7 +63,16 @@
                                 <td valign="top" class="value ${hasErrors(bean:accountInstance,field:'enabled','errors')}">
                                     <g:checkBox name="enabled" value="${accountInstance?.enabled}" ></g:checkBox>
                                 </td>
-                            </tr> 
+                            </tr>
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="enabled">show bookmark reminder:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:accountInstance,field:'showBookmarkReminder','errors')}">
+                                    <g:checkBox name="showBookmarkReminder" value="${accountInstance?.showBookmarkReminder}" ></g:checkBox>
+                                </td>
+                            </tr>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">

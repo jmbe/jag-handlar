@@ -63,6 +63,13 @@
                             <td valign="top" class="value">${fieldValue(bean:accountInstance, field:'enabled')}</td>
                             
                         </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="name">Bookmark reminder:</td>
+
+                            <td valign="top" class="value">${fieldValue(bean:accountInstance, field:'showBookmarkReminder')}</td>
+
+                        </tr>
                     
                         <tr class="prop">
                             <td valign="top" class="name">Authorities:</td>
