@@ -195,6 +195,11 @@ public class JagHandlar extends EventDispatcher {
         this.authenticationController.loginTeacher(username, password);
     }
 
+
+    public function clearBookmarkReminder(): void {
+        this.authenticationController.clearBookmarkReminder(currentApiKey.username);
+    }
+
     /**
      * Adds a new student to the currently logged in main account.
      *

@@ -186,4 +186,11 @@ Lösenord: ${password}
     return true
   }
 
+  def clearBookmarkReminder(String username) {
+    def account = Account.findByUsername(username)
+
+    if (account != null) {
+      account.showBookmarkReminder = false;
+    }
+  }
 }

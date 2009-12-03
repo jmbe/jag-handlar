@@ -103,6 +103,7 @@
 
             apiUsername.text = e.result.username;
             apiKey.text = e.result.key;
+            showBookmarkReminder.selected = e.result.showBookmarkReminder;
 
             testMode.text = jagHandlar.isTestMode.toString();
         }
@@ -167,6 +168,9 @@
             </mx:FormItem>
             <mx:FormItem label="Nuvarande lärare">
                 <mx:Label text="{jagHandlar.currentTeacher.username}"/>
+            </mx:FormItem>
+            <mx:FormItem label="Visa bokmärkespåminnelse">
+                <mx:CheckBox id="showBookmarkReminder" click="jagHandlar.clearBookmarkReminder()" />
             </mx:FormItem>
             <mx:FormItem>
                 <mx:Button label="Logga ut lärare/API/elev" click="jagHandlar.logout()" />

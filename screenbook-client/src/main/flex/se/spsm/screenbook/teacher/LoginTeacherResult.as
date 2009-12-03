@@ -3,11 +3,13 @@ public class LoginTeacherResult {
     private var _status:String;
     private var _username:String;
     private var _key:String;
+    private var _showBookmarkReminder:Boolean;
 
     public function LoginTeacherResult(result:XML) {
         _username = result.username;
         _status = result.status;
         _key = result.apikey;
+        _showBookmarkReminder = result.showBookmarkReminder == "true";
     }
 
     public function get isFailure():Boolean {
@@ -28,6 +30,10 @@ public class LoginTeacherResult {
 
     public function get key():String {
         return _key;
+    }
+
+    public function get showBookmarkReminder():Boolean {
+        return _showBookmarkReminder;
     }
 }
 }

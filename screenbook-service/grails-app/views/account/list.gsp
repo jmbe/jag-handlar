@@ -32,6 +32,8 @@
                             <g:sortableColumn property="email" title="Email" />
                         
                    	        <g:sortableColumn property="enabled" title="Enabled" />
+
+                            <g:sortableColumn property="showBookmarkReminder" title="Show bookmark reminder" />
                         
                         </tr>
                     </thead>
@@ -50,7 +52,9 @@
                             <td>${fieldValue(bean:accountInstance, field:'email')}</td>
                         
                             <td>${fieldValue(bean:accountInstance, field:'enabled')}</td>
-                        
+
+                            <td>${fieldValue(bean:accountInstance, field:'showBookmarkReminder')}</td>
+
                         </tr>
                     </g:each>
                     </tbody>

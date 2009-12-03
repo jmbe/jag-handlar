@@ -26,7 +26,7 @@ class XmlResults {
   }
 
 
-  def static getLoginAsTeacherResult(String usernameString, String apikeyString, String statusString, String errorString) {
+  def static getLoginAsTeacherResult(String usernameString, String apikeyString, String statusString, String errorString, boolean showBookmarkReminderFlag) {
     def writer = new StringWriter()
     def xml = new MarkupBuilder(writer)
     xml.result() {
@@ -34,6 +34,7 @@ class XmlResults {
       username(usernameString)
       apikey(apikeyString)
       error(errorString)
+      showBookmarkReminder(showBookmarkReminderFlag)
     }
     return [text: writer.toString(), contentType: "text/xml"]
   }

@@ -32,8 +32,12 @@ class AuthenticationController {
       def apikey
       def result
       def error
+      def showBookmarkReminder = true;
       try {
         apikey = accountService.verifyLogin(username, password)
+
+        def account = Account.findByUsername(username)
+        showBookmarkReminder = account.showBookmarkReminder;
         result ="success"
       } catch (UserNotFoundException e) {
         result = "failure"
@@ -43,7 +47,7 @@ class AuthenticationController {
         error = e.message
       }
 
-      render XmlResults.getLoginAsTeacherResult(username, apikey, result, error)
+      render XmlResults.getLoginAsTeacherResult(username, apikey, result, error, showBookmarkReminder)
     }
 
     def changeTeacherPassword = {
@@ -71,6 +75,17 @@ class AuthenticationController {
       def accountIdentifier = params.accountIdentifier
       log.info("Received new password request for ${accountIdentifier}.")
       render accountService.resetPassword(accountIdentifier) as XML
+    }
+
+    def clearBookmarkReminder = {
+      def username = params.username
+      log.info "Clearing bookmark reminder for account ${username}"
+
+
+
+      accountService.clearBookmarkReminder(username)
+
+      render ""
     }
 
 }

@@ -132,5 +132,18 @@ public class AuthenticationController extends EventDispatcher {
         var resultEvent:ChangedPasswordEvent = new ChangedPasswordEvent(ChangedPasswordEvent.RESULT, success);
         dispatchEvent(resultEvent);
     }
+
+    public function clearBookmarkReminder(username:String):void {
+        var service:HTTPService = _settings.createService("authentication/clearBookmarkReminder");
+
+        var params:Object = {
+            username : username
+        };
+
+
+        service.addEventListener(FaultEvent.FAULT, httpServiceFault);
+
+        service.send(params);
+    }
 }
 }

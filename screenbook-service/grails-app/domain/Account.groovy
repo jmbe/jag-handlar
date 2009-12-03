@@ -24,6 +24,8 @@ class Account {
   /** enabled   */
   boolean enabled
 
+  boolean showBookmarkReminder = true
+
   static constraints = {
     username(blank: false, unique: true)
     passwd(blank: false)
