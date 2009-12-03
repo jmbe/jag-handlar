@@ -10,6 +10,28 @@ class AccountService {
   static transactional = true
 
 
+  def accountRemotingTest() {
+    log.info "Account remoting test"
+    def account = new Account(username: 'user', passwd: 'password', apikey: UUID.randomUUID().toString(), enabled: true, email: 'email@t.se')
+    return account
+
+  }
+
+  def helloRemotingTest() {
+    log.info "Hello remoting test"
+    "Hello world!"
+  }
+
+  def parameterRemotingTest(String name) {
+    log.info "Received parameter ${name}"
+
+    def t = "Hi ${name}";
+    // must use actual String so that Flex can read it.
+    return t as String
+
+  }
+
+
   def createAccountWithRole(String username, String email, String authority) {
     log.info("Creating account " + username)
 

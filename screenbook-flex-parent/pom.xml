@@ -20,6 +20,17 @@
     </properties>
 
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.sonatype.flexmojos</groupId>
+                <artifactId>flexmojos-maven-plugin</artifactId>
+                <version>${flex.plugin.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
+
     <build>
         <sourceDirectory>src/main/flex</sourceDirectory>
         <testSourceDirectory>src/test/flex</testSourceDirectory>

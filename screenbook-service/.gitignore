@@ -2,4 +2,6 @@ target
 plugins
 stacktrace.log
 test/reports/*
+*.swf
+*.swc
 

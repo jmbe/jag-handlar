@@ -3,6 +3,7 @@
 
 
     <mx:Script><![CDATA[
+        import mx.collections.ArrayCollection;
         import mx.controls.Alert;
 
         import se.spsm.screenbook.ConnectionSettings;
@@ -16,8 +17,14 @@
         import se.spsm.screenbook.student.StudentListEvent;
         import se.spsm.screenbook.teacher.LoginTeacherEvent;
 
+
+        private var connectionSettings:ConnectionSettings = new ConnectionSettings("localhost:8080");
+
+        
+        private var amf:String = "http://localhost:8080/messagebroker/amf";
+
         [Bindable]
-        private var jagHandlar:JagHandlar = new JagHandlar(new ConnectionSettings("localhost:8080"));
+        private var jagHandlar:JagHandlar = new JagHandlar(connectionSettings);
 
         private function onCreationComplete():void {
             jagHandlar.addEventListener(LoginTeacherEvent.SUCCESS, onLoginTeacher);
@@ -123,6 +130,25 @@
 
         ]]></mx:Script>
 
+
+    <mx:RemoteObject id="accountService" destination="accountService" endpoint="{amf}" showBusyCursor="true"  />
+
+
+    <mx:Panel title="Remoting">
+
+
+        <mx:Button label="Hello" click="accountService.helloRemotingTest()" />
+        <mx:TextInput text="{accountService.helloRemotingTest.lastResult}" />
+
+        <mx:Button label="Parameter test" click="accountService.parameterRemotingTest('test')" />
+        <mx:TextInput text="{accountService.parameterRemotingTest.lastResult}" />
+
+
+        <mx:Button label="Account test" click="accountService.accountRemotingTest()" />
+        <mx:TextInput text="{accountService.accountRemotingTest.lastResult.username}" />
+        <mx:DataGrid id="dg" dataProvider="{accountService.accountRemotingTest.lastResult}" />
+
+    </mx:Panel>
 
     <mx:Panel title="Logga in som lärare">
         <mx:Form>
@@ -274,5 +300,6 @@
         </mx:Form>
 
     </mx:Panel>
+
 
 </mx:Application>

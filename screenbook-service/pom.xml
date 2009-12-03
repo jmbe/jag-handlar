@@ -19,6 +19,7 @@
     <properties>
         <grails.version>1.1.1</grails.version>
         <slf4j.version>1.5.6</slf4j.version>
+        <flex.blazeds.version>3.2.0.3978</flex.blazeds.version>
     </properties>
 
 
@@ -210,6 +211,12 @@
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.flex</groupId>
+            <artifactId>spring-flex</artifactId>
+            <version>1.0.1.RELEASE</version>
         </dependency>
 
         <dependency>

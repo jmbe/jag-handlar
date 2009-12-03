@@ -109,6 +109,12 @@
         <listener-class>org.codehaus.groovy.grails.web.context.GrailsContextLoaderListener</listener-class>
     </listener>
 
+
+    <listener>
+        <listener-class>flex.messaging.HttpFlexSession</listener-class>
+    </listener>
+
+
     <!-- Grails dispatcher servlet -->
     <servlet>
         <servlet-name>grails</servlet-name>
@@ -128,6 +134,24 @@
         <servlet-name>PackServlet</servlet-name>
         <servlet-class>net.sf.packtag.servlet.PackServlet</servlet-class>
     </servlet>
+
+
+    <servlet>
+        <servlet-name>messagebroker</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/flex/spring-flex.xml</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>messagebroker</servlet-name>
+        <url-pattern>/messagebroker/*</url-pattern>
+    </servlet-mapping>
+
+
 
     <servlet-mapping>
         <servlet-name>PackServlet</servlet-name>

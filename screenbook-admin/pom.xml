@@ -14,6 +14,21 @@
     <packaging>swf</packaging>
     <name>Jag handlar Backoffice</name>
 
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.flexmojos</groupId>
+                <artifactId>flexmojos-maven-plugin</artifactId>
+                <configuration>
+                    <contextRoot>/</contextRoot>
+                    <services>${basedir}/../screenbook-service/web-app/WEB-INF/flex/services-config.xml</services>
+                    <output>${basedir}/../screenbook-service/web-app/${project.build.finalName}.swf</output>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
    <dependencies>
 
        <dependency>
