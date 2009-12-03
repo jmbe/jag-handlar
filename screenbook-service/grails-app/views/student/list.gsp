@@ -26,7 +26,9 @@
                    	        <g:sortableColumn property="username" title="Username" />
                         
                    	        <th>Account</th>
-                   	    
+
+                            <th>Screen keyboard</th>
+                   	     
                         </tr>
                     </thead>
                     <tbody>
@@ -38,7 +40,9 @@
                             <td>${fieldValue(bean:studentInstance, field:'username')}</td>
                         
                             <td>${fieldValue(bean:studentInstance, field:'account')}</td>
-                        
+
+                            <td>${fieldValue(bean:studentInstance, field:'screenKeyboard')}</td>
+
                         </tr>
                     </g:each>
                     </tbody>
