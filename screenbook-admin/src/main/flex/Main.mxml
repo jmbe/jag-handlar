@@ -86,6 +86,8 @@
             nameInput.text = e.result.student;
             studentResult.text = e.result.toString();
             screenKeyboard.selected = e.result.useScreenKeyboard;
+
+            jagHandlar.loadAllStudents();
         }
 
         /* Open book as student */
