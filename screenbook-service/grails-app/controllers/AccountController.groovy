@@ -1,3 +1,4 @@
+import org.apache.commons.lang.StringUtils
 import org.codehaus.groovy.grails.plugins.springsecurity.Secured
 
 @Secured(['ROLE_ADMIN'])
@@ -69,8 +70,17 @@ class AccountController {
                     return
                 }
             }
+
+            if (StringUtils.isEmpty(params.passwd)) {
+              log.info "Passwd was empty. Will not change password."
+              params.remove("passwd")
+            } else {
+              log.info "Changing password for ${accountInstance.id}."
+              params.passwd = authenticateService.encodePassword(params.passwd)
+            }
+
             accountInstance.properties = params
-            accountInstance.passwd = authenticateService.encodePassword(params.passwd)
+
             if(!accountInstance.hasErrors() && accountInstance.save()) {
                 flash.message = "Account ${params.id} updated"
                 redirect(action:show,id:accountInstance.id)
