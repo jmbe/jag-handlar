@@ -31,7 +31,7 @@ public class ConnectionSettings {
     }
 
 
-    public function createService(partialUrl:String, method:String = "GET", resultFormat:String = "xml"):HTTPService {
+    public function createService(partialUrl:String, method:String = "POST", resultFormat:String = "xml"):HTTPService {
         // Alert.show("Creating service in connection settings");
         var url:String = baseUrl + partialUrl;
         var service:HTTPService = new HTTPService();
