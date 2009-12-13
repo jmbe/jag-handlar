@@ -140,12 +140,12 @@ class AccountService {
     return account != null;
   }
 
-  def createStudentAccount(String accountName, String studentName) {
+  def createStudentAccount(String accountName, String studentName, Boolean screenKeyboard = false) {
     log.info("Creating student " + studentName)
 
     def account = Account.findByUsername(accountName)
 
-    def student = new Student(username: studentName, account: account)
+    def student = new Student(username: studentName, account: account, screenKeyboard: screenKeyboard)
     student.save()
 
     return student

@@ -91,6 +91,7 @@ class ApiController {
   def createStudent = {
     def accountName = params.account
     def studentName = params.student
+    def screenKeyboard = "true".equals(params.screenKeyboard)
 
     log.info("Creating student '${studentName}' on account '${accountName}'.")
     
@@ -106,7 +107,7 @@ class ApiController {
 
     def loginVerified = accountService.verifyStudentLogin(accountName, studentName)
     if (!loginVerified && accountService.verifyFreeLicences(accountName)) {
-      accountService.createStudentAccount(accountName, studentName)
+      accountService.createStudentAccount(accountName, studentName, screenKeyboard)
     } else if (!loginVerified) {
       render false as XML
       return
