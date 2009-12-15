@@ -27,10 +27,9 @@ class JagHandlarLicenseRepository implements LicenseRepository{
   private LicenseCollection getLicenseCollection(final String countryCode) {
       PictosysCurrency sek = new PictosysCurrency("SEK", "kr");
       LicenseCollection licenseCollection = new LicenseCollection(sek);
-      licenseCollection.add(new License(1, new Price(200, sek)));
-      licenseCollection.add(new License(2, new Price(300, sek)));
-      licenseCollection.add(new License(4, new Price(400, sek)));
-      licenseCollection.add(new License(8, new Price(600, sek)));
+      for(int i = 1; i <= 8; i++) {
+        licenseCollection.add(new License(i, new Price(75*i, sek)));
+      }
       return licenseCollection;
   }
 

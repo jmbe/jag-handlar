@@ -35,7 +35,8 @@
             <fmt:message key="${license.resourceKey}">
               <fmt:param  value="${license.users}" />
             </fmt:message>&nbsp;&mdash;&nbsp;
-            ${license.price.amount}&nbsp;${license.price.currency.label}
+            <fmt:formatNumber type="number" value="${license.price.amount * 4 / 5}" maxFractionDigits="0" />&nbsp;${license.price.currency.label}
+            &nbsp;(${license.price.amount}&nbsp;${license.price.currency.label} inkl moms)
         </label>
         </li>
         </c:forEach>
