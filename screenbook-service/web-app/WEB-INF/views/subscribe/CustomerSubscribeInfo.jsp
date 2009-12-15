@@ -1,3 +1,6 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="stripes" uri="http://stripes.sourceforge.net/stripes.tld" %>
 <%@ include file="/WEB-INF/partials/common.taglibs.jsp"%>
 
 
@@ -8,20 +11,15 @@
     <fmt:message key="title.subscribe" />
   </stripes:layout-component>
   <stripes:layout-component name="bodyClasses">subscribe</stripes:layout-component>
+  <stripes:layout-component name="page">info</stripes:layout-component>    
   <stripes:layout-component name="content">
 
-  <div class="centeredcontent">
+  <h1><fmt:message key="subscribe.whatis.header" /></h1>
+  <p><fmt:message key="subscribe.whatis.text" /></p>
 
-    <h1><fmt:message key="title.subscribe" /></h1>
-    <h2><fmt:message key="subscribe.whatis.header" /></h2>
-
-    <p><fmt:message key="subscribe.whatis.text" /></p>
-
-
-    <div style="margin: 30px 0px;">
-        <a href="/subscribe/license/" class="order large-button" style="margin:0"> <fmt:message key="subscribe.button" /></a>
-    </div>
-
+  <div class="backnext" style="background: none;">
+    <img src="/images/subscribe/long-gradient.png" alt="" />
+    <a href="/subscribe/license/" class="next"><fmt:message key="common.next" /></a>
   </div>
 
   </stripes:layout-component>

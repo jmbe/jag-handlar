@@ -1,3 +1,5 @@
+<%@ taglib prefix="stripes" uri="http://stripes.sourceforge.net/stripes.tld" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/partials/common.taglibs.jsp"%>
 
 <c:set var="previousPage" value="/subscribe/account/" scope="session" />
@@ -5,48 +7,57 @@
 <stripes:layout-render name="/WEB-INF/layout/customer.jsp">
   <stripes:layout-component name="titleKey">title.new.subscription</stripes:layout-component>
   <stripes:layout-component name="bodyClasses">subscribe</stripes:layout-component>
+  <stripes:layout-component name="page">account</stripes:layout-component>
   <stripes:layout-component name="content">
 
-<div class="upperblock">
+
 <stripes:form action="/subscribe/account/" id="account">
 
-    <fieldset class="x-fieldset">
-
+    <h1>V&auml;lj anv&auml;ndarnamn</h1>
+    <label class="subscribe-label">Skriv vilket anv&auml;ndarnamn du vill ha (t ex ditt namn, namnet p&aring; skolan, klassen/gruppen, boendet). </label>
 
     <div class="error-messages"><stripes:errors field="createAccountForm.newUsername" /></div>
-    <div class="item">
-      <stripes:label for="createAccountForm.newUsername" />
-      <stripes:text id="newUsername" name="createAccountForm.newUsername" />
-      <div class="note"><fmt:message key="createAccountForm.newUsername.hint" /></div>
+    <div>
+        <stripes:text id="newUsername" class="subscribe-text" name="createAccountForm.newUsername" />
     </div>
+    <div class="note" style="margin-bottom: 25px;"><fmt:message key="createAccountForm.newUsername.hint" /></div>
 
-    <div class="error-messages"><stripes:errors field="createAccountForm.email" /></div>
-    <div class="item">
-      <stripes:label for="createAccountForm.email" />
-      <stripes:text name="createAccountForm.email" />
-    </div>
 
-    <div class="error-messages"><stripes:errors field="createAccountForm.verifyEmail" /></div>
-    <div class="item">
-      <stripes:label for="createAccountForm.verifyEmail" />
-      <stripes:text id="verifyEmail" name="createAccountForm.verifyEmail" />
-    </div>
+    <label class="subscribe-label" style="padding-left: 3px;">Din e-postadress (hit skickas dina personliga inloggningsuppgifter).</label>
+    <table class="form-fields-right">
+        <tr>
+            <th><stripes:label class="subscribe-label" for="createAccountForm.email" /></th>
+            <td><stripes:text class="subscribe-text" name="createAccountForm.email" /></td>
+            <td><div class="error-messages"><stripes:errors field="createAccountForm.email" /></div></td>
+        </tr>
 
-    <div class="item">
+        <tr>
+            <th><stripes:label class="subscribe-label" for="createAccountForm.verifyEmail" /></th>
+            <td><stripes:text id="verifyEmail" class="subscribe-text" name="createAccountForm.verifyEmail" /></td>
+            <td>
+                <div class="error-messages"><stripes:errors field="createAccountForm.verifyEmail" /></div>
+            </td>
+        </tr>
+
+    </table>
+
+
+
+
     <div class="notify"><tag:checkbox name="createAccountForm.notify"
         checked="${empty notify ? true : notify}"
         key="contact.mailinglist.subscribe" /></div>
-    </div>
-    </fieldset>
 
-    <div class="backnext" style="width: 497px">
+
+    <div class="backnext">
       <a href="/subscribe/license/" class="back"><fmt:message key="common.back" /></a>
-    <button type="submit" class="next" name="createAccount"><fmt:message
-        key="common.next" /></button>
+      <button type="submit" class="next" name="createAccount">
+          <fmt:message key="common.next" />
+      </button>
     </div>
 
 
-</stripes:form></div>
+</stripes:form>
   </stripes:layout-component>
 
   <stripes:layout-component name="bottomJavascript">

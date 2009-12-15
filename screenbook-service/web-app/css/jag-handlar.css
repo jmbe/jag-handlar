@@ -4,23 +4,20 @@ body {
 
 }
 
-.logo {
-    width: 250px;
-    height: 50px;
-    background-color: #3F6;
+#root-container {
+    margin: 75px auto;
+    width: 830px;
 }
 
-
-.menu .box {
-    float: left;
-    width: 190px;
-    height: 190px;
+div.logo {
+    background: transparent url(/images/subscribe/logo.png) no-repeat center center;
+    padding-bottom: 200px;
+    width: 100%;
 }
+
 
 .content {
-    clear: both;
     margin-top: 20px;
-    float: left;
 }
 
 
@@ -42,7 +39,7 @@ h2 {
 p {
     margin: 0 0 1.5em 0;
     font-family: Lucida grande,Verdana,Arial,Helvetica,sans-serif;
-    font-size: 13px;
+    font-size: 14px;
 
     line-height: 20px;
     color: #333333;
@@ -67,4 +64,41 @@ a.order {
     margin: 30px 30px;
     color: white;
     text-decoration: none;
+}
+
+
+
+ul.header {
+    margin: 0;
+    padding: 0;
+    
+}
+
+ul.header li {
+    display: inline;
+    list-style-type: none;
+    padding-right: 12px;
+    background: transparent url(/images/subscribe/dash.png) no-repeat scroll left top;
+    opacity: 0.5;
+}
+
+ul.header li span {
+    padding: 5px;
+    background-color: #f4c377;
+
+    display: inline-block;
+    font-size: 12px;
+    width: 140px;
+    text-align: center;
+}
+
+ul.header li.selected {
+    opacity: 1.0;
+}
+
+span.short-gradient {
+    background: transparent url(/images/subscribe/short-gradient.png) no-repeat left 6px;
+    padding-left: 740px;
+    padding-top: 30px;
+    margin: 0 5px;
 }

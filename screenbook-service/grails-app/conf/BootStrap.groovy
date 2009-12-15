@@ -1,6 +1,7 @@
 import se.pictosys.country.CountryLoadFailedException
 import se.pictosys.country.api.Country
 import se.pictosys.country.UneceCountryRepository
+import se.pictosys.country.StateRepository
 
 class BootStrap {
 
@@ -44,6 +45,11 @@ class BootStrap {
     } catch (CountryLoadFailedException e) {
       log.error("Could not load countries.");
     }
+
+
+    log.info("Loading states...")
+    servletContext.canadianStates = StateRepository.getCanadianStates()
+    servletContext.usStates = StateRepository.getUsStates()
 
   }
 

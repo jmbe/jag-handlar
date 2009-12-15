@@ -1,3 +1,6 @@
+<%@ taglib prefix="stripes" uri="http://stripes.sourceforge.net/stripes.tld" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/WEB-INF/partials/common.taglibs.jsp"%>
 
 <c:set var="previousPage" value="/subscribe/invoice/" scope="session" />
@@ -5,10 +8,14 @@
 <stripes:layout-render name="/WEB-INF/layout/customer.jsp">
   <stripes:layout-component name="titleKey">title.new.subscription</stripes:layout-component>
   <stripes:layout-component name="bodyClasses">subscribe invoice</stripes:layout-component>
+  <stripes:layout-component name="page">invoice</stripes:layout-component>
   <stripes:layout-component name="content">
 
-<div class="upperblock">
+
 <stripes:form action="/subscribe/invoice/createInvoice" id="invoice">
+
+
+    <h1>Kunduppgifter</h1>
 
     <fieldset class="x-fieldset">
 
@@ -42,15 +49,11 @@
     <fieldset class="x-fieldset" id="deliveryAddressPanel">
 
     <div class="error-messages"><stripes:errors field="createInvoiceForm.firstName" /></div>
-    <div class="item">
-      <stripes:label for="createInvoiceForm.firstName" />
-      <stripes:text name="createInvoiceForm.firstName" id="firstName" />
-    </div>
-
     <div class="error-messages"><stripes:errors field="createInvoiceForm.lastName" /></div>
-    <div class="item">
-      <stripes:label for="createInvoiceForm.lastName" />
-      <stripes:text name="createInvoiceForm.lastName" />
+    <div class="item textarea-item">
+      <stripes:label for="createInvoiceForm.firstName" />
+      <stripes:textarea rows="2" name="createInvoiceForm.firstName" id="firstName" />
+      <input type="hidden" name="createInvoiceForm.lastName" value="()" />
     </div>
 
     <div class="error-messages"><stripes:errors field="createInvoiceForm.streetAddressLine1" /></div>
@@ -114,15 +117,11 @@
 
 
     <div class="error-messages"><stripes:errors field="createInvoiceForm.invoiceFirstName" /></div>
-    <div class="item">
-        <stripes:label for="createInvoiceForm.invoiceFirstName" />
-        <stripes:text id="invoiceFirstName" name="createInvoiceForm.invoiceFirstName" />
-    </div>
-
     <div class="error-messages"><stripes:errors field="createInvoiceForm.invoiceLastName" /></div>
-    <div class="item">
-        <stripes:label for="createInvoiceForm.invoiceLastName" />
-        <stripes:text name="createInvoiceForm.invoiceLastName" />
+    <div class="item textarea-item">
+        <stripes:label for="createInvoiceForm.invoiceFirstName" />
+        <stripes:textarea id="invoiceFirstName" name="createInvoiceForm.invoiceFirstName" />
+        <input type="hidden" name="createInvoiceForm.invoiceLastName" value="()"/>
     </div>
 
     <div class="error-messages"><stripes:errors field="createInvoiceForm.invoiceStreetAddressLine1" /></div>
@@ -175,13 +174,13 @@
 
 
 
-    <div class="backnext" style="width: 455px; margin-bottom: 150px;">
+    <div class="backnext">
       <a href="/subscribe/account/" class="back"><fmt:message key="common.back" /></a>
-
-    <button type="submit" class="next" name="createInvoice"><fmt:message
-        key="common.next" /></button>
+      <button type="submit" class="order-button" name="createInvoice">
+            Skicka best&auml;llningen
+      </button>
     </div>
-</stripes:form></div>
+</stripes:form>
   </stripes:layout-component>
 
   <stripes:layout-component name="bottomJavascript">
@@ -223,6 +222,38 @@ Event.observe(window, "load", function() {
     Event.observe(window, "load", setupInvoiceAddress);
 
 })();
+
+
+var CountryCodeListener = Class.create({
+	/* source = country select id, target = state id */
+	initialize : function(source, target) {
+		this.source = $(source);
+		this.target = $(target);
+
+		var that = this;
+
+		Event.observe(window, "load", function() {
+			that.checkIfStateRequired();
+			Event.observe(that.source, "change", that.checkIfStateRequired
+					.bind(that));
+		});
+
+	},
+
+
+
+	checkIfStateRequired : function() {
+		var country = $F(this.source);
+
+		if (country === "CA" || country === "US") {
+			$(this.target).show();
+		} else {
+			$(this.target).hide();
+		}
+	}
+
+});
+
 
 
 (new CountryCodeListener("countryCode", "state"));

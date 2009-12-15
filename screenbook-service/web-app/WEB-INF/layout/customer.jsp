@@ -18,24 +18,34 @@
             <src>${pageContext.request.contextPath}/css/subscribe.css</src>
         </pack:style>
 
+        <%-- Prototype --%>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
 
     </head>
 
     <body id="${bodyId}" class="yui-skin-sam ${bodyClasses}">
 
+
+    <div id="root-container">
+
+    <ul class="header">
+        <li class="${page eq 'info' ? 'selected' : ''}"><span>Vad är Jag handlar?</span></li>
+        <li class="${page eq 'license' ? 'selected' : ''}"><span>Välj antal</span></li>
+        <li class="${page eq 'account' ? 'selected' : ''}"><span>Välj användarnamn</span></li>
+        <li class="${page eq 'invoice' ? 'selected' : ''}"><span>Kunduppgifter</span></li>
+        <li class="${page eq 'invoice' ? 'selected' : ''}"><span>Skicka beställningen</span></li>
+    </ul>
+
     <div class="logo">
-        Plats f&ouml;r logotyp.
     </div>
 
-    <div class="menu">
-        <div class="box" style="background-color:#33CCFF "></div>
-        <div class="box" style="background-color:#3366FF "></div>
-        <div class="box" style="background-color:#003DF5 "></div>
-        <div class="box" style="background-color:#002EB8 "></div>
-    </div>
 
     <div class="content">
         <stripes:layout-component name="content"/>
+        <stripes:layout-component name="bottomJavascript"/>
+    </div>
+
+            
     </div>
     </body>
 
