@@ -1,7 +1,10 @@
+import org.apache.commons.lang.StringUtils
 import se.pictosys.license.LicenseSelection
 import se.pictosys.license.api.LicenseRepository
 import se.pictosys.payment.api.Address
 import se.pictosys.payment.api.ContactInformation
+import se.pictosys.payment.api.Name
+import se.pictosys.payment.api.Street
 
 class Purchase {
 
@@ -76,6 +79,8 @@ class JagHandlarAddress {
     state nullable: true
   }
 
+  static transients = ['name', 'street']
+
   JagHandlarAddress() {
     /* Required for Hibernate. */
   }
@@ -91,6 +96,49 @@ class JagHandlarAddress {
     this.state = address.state
     this.countryCode = address.countryCode
     this.zip = address.zip
+  }
+
+
+  public Name getName() {
+    /* Last name is not used in Jag handlar. */
+    new Name(firstName, "")
+  }
+
+  public Street getStreet() {
+    new Street(streetLine1, streetLine2)
+  }
+
+
+
+  public String toString() {
+
+    /*
+    * How to format addresses:
+    * http://bitboost.com/ref/international-address-formats.html
+    */
+
+    StringWriter stringWriter = new StringWriter();
+    PrintWriter writer = new PrintWriter(stringWriter);
+
+    writer.println(getName().toString());
+    writer.println(getStreet().getLine1());
+    if (!StringUtils.isEmpty(getStreet().getLine2())) {
+      writer.println(getStreet().getLine2());
+    }
+
+    if (StringUtils.isEmpty(getState())) {
+
+      writer.println(String.format("%s %s", getZip(), getCity()));
+    } else {
+      /* US or Canada */
+      writer.println(String.format("%s %s %s", getCity(), getState(),
+              getZip()));
+    }
+
+    writer.println(getCountryCode());
+
+    return stringWriter.toString();
+
   }
 
 }

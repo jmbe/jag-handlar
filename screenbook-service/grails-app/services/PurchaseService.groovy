@@ -1,3 +1,4 @@
+import se.jaghandlar.web.subscribe.PurchaseMessagingService
 import se.pictosys.license.LicenseSelection
 import se.pictosys.payment.api.ContactInformation
 
@@ -6,6 +7,8 @@ class PurchaseService {
   static transactional = true
 
   def licenseRepository
+
+  def purchaseMessagingService
 
   def addInvoicePurchase(String username,
                          LicenseSelection licenseSelection,
@@ -28,7 +31,7 @@ class PurchaseService {
     def purchase = new Purchase(licenseSelection, contactInformation, licenseRepository)
 
     /* Must add purchase to account before saving it, to pass validation. */
-    log.info "Adding purchase ${purchase} to account ${account}."
+    log.info "Adding purchase ${purchase} to account ${account}..."
     account.addToPurchases(purchase)
     log.info("Added purchase ${purchase} to account ${account}")
 
@@ -48,8 +51,25 @@ class PurchaseService {
       }
     }
 
+
+    boolean isRenewal = false
+
+    if (isRenewal) {
+      
+    } else {
+      fireNewPurchaseAdded purchase
+    }
+
+
     return purchase
 
+  }
+
+  def fireNewPurchaseAdded(Purchase purchase) {
+    log.info "Handling new purchase"
+
+    purchaseMessagingService.sendAdminNewPurchaseNotification purchase
+    purchaseMessagingService.sendCustomerNewPurchaseMail purchase
   }
 
 }
