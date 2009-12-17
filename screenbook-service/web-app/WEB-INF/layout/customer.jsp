@@ -42,11 +42,25 @@
 
     <div class="content">
         <stripes:layout-component name="content"/>
-        <stripes:layout-component name="bottomJavascript"/>
     </div>
 
             
     </div>
+
+    <script type="text/javascript">
+        Event.observe(window, "load", function() {
+            $$("ul.header li").each(function(li) {
+                if (li.hasClassName("selected")) {
+                    li.setOpacity(1);
+                } else {
+                    li.setOpacity(0.2);
+                }
+            });
+
+        });
+    </script>
+
+    <stripes:layout-component name="bottomJavascript"/>
     </body>
 
     </html>
