@@ -13,8 +13,6 @@ class AliasAwareResourceBundle extends MessageSourceResourceBundle {
 
     protected Object handleGetObject(final String code) {
 
-        println "Trying to find code ${code}"
-
         Map<String, String> map = getTranslationAliases();
 
         if (map.containsKey(code)) {
