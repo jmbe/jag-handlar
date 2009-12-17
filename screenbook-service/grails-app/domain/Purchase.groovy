@@ -51,6 +51,8 @@ class Purchase {
 
     this.contactPerson = contactInformation.contactPerson
     this.phoneNumber = contactInformation.phoneNumber
+    this.customerNumber = contactInformation.customerNumber
+
     this.purchaseDate = new Date()
 
     this.invoiceAddress = new JagHandlarAddress(contactInformation.invoiceAddress)
