@@ -97,7 +97,9 @@ log4j = {
 
     warn   'org.mortbay.log'
 
-    info   'grails.app'
+    info   'grails.app',
+            'se.jaghandlar',
+            'se.pictosys'
 
     debug  'grails.app.controller'
 }
