@@ -1,7 +1,7 @@
 import se.pictosys.license.LicenseSelection
-import se.pictosys.payment.api.ContactInformation
-import se.pictosys.payment.api.Address
 import se.pictosys.license.api.LicenseRepository
+import se.pictosys.payment.api.Address
+import se.pictosys.payment.api.ContactInformation
 
 class Purchase {
 
@@ -26,6 +26,11 @@ class Purchase {
 
   boolean invoiceSent;
 
+  JagHandlarAddress invoiceAddress;
+  JagHandlarAddress deliveryAddress;
+
+  static embedded = ['invoiceAddress', 'deliveryAddress']
+
   static constraints = {
     endDate nullable: true
     invoiceDate nullable: true
@@ -47,6 +52,43 @@ class Purchase {
     this.contactPerson = contactInformation.contactPerson
     this.phoneNumber = contactInformation.phoneNumber
     this.purchaseDate = new Date()
+
+    this.invoiceAddress = new JagHandlarAddress(contactInformation.invoiceAddress)
+    this.deliveryAddress = new JagHandlarAddress(contactInformation.deliveryAddress)
+  }
+
+}
+
+/**
+ * Shadow class for Address, since Grails doesn't seem to be able to use @Embeddable java classes.
+ */
+class JagHandlarAddress {
+
+  String firstName, lastName;
+  String streetLine1, streetLine2;
+  String city, state, countryCode, zip;
+
+  static constraints = {
+    lastName nullable: true
+    streetLine2 nullable: true
+    state nullable: true
+  }
+
+  JagHandlarAddress() {
+    /* Required for Hibernate. */
+  }
+
+  JagHandlarAddress(Address address) {
+    this.firstName = address.name.first
+    this.lastName = address.name.last
+
+    this.streetLine1 = address.street.line1;
+    this.streetLine2 = address.street.line2;
+
+    this.city = address.city
+    this.state = address.state
+    this.countryCode = address.countryCode
+    this.zip = address.zip
   }
 
 }
