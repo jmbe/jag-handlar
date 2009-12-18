@@ -94,6 +94,12 @@
      </filter-mapping>
 
     <filter-mapping>
+        <filter-name>hibernateOpenSessionInView</filter-name>
+        <servlet-name>messagebroker</servlet-name>
+    </filter-mapping>
+
+
+    <filter-mapping>
         <filter-name>StripesDynamicMappingFilter</filter-name>
         <url-pattern>/subscribe/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
