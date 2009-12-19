@@ -164,7 +164,7 @@ class AccountService {
     }
 
     
-    def password = PasswordTools.generateRandomPassword(10)
+    def password = generateNewPassword()
     account.passwd = authenticateService.encodePassword(password)
     account.save()
 
@@ -192,5 +192,14 @@ Lösenord: ${password}
     if (account != null) {
       account.showBookmarkReminder = false;
     }
+  }
+
+  /**
+   * Generates a new password
+   *
+   * @return password in plain text
+   */
+  def generateNewPassword() {
+    PasswordTools.generateRandomPassword(10)
   }
 }

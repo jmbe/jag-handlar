@@ -6,11 +6,26 @@ class AccountController {
 
     def authenticateService
     def accountService
-
-    def index = { redirect(action:list,params:params) }
+    def purchaseService
 
     // the delete, save and update actions only accept POST requests
     static allowedMethods = [delete:'POST', save:'POST', update:'POST']
+
+
+    def index = {
+      log.info "Index method called"
+      redirect(action:list,params:params)
+    }
+
+
+    def activatePurchase = {
+        log.info "Activating purchase ${params.purchaseId} for account ${params.accountId}"
+
+        purchaseService.activatePurchase(params.purchaseId as Long)
+
+        def accountInstance = Account.get( params.id )
+        redirect(action:show, id:params.accountId)
+    }
 
     def list = {
         params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
@@ -29,19 +44,31 @@ class AccountController {
 
     def delete = {
         def accountInstance = Account.get( params.id )
-        if(accountInstance) {
+
+        log.info "Deleting account ${params.id}"
+
+        if (accountInstance) {
             try {
+                log.info "Removing current roles"
+                accountInstance.authorities.each {
+                  it.removeFromPeople accountInstance
+                }
+
                 accountInstance.delete(flush:true)
-                flash.message = "Account ${params.id} deleted"
+                def message = "Account ${params.id} deleted"
+                flash.message = message
+                log.info message
                 redirect(action:list)
+            } catch(org.springframework.dao.DataIntegrityViolationException e) {
+                def message = "Account ${params.id} could not be deleted"
+                flash.message = message
+                log.warn message
+                redirect(action:show, id:params.id)
             }
-            catch(org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "Account ${params.id} could not be deleted"
-                redirect(action:show,id:params.id)
-            }
-        }
-        else {
-            flash.message = "Account not found with id ${params.id}"
+        } else {
+            def message = "Account not found with id ${params.id}"
+            flash.message = message
+            log.warn message
             redirect(action:list)
         }
     }

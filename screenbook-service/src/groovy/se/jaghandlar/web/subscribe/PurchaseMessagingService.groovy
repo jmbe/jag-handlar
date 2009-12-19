@@ -17,6 +17,49 @@ class PurchaseMessagingService {
 
 
 
+  def sendPasswordMailToNewCustomer(def purchase, String plainTextPassword) {
+    log.info "Sending password mail to new customer ${purchase.account.username}"
+
+
+    mailService.sendMail {
+      to purchase.account.email
+      from settings.emailFromAddress
+      subject "Kontouppgifter till Jag handlar"
+      body """\
+Det här är dina inloggningsuppgifter till Jag handlar:
+
+Användarnamn: ${purchase.account.username}
+Lösenord: ${plainTextPassword}
+
+Abonnemanget gäller i 15 månader.
+
+Välkommen till http://www.jaghandlar.se/!
+      """
+
+
+    }
+  }
+
+  def sendRenewalConfirmationToCustomer(def purchase) {
+
+    log.info "Sending renewal confirmation to customer ${purchase.account.username}"
+
+    mailService.sendMail {
+      to purchase.account.email
+      from settings.emailFromAddress
+      subject "Bekräftelse förlängt abonnemang"
+      body """\
+Tack för att du valt att förlänga ditt abonnemang på Jag handlar!
+
+Du kan nu använda Jag handlar i ytterligare 15 månader.
+
+Välkommen till http://www.jaghandlar.se/!
+      """
+    }
+
+
+  }
+
   def sendCustomerNewPurchaseMail(def purchase) {
     log.info "Sending customer new purchase mail"
 
@@ -34,18 +77,18 @@ Vi kommer nu att behandla din beställning och du får inom kort ett nytt mail m
   def sendAdminNewPurchaseNotification(def purchase) {
     log.info "Sending admin new purchase notification"
 
-    def user = purchase.account
-    def url = settings.formatBackofficeUrl("/admin/account/%s", user.username)
+    def account = purchase.account
+    def url = settings.formatBackofficeUrl("/account/show/%s", account.id)
 
     mailService.sendMail {
       to settings.orderEmailAddress
       from settings.emailFromAddress
-      subject "Abonnemangsbeställing på Jag handlar från ${purchase.account.username}"
+      subject "Abonnemangsbeställning på Jag handlar från ${purchase.account.username}"
       body """\
 Abonnemangsbeställning av Jag handlar:
 
-Användarnamn: ${user.username}
-Epostadress: ${user.email}
+Användarnamn: ${account.username}
+Epostadress: ${account.email}
 Kontaktperson: ${purchase.contactPerson}
 
 Faktura skickas till:

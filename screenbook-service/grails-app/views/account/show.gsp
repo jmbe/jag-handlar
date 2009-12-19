@@ -31,28 +31,28 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name">Username:</td>
+                            <td valign="top" class="name">Användarnamn:</td>
                             
                             <td valign="top" class="value">${fieldValue(bean:accountInstance, field:'username')}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name">Passwd:</td>
+                            <td valign="top" class="name">Krypterat lösenord:</td>
                             
                             <td valign="top" class="value">${fieldValue(bean:accountInstance, field:'passwd')}</td>
                             
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="name">apikey:</td>
+                            <td valign="top" class="name">Snabbinloggning:</td>
 
                             <td valign="top" class="value">${fieldValue(bean:accountInstance, field:'apikey')}</td>
 
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="name">email:</td>
+                            <td valign="top" class="name">Email:</td>
 
                             <td valign="top" class="value">${fieldValue(bean:accountInstance, field:'email')}</td>
 
@@ -66,19 +66,19 @@
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="name">Bookmark reminder:</td>
+                            <td valign="top" class="name">Nytt konto:</td>
 
-                            <td valign="top" class="value">${fieldValue(bean:accountInstance, field:'showBookmarkReminder')}</td>
+                            <td valign="top" class="value">${fieldValue(bean:accountInstance, field:'newAccount')}</td>
 
                         </tr>
-                    
+
                         <tr class="prop">
-                            <td valign="top" class="name">Authorities:</td>
+                            <td valign="top" class="name">Kontotyp:</td>
                             
                             <td  valign="top" style="text-align:left;" class="value">
                                 <ul>
                                 <g:each var="a" in="${accountInstance.authorities}">
-                                    <li><g:link controller="role" action="show" id="${a.id}">${a?.encodeAsHTML()}</g:link></li>
+                                    <li><g:link controller="role" action="show" id="${a.id}">${a?.authority?.encodeAsHTML()}</g:link></li>
                                 </g:each>
                                 </ul>
                             </td>
@@ -92,7 +92,7 @@
                 <g:form>
                     <input type="hidden" name="id" value="${accountInstance?.id}" />
                     <span class="button"><g:actionSubmit class="edit" action="edit" value="Ändra" /></span>
-                    <span class="button"><g:actionSubmit class="delete" action="delete2000" onclick="return confirm('Are you sure?');" value="Ta bort" /></span>
+                    <span class="button"><g:actionSubmit class="delete" action="delete" onclick="return confirm('Are you sure?');" value="Ta bort" /></span>
                 </g:form>
             </div>
 
@@ -103,6 +103,7 @@
             <table>
                 <thead>
                   <tr>
+                    <th>Id</th>
                     <th>Kundnummer</th>
                     <th>Licens</th>
                     <th>Köpdatum</th>
@@ -114,6 +115,7 @@
                 </thead>
                 <g:each in="${accountInstance?.purchases}" var="purchase">
                     <tr>
+                      <td class="not-important"><g:link controller="purchase" action="show" id="${purchase.id}">${purchase.id}</g:link> </td>
                       <td>${purchase.customerNumber}</td>
                       <td>${purchase.license} (${purchase.amount} ${purchase.currency})</td>
                       <td><fmt:formatDate value="${purchase.purchaseDate}"
@@ -133,11 +135,13 @@
 
 
                       <td class="buttons">
+                        <c:if test="${!purchase.invoiceSent}">
                         <g:form>
                           <input type="hidden" name="accountId" value="${accountInstance?.id}" />
                           <input type="hidden" name="purchaseId" value="${purchase.id}" />
                           <span class="button"><g:actionSubmit class="accept" action="activatePurchase"  value="Godkänn köp (faktura skickad)" /></span>
                         </g:form>
+                        </c:if>
                       </td>
 
                     </tr>

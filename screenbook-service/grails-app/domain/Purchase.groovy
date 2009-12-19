@@ -38,6 +38,8 @@ class Purchase {
     endDate nullable: true
     invoiceDate nullable: true
     customerNumber(blank: true, nullable: true)
+    invoiceAddress nullable: true
+    deliveryAddress nullable: true
   }
 
 
@@ -62,6 +64,21 @@ class Purchase {
     this.deliveryAddress = new JagHandlarAddress(contactInformation.deliveryAddress)
   }
 
+  def markPaid() {
+    if (invoiceSent) {
+      throw new IllegalStateException("This purchase has already been invoiced.")
+    }
+
+    invoiceSent = true
+    invoiceDate = new Date()
+
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.MONTH, 15);
+    calendar.add(Calendar.DAY_OF_YEAR, 1);
+
+    endDate = calendar.getTime();
+
+  }
 }
 
 /**

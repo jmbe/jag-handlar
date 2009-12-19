@@ -9,6 +9,7 @@ class PurchaseService {
   def licenseRepository
 
   def purchaseMessagingService
+  def accountService
 
   def addInvoicePurchase(String username,
                          LicenseSelection licenseSelection,
@@ -72,4 +73,41 @@ class PurchaseService {
     purchaseMessagingService.sendCustomerNewPurchaseMail purchase
   }
 
+  def activatePurchase(long purchaseId) {
+    def purchase = Purchase.findById(purchaseId)
+
+    purchase.markPaid()
+    purchase.account.resetReminders()
+
+
+    sendConfirmInvoicePurchaseActivatedMailToCustomer purchase
+    
+  }
+
+  def sendConfirmInvoicePurchaseActivatedMailToCustomer(Purchase purchase) {
+
+    def account = purchase.account
+
+    if (account.isNew()) {
+
+      def plainTextPassword = accountService.generateNewPassword();
+      purchaseMessagingService.sendPasswordMailToNewCustomer purchase, plainTextPassword;
+      
+      account.accountActivatedWithPassword(plainTextPassword)
+
+
+      Role role = Role.findByAuthority("ROLE_TEACHER")
+
+      if (!account.authorities.contains(role)) {
+        log.warn "Account ${account.username} didn't have teacher role"
+      }
+
+      account.save()
+
+
+    } else {
+      /* send subscription renewed confirmation */
+    }
+
+  }
 }
