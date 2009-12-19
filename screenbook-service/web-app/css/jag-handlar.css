@@ -102,3 +102,10 @@ span.short-gradient {
     padding-top: 30px;
     margin: 0 5px;
 }
+
+
+.buttons input.accept {
+    background: transparent url(http://pictoonline.pictogram.se/silk/icons/accept.png) no-repeat; 
+    padding-left: 28px;
+}
+
