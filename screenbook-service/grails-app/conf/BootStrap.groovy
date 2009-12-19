@@ -20,12 +20,13 @@ class BootStrap {
     }
 
     /* Check or add admin account. */
-    if (!accountService.mainAccountExists("admin")) {
-      log.info("Could not find admin account. Adding...")
-      def account = accountService.createAdminAccount("admin", "jm.bergqvist@gmail.com")
+    def adminAccountName = "jmbe"
+    if (!accountService.mainAccountExists(adminAccountName)) {
+      log.info("Could not find ${adminAccountName} account. Adding...")
+      def account = accountService.createAdminAccount(adminAccountName, "jm.bergqvist@gmail.com")
       log.info("Created account ${account}")
 
-      accountService.setNewPassword("admin", "admin")
+      accountService.setNewPassword(adminAccountName, "admin")
     }
 
     /* Check or add book for Jag handlar */
