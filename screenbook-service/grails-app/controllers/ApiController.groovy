@@ -84,7 +84,7 @@ class ApiController {
   def loadStudents = {
     def accountName = params.account
     def students = studentService.getStudents(accountName)
-    def numberOfLicenses = 4
+    def numberOfLicenses = accountService.getNumberOfLicenses(accountName)
     render XmlResults.getStudentsResult(numberOfLicenses, students)
   }
 
@@ -142,8 +142,9 @@ class ApiController {
   }
 
   def getNumberOfLicenses = {
-    //def accountName = params.account
-    def result = XmlResults.getNumberOfLicensesResult("4")
+    def accountName = params.account
+    def numberOfLicenses = accountService.getNumberOfLicenses(accountName)
+    def result = XmlResults.getNumberOfLicensesResult(numberOfLicenses)
     render result
   }
 

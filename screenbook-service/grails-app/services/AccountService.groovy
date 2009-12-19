@@ -202,4 +202,9 @@ Lösenord: ${password}
   def generateNewPassword() {
     PasswordTools.generateRandomPassword(10)
   }
+
+  def getNumberOfLicenses(def username) {
+    def account = Account.findByUsername(username)
+    account.getNumberOfLicenses()
+  }
 }

@@ -33,7 +33,7 @@ class Account {
 
   boolean newAccount = true
 
-  boolean enabled
+  boolean enabled = true
 
   boolean showBookmarkReminder = true
 
@@ -69,6 +69,29 @@ class Account {
   def accountActivatedWithPassword(def plainTextPassword) {
     this.newAccount = false;
     this.passwd = authenticateService.encodePassword(plainTextPassword)
+  }
+
+  def getNumberOfLicenses() {
+    def purchase = latestActivePurchase()
+    if (purchase == null) {
+      log.warn "No active purchase found for user ${username}"
+      return 0
+    }
+
+    return purchase.license
+    
+  }
+
+  def latestActivePurchase() {
+      Purchase latestPurchase = null;
+      for (Purchase purchase : this.purchases) {
+          if (latestPurchase == null
+                  || (purchase.invoiceSent && purchase
+                          .purchasedAfter(latestPurchase.getPurchaseDate()))) {
+              latestPurchase = purchase;
+          }
+      }
+      return latestPurchase;
   }
 
 }

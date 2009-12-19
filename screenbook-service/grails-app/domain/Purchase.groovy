@@ -79,6 +79,18 @@ class Purchase {
     endDate = calendar.getTime();
 
   }
+
+  boolean purchasedAfter(Date date) {
+    if (purchaseDate == null) {
+      return false
+    }
+
+    if (date == null) {
+        return purchaseDate != null;
+    }
+
+    return purchaseDate.after(date);
+  }
 }
 
 /**
