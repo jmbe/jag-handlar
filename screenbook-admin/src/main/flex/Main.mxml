@@ -307,5 +307,25 @@
 
     </mx:Panel>
 
+    <mx:Panel title="Support">
+        <mx:Form>
+            <mx:FormItem label="Namn">
+                <mx:TextInput id="supportName" text="Namn" />
+            </mx:FormItem>
+            <mx:FormItem label="Organisation">
+                <mx:TextInput id="supportOrganisation" text="Organisation" />
+            </mx:FormItem>
+            <mx:FormItem label="E-postadress">
+                <mx:TextInput id="supportEmail" />
+            </mx:FormItem>
+            <mx:FormItem label="Meddelande">
+                <mx:TextArea id="supportMessage" />
+            </mx:FormItem>
+            <mx:FormItem>
+                <mx:Button label="Skicka" click="jagHandlar.sendSupportMail(supportName.text, supportOrganisation.text, supportEmail.text, supportMessage.text)" />
+            </mx:FormItem>
+        </mx:Form>
+    </mx:Panel>
+
 
 </mx:Application>

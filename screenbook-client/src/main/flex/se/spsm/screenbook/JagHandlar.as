@@ -7,6 +7,7 @@ import se.spsm.screenbook.answer.AnswerEvent;
 import se.spsm.screenbook.apikey.ApiKey;
 import se.spsm.screenbook.apikey.ApiKeyRequiredEvent;
 import se.spsm.screenbook.apikey.ApiLoginEvent;
+import se.spsm.screenbook.contact.ContactController;
 import se.spsm.screenbook.lostpassword.LostPasswordEvent;
 import se.spsm.screenbook.lostpassword.ChangedPasswordEvent;
 import se.spsm.screenbook.network.NetworkProblemEvent;
@@ -24,6 +25,7 @@ public class JagHandlar extends EventDispatcher {
     private var status:String;
     private var student:String;
     private var studentController:StudentController;
+    private var contactController:ContactController;
 
     private var authenticationController:AuthenticationController;
 
@@ -77,6 +79,9 @@ public class JagHandlar extends EventDispatcher {
 
         this.studentController.addEventListener(AnswerEvent.LOADED, handleAnswerEvent);
         this.studentController.addEventListener(AnswerEvent.SAVED, handleAnswerEvent);
+
+        this.contactController = new ContactController(this.settings);
+        this.contactController.addEventListener(NetworkProblemEvent.FAILURE, onNetworkProblem);
 
         this.message = "Not logged in";
         this.status = "";
@@ -360,6 +365,10 @@ public class JagHandlar extends EventDispatcher {
 
     public function changeTeacherPassword(currentPassword:String, newPassword:String):void {
         this.authenticationController.changeTeacherPassword(currentTeacher, currentPassword, newPassword)
+    }
+
+    public function sendSupportMail(name:String, organisation:String, email:String, message:String):void {
+        this.contactController.sendSupportMail(name, organisation, email, message);
     }
 }
 }

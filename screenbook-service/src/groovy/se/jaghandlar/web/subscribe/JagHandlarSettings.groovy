@@ -14,6 +14,10 @@ class JagHandlarSettings implements PurchaseMessagingSettings {
     "jm.bergqvist@gmail.com"
   }
 
+  String getSupportEmailAddress() {
+    "jm.bergqvist+support@gmail.com"
+  }
+
   String formatBackofficeUrl(String format, Object ... objects) {
     return String.format(getBackofficeBaseUrl() + format, objects);
   }
