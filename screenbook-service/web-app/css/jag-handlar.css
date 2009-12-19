@@ -109,3 +109,17 @@ span.short-gradient {
     padding-left: 28px;
 }
 
+.menuButton .list-new {
+    background: transparent url(http://pictoonline.pictogram.se/silk/icons/bullet_star.png) no-repeat;
+    padding-left: 20px;
+}
+
+.not-important {
+    color: #999;
+}
+
+.yes {
+    color: green;
+    font-size: larger;
+    font-weight: bold;
+}

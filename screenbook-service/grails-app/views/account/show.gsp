@@ -9,8 +9,9 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${resource(dir:'')}">Hem</a></span>
+            <span class="menuButton"><a class="home" href="${resource(dir:'/')}">Hem</a></span>
             <span class="menuButton"><g:link class="list" action="list">Alla konton</g:link></span>
+            <span class="menuButton"><g:link class="list-new" action="listNew">Nya konton</g:link></span>
             <span class="menuButton"><g:link class="create" action="create">Nytt konto</g:link></span>
         </div>
         <div class="body">

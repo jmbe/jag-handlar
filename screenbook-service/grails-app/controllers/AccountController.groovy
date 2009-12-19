@@ -29,7 +29,13 @@ class AccountController {
 
     def list = {
         params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-        [ accountInstanceList: Account.list( params ), accountInstanceTotal: Account.count() ]
+        [ title:'Alla konton', accountInstanceList: Account.list( params ), accountInstanceTotal: Account.count() ]
+    }
+
+    def listNew = {
+      params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+      def accounts = Account.findAllByNewAccount(true)
+      render (view:'list', model:[title: 'Nya konton', accountInstanceList: accounts, accountInstanceTotal: accounts.size()])
     }
 
     def show = {

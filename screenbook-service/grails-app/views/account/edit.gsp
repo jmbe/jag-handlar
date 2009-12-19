@@ -67,10 +67,10 @@
 
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="enabled">show bookmark reminder:</label>
+                                    <label for="enabled">Nytt konto:</label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean:accountInstance,field:'showBookmarkReminder','errors')}">
-                                    <g:checkBox name="showBookmarkReminder" value="${accountInstance?.showBookmarkReminder}" ></g:checkBox>
+                                <td valign="top" class="value ${hasErrors(bean:accountInstance,field:'newAccount','errors')}">
+                                    <g:checkBox name="newAccount" value="${accountInstance?.newAccount}" ></g:checkBox>
                                 </td>
                             </tr>
                         
