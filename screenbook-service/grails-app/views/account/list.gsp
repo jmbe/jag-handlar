@@ -23,13 +23,9 @@
                     <thead>
                         <tr>
                         
-                   	        <g:sortableColumn property="username" title="Username" />
-                        
-                   	        <g:sortableColumn property="passwd" title="Password" />
+                   	        <g:sortableColumn property="username" title="Användarnamn" />
 
-                            <g:sortableColumn property="passwd" title="Apikey" />
-
-                            <g:sortableColumn property="email" title="Email" />
+                            <g:sortableColumn property="email" title="Epostadress" />
                         
                    	        <g:sortableColumn property="enabled" title="Enabled" />
 
@@ -43,9 +39,6 @@
                         
                             <td><g:link action="show" id="${accountInstance.id}">${fieldValue(bean:accountInstance, field:'username')}</g:link></td>
                         
-                            <td>${fieldValue(bean:accountInstance, field:'passwd')}</td>
-
-                            <td>${fieldValue(bean:accountInstance, field:'apikey')}</td>
 
                             <td>${fieldValue(bean:accountInstance, field:'email')}</td>
                         
