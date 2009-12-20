@@ -55,7 +55,8 @@ class AccountService {
   }
 
   def createAdminAccount(String username, String email) {
-    createAccountWithRole(username, email, "ROLE_ADMIN");
+    def account = createAccountWithRole(username, email, "ROLE_ADMIN");
+    account.newAccount = false
   }
 
   def verifyLogin(String username, String password) throws UserNotFoundException, IncorrectPasswordException {
