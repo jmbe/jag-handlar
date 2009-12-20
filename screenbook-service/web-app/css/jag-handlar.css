@@ -114,12 +114,38 @@ span.short-gradient {
     padding-left: 20px;
 }
 
+.menuButton .list-newsletter {
+    background: transparent url(http://pictoonline.pictogram.se/silk/icons/newspaper.png) no-repeat;
+    padding-left: 20px;
+}
+
 .not-important {
     color: #999;
+}
+
+.nav .not-important {
+    opacity: 0.5;
 }
 
 .yes {
     color: green;
     font-size: larger;
     font-weight: bold;
+}
+
+
+a.user {
+    background: transparent url(http://pictoonline.pictogram.se/silk/icons/user.png) no-repeat;
+    padding-left: 20px;
+}
+
+
+.newsletter {
+    margin-bottom: 40px;
+    font-size: larger;
+}
+
+.newsletter a {
+    background: transparent url(http://pictoonline.pictogram.se/silk/icons/page_white_text.png) no-repeat;
+    padding-left: 20px;
 }

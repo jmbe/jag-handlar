@@ -8,8 +8,11 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${resource(dir:'')}">Home</a></span>
-            <span class="menuButton"><g:link class="list" action="list">Account List</g:link></span>
+          <span class="menuButton not-important"><a class="home" href="${resource(dir:'/account/list')}">Hem</a></span>
+          <span class="menuButton"><g:link class="list" action="list">Alla konton</g:link></span>
+          <span class="menuButton"><g:link class="list-new" action="listNew">Nya konton</g:link></span>
+          <span class="menuButton"><g:link class="list-newsletter" action="listNewsletter">Nyhetsbrev</g:link></span>
+          <span class="menuButton not-important"><g:link class="create" action="create">Nytt konto</g:link></span>
         </div>
         <div class="body">
             <h1>Create Account</h1>

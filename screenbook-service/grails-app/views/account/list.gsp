@@ -8,13 +8,23 @@
     </head>
     <body>
         <div class="nav">
-          <span class="menuButton"><a class="home" href="${resource(dir:'/')}">Hem</a></span>
+          <span class="menuButton not-important"><a class="home" href="${resource(dir:'/account/list')}">Hem</a></span>
           <span class="menuButton"><g:link class="list" action="list">Alla konton</g:link></span>
           <span class="menuButton"><g:link class="list-new" action="listNew">Nya konton</g:link></span>
-          <span class="menuButton"><g:link class="create" action="create">Nytt konto</g:link></span>
+          <span class="menuButton"><g:link class="list-newsletter" action="listNewsletter">Nyhetsbrev</g:link></span>
+          <span class="menuButton not-important"><g:link class="create" action="create">Nytt konto</g:link></span>
         </div>
         <div class="body">
             <h1>${title}</h1>
+
+
+            <g:if test="${newsletter}">
+              <div class="newsletter">
+                <g:link class="" action="exportSubscriptionList">Exportera listan till fil</g:link>
+              </div>
+            </g:if>
+              
+
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -27,7 +37,7 @@
 
                             <g:sortableColumn property="email" title="Epostadress" />
                         
-                   	        <g:sortableColumn property="enabled" title="Enabled" />
+                   	        <g:sortableColumn property="newsLetterSubscribe" title="Nyhetsbrev" />
 
                             <g:sortableColumn property="newAccount" title="Nytt konto" />
 
@@ -37,12 +47,21 @@
                     <g:each in="${accountInstanceList}" status="i" var="accountInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td><g:link action="show" id="${accountInstance.id}">${fieldValue(bean:accountInstance, field:'username')}</g:link></td>
+                            <td><g:link action="show" class="user" id="${accountInstance.id}">${fieldValue(bean:accountInstance, field:'username')}</g:link></td>
                         
 
                             <td>${fieldValue(bean:accountInstance, field:'email')}</td>
                         
-                            <td>${fieldValue(bean:accountInstance, field:'enabled')}</td>
+                            <td>
+                              <c:choose>
+                                <c:when test="${fieldValue(bean:accountInstance, field:'newsLetterSubscribe')}">
+                                  Ja
+                                </c:when>
+                                <c:otherwise>
+                                  Nej
+                                </c:otherwise>
+                              </c:choose>
+                            </td>
 
                             <td>
                               <c:choose>

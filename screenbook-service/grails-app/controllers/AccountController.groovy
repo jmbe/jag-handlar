@@ -28,24 +28,58 @@ class AccountController {
     }
 
     def list = {
+        log.info "Listing all accounts"
+
         params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
         [ title:'Alla konton', accountInstanceList: Account.list( params ), accountInstanceTotal: Account.count() ]
     }
 
     def listNew = {
+      log.info "Listing new accounts"
+
       params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
       def accounts = Account.findAllByNewAccount(true)
       render (view:'list', model:[title: 'Nya konton', accountInstanceList: accounts, accountInstanceTotal: accounts.size()])
     }
 
+    def listNewsletter = {
+      log.info "Listing accounts interested in newsletter"
+
+      params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+      def accounts = Account.findAllByNewsLetterSubscribe(true)
+      render (view:'list', model:[newsletter:true, title: 'Intresserade av nyhetsbrev', accountInstanceList: accounts, accountInstanceTotal: accounts.size()])
+    }
+
+    def exportSubscriptionList = {
+
+      log.info "Exporting newsletter subscription list"
+
+      StringWriter writer = new StringWriter();
+      def accounts = Account.findAllByNewsLetterSubscribe(true)
+
+      accounts.collect {it.email}.unique().sort().eachWithIndex { email, index ->
+        writer.print "${email};"
+        if ((index + 1) % 5 == 0) {
+          writer.println()
+        }
+      }
+
+      response.setHeader "Content-disposition", "attachment; filename=jag-handlar-nyhetsbrev.txt"
+      render contentType : "text/plain", text: writer.toString()
+    }
+
     def show = {
+
+
         def accountInstance = Account.get( params.id )
 
         if(!accountInstance) {
             flash.message = "Account not found with id ${params.id}"
             redirect(action:list)
+        } else {
+          log.info "Displaying account ${accountInstance.username}."
+          return [ accountInstance : accountInstance ]
         }
-        else { return [ accountInstance : accountInstance ] }
     }
 
     def delete = {
