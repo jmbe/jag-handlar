@@ -24,6 +24,7 @@ class AccountController {
         purchaseService.activatePurchase(params.purchaseId as Long)
 
         def accountInstance = Account.get( params.id )
+        flash.message = "Kontouppgifter har mailats till kunden."
         redirect(action:show, id:params.accountId)
     }
 
