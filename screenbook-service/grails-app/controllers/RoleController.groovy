@@ -1,5 +1,6 @@
+import org.codehaus.groovy.grails.plugins.springsecurity.Secured
 
-
+@Secured(['ROLE_ADMIN'])
 class RoleController {
     
     def index = { redirect(action:list,params:params) }

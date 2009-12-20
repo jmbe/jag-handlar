@@ -1,5 +1,8 @@
 import grails.converters.XML
 
+import org.codehaus.groovy.grails.plugins.springsecurity.Secured
+
+@Secured(['ROLE_ADMIN'])
 class AnswerController {
 
 	def answerService
