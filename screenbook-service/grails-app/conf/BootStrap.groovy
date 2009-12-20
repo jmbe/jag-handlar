@@ -20,14 +20,10 @@ class BootStrap {
     }
 
     /* Check or add admin account. */
-    def adminAccountName = "jmbe"
-    if (!accountService.mainAccountExists(adminAccountName)) {
-      log.info("Could not find ${adminAccountName} account. Adding...")
-      def account = accountService.createAdminAccount(adminAccountName, "jm.bergqvist@gmail.com")
-      log.info("Created account ${account}")
-
-      accountService.setNewPassword(adminAccountName, "admin")
-    }
+    createAdmin "jmbe", "jm.bergqvist@gmail.com"
+    createAdmin "staffan", "staffan.holmberg@spsm.se"
+    createAdmin "roland", "roland.lundgren@spsm.se"
+    createAdmin "ulf", "ulf.b@bredband.net"
 
     /* Check or add book for Jag handlar */
     bookService.findOrCreate("jag-handlar")
@@ -52,6 +48,16 @@ class BootStrap {
     servletContext.canadianStates = StateRepository.getCanadianStates()
     servletContext.usStates = StateRepository.getUsStates()
 
+  }
+
+  private def createAdmin(def adminAccountName, def adminEmailAddress) {
+    if (!accountService.mainAccountExists(adminAccountName)) {
+      log.info("Could not find ${adminAccountName} account. Adding...")
+      def account = accountService.createAdminAccount(adminAccountName, adminEmailAddress)
+      log.info("Created account ${account}")
+
+      accountService.setNewPassword(adminAccountName, "admin")
+    }
   }
 
   def destroy = {
