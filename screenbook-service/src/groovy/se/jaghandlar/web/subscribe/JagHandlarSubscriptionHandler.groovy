@@ -77,8 +77,7 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
   }
 
   void addUser(HttpServletRequest request, NewPurchaseInfo newPurchaseInfo) {
-    // TODO add user without password, and notify admin
-    accountService.createMainAccount(newPurchaseInfo.getUsername(), newPurchaseInfo.getEmail())
+    accountService.createMainAccount(newPurchaseInfo.getUsername(), newPurchaseInfo.getEmail(), newPurchaseInfo.isNotify())
   }
 
   boolean isRenewal(HttpServletRequest request) {

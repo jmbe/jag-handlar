@@ -37,6 +37,8 @@ class Account {
 
   boolean showBookmarkReminder = true
 
+  boolean newsLetterSubscribe = false
+
   static constraints = {
     username(blank: false, unique: true)
     passwd(blank: false)
