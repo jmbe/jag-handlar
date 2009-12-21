@@ -202,7 +202,7 @@ Lösenord: ${password}
    * @return password in plain text
    */
   def generateNewPassword() {
-    PasswordTools.generateRandomPassword(10)
+    PasswordTools.generateRandomPassword(8, "abcdefghjkmnpqrstuwxz23456789")
   }
 
   def getNumberOfLicenses(def username) {
