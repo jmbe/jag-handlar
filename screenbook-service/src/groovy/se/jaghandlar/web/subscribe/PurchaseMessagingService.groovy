@@ -80,8 +80,12 @@ Vi kommer nu att behandla din beställning och du får inom kort ett nytt mail m
     def account = purchase.account
     def url = settings.formatBackofficeUrl("/account/show/%s", account.id)
 
+
+    def adminMails = ["jm.bergqvist@gmail.com", "staffan.holmberg@spsm.se", "roland.lundgren@spsm.se"];
+
+
     mailService.sendMail {
-      to settings.orderEmailAddress
+      to adminMails.toArray()
       from settings.emailFromAddress
       subject "Abonnemangsbeställning på Jag handlar från ${purchase.account.username}"
       body """\
