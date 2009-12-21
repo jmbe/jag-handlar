@@ -1,11 +1,3 @@
-
-/**
- * Created by IntelliJ IDEA.
- * User: knifhen
- * Date: Sep 13, 2009
- * Time: 7:04:48 PM
- * To change this template use File | Settings | File Templates.
- */
 class StudentService {
 
   static transactional = true
@@ -24,6 +16,7 @@ class StudentService {
   def changeScreenKeyboard(accountName, studentName, Boolean screenKeyboard) {
     def student = findStudent(accountName, studentName)
     student.screenKeyboard = screenKeyboard
+    student.save()
   }
 
   /**
@@ -42,6 +35,9 @@ class StudentService {
     }
 
     student.username = newStudentName
+
+    student.save()
+
     return student.username
   }
 }
