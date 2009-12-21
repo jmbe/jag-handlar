@@ -13,6 +13,7 @@ div.logo {
     background: transparent url(/images/subscribe/logo.png) no-repeat center center;
     padding-bottom: 200px;
     width: 100%;
+    clear: both;
 }
 
 
@@ -75,11 +76,10 @@ ul.header {
 }
 
 ul.header li {
-    display: inline;
+    float: left;
     list-style-type: none;
     padding-right: 12px;
     background: transparent url(/images/subscribe/dash.png) no-repeat scroll left top;
-    opacity: 0.3;
 }
 
 ul.header li span {
