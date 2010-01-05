@@ -118,8 +118,8 @@
                 <g:each in="${accountInstance?.purchases}" var="purchase">
                     <tr>
                       <td class="not-important"><g:link controller="purchase" action="show" id="${purchase.id}">${purchase.id}</g:link> </td>
-                      <td>${purchase.customerNumber}</td>
-                      <td>${purchase.license} (${purchase.amount} ${purchase.currency})</td>
+                      <td>${fieldValue(bean:purchase, field:'customerNumber')}</td>
+                      <td>${purchase.license}: ${purchase.amount} ${purchase.currency}</td>
                       <td><fmt:formatDate value="${purchase.purchaseDate}"
                         dateStyle="short" type="date" /></td>
                       <td><fmt:formatDate value="${purchase.invoiceDate}" dateStyle="short"
