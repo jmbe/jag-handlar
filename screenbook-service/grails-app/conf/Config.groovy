@@ -101,7 +101,8 @@ log4j = {
             'se.jaghandlar',
             'se.pictosys'
 
-    debug  'grails.app.controller'
+    debug  'grails.app.controller',
+            'se.jaghandlar.web.subscribe'
 }
 
 //log4j.logger.org.springframework.security='off,stdout'

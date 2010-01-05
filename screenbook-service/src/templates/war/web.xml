@@ -93,6 +93,11 @@
          <url-pattern>/subscribe/*</url-pattern>
      </filter-mapping>
 
+     <filter-mapping>
+         <filter-name>hibernateOpenSessionInView</filter-name>
+         <url-pattern>/subscription/*</url-pattern>
+     </filter-mapping>
+
     <filter-mapping>
         <filter-name>hibernateOpenSessionInView</filter-name>
         <servlet-name>messagebroker</servlet-name>
@@ -102,6 +107,14 @@
     <filter-mapping>
         <filter-name>StripesDynamicMappingFilter</filter-name>
         <url-pattern>/subscribe/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>StripesDynamicMappingFilter</filter-name>
+        <url-pattern>/subscription/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>INCLUDE</dispatcher>

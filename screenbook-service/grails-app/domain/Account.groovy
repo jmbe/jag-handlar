@@ -76,7 +76,6 @@ class Account {
   def getNumberOfLicenses() {
     def purchase = latestActivePurchase()
     if (purchase == null) {
-      log.warn "No active purchase found for user ${username}"
       return 0
     }
 
@@ -85,6 +84,20 @@ class Account {
   }
 
   def latestActivePurchase() {
+    Purchase purchase = latestInvoicedPurchase()
+    if (purchase == null) {
+      log.info "No invoiced purchases found for user ${username}."
+      return null
+    }
+
+    if (purchase != null && purchase.endDate != null && purchase.endDate.after(new Date())) {
+      return purchase
+    } else {
+      log.info "No active purchase found for user ${username}"
+    }
+  }
+
+  def latestInvoicedPurchase() {
       Purchase latestPurchase = null;
       for (Purchase purchase : this.purchases) {
           if (latestPurchase == null

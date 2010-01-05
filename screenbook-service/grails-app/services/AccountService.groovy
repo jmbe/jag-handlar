@@ -72,6 +72,19 @@ class AccountService {
     }
   }
 
+  def isValidLogin(String username, String password) {
+    try {
+      verifyApiLogin(username, password)
+      return true
+    } catch (UserNotFoundException e) {
+      /* fall through */
+    } catch (IncorrectPasswordException e) {
+      /* fall through */
+    }
+
+    return false
+  }
+
   def changePassword(accountName, oldPassword, newPassword) {
     def account = Account.findByUsername(accountName);
     if (account == null) {

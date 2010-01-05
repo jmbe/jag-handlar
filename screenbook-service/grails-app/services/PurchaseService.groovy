@@ -11,6 +11,11 @@ class PurchaseService {
   def purchaseMessagingService
   def accountService
 
+  def findLatestActivePurchase(String username) {
+    def account = Account.findByUsername(username)
+    return account.latestActivePurchase()
+  }
+
   def addInvoicePurchase(String username,
                          LicenseSelection licenseSelection,
                          ContactInformation contactInformation) {

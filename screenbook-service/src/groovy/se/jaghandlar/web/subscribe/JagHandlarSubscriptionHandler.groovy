@@ -27,7 +27,11 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
   @Resource(name = "accountService")
   def accountService
 
+  @Resource(name ="userItemLoader")
+  def userItemLoader
+
   Object addPendingPurchase(String username, LicenseSelection licenseSelection, String type) {
+    /* PayPal purchases are not supported in Jag handlar. */
     throw new UnsupportedOperationException("Not implemented");
   }
 
@@ -36,10 +40,11 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
   }
 
   String getCurrentLicense(String username) {
-    throw new UnsupportedOperationException("Not implemented");
+    return accountService.getNumberOfLicenses(username)
   }
 
   void savePayPalPurchaseId(HttpServletRequest request, Object purchaseId) {
+    /* PayPal purchases are not supported in Jag handlar. */
     throw new UnsupportedOperationException("Not implemented");
   }
 
@@ -69,7 +74,7 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
   }
 
   boolean isValidLogin(String username, String password) {
-    throw new UnsupportedOperationException("Not implemented");
+    return accountService.isValidLogin(username, password)
   }
 
   boolean isLoggedInAsCustomer(HttpServletRequest request) {
@@ -81,16 +86,40 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
   }
 
   boolean isRenewal(HttpServletRequest request) {
-    // TODO hantera renewal
-    return false
+    return userItemLoader.hasUserItem(request)
   }
 
-  void loadAccountFormValues(HttpServletRequest request, CreateInvoiceForm createInvoiceForm) {
-    // TODO load account form values
+  void loadAccountFormValues(HttpServletRequest request, CreateInvoiceForm f) {
+    String username = userItemLoader.getUserItemUsername(request)
+    def purchase = purchaseService.findLatestActivePurchase(username)
+    if (purchase) {
+      f.contactPerson = purchase.contactPerson
+      f.phone = purchase.phoneNumber
+
+      f.invoiceFirstName = purchase.invoiceAddress.firstName
+      f.invoiceStreetAddressLine1 = purchase.invoiceAddress.streetLine1
+      f.invoiceStreetAddressLine2 = purchase.invoiceAddress.streetLine2
+      f.invoiceZip = purchase.invoiceAddress.zip
+      f.invoiceCity = purchase.invoiceAddress.city
+      f.invoiceCountryCode = purchase.invoiceAddress.countryCode
+      f.invoiceState = purchase.invoiceAddress.state
+
+    }
   }
 
-  void loadAddressFormValues(HttpServletRequest request, CreatePaynovaPurchaseForm createPaynovaPurchaseForm) {
-    // TODO load address form values
+  void loadAddressFormValues(HttpServletRequest request, CreatePaynovaPurchaseForm f) {
+    String username = userItemLoader.getUserItemUsername(request)
+    def purchase = purchaseService.findLatestActivePurchase(username)
+
+    if (purchase) {
+        f.firstName = purchase.deliveryAddress.firstName
+        f.streetAddressLine1 = purchase.deliveryAddress.streetLine1
+        f.streetAddressLine2 = purchase.deliveryAddress.streetLine2
+        f.zip = purchase.deliveryAddress.zip
+        f.city = purchase.deliveryAddress.city
+        f.countryCode = purchase.deliveryAddress.countryCode
+        f.state = purchase.deliveryAddress.state
+    }
   }
 
   void onSubscriptionRenewedEvent(HttpServletRequest request, String username) {
