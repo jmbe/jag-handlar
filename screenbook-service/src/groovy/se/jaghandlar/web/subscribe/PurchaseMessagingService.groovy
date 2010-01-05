@@ -74,22 +74,50 @@ Vi kommer nu att behandla din beställning och du får inom kort ett nytt mail m
     }
   }
 
+  def sendCustomerRenewalPurchaseMail(def purchase) {
+    log.info "Sending customer renewal confirmation mail"
+
+    mailService.sendMail {
+      to purchase.account.email
+      from settings.emailFromAddress
+      subject "Orderbekräftelse Jag handlar - förnyat abonnemang"
+      body """\
+Tack för din beställning av Jag handlar!
+
+Ditt abonnemang har förlängts med 15 månader.
+
+Välkommen till http://www.jaghandlar.se/
+"""
+    }
+    
+    
+  }
+
+  def sendAdminRenewalPurchaseNotification(def purchase) {
+    sendAdminPurchaseNotification(purchase, "Förnyat abonnemang", "Abonnemanget har redan aktiverats, eftersom detta gäller en tidigare kund.")
+  }
+
   def sendAdminNewPurchaseNotification(def purchase) {
+    sendAdminPurchaseNotification(purchase, "Abonnemangsbeställning")
+  }
+
+  def sendAdminPurchaseNotification(def purchase, String purchaseType, def notice = "") {
+  
     log.info "Sending admin new purchase notification"
 
     def account = purchase.account
     def url = settings.formatBackofficeUrl("/account/show/%s", account.id)
 
 
-    def adminMails = ["jm.bergqvist@gmail.com", "staffan.holmberg@spsm.se", "roland.lundgren@spsm.se"];
+    def adminMails = getAdminEmails()
 
 
     mailService.sendMail {
       to adminMails.toArray()
       from settings.emailFromAddress
-      subject "Abonnemangsbeställning på Jag handlar från ${purchase.account.username}"
+      subject "${purchaseType} på Jag handlar från ${purchase.account.username}"
       body """\
-Abonnemangsbeställning av Jag handlar:
+${purchaseType} på Jag handlar:
 
 Användarnamn: ${account.username}
 Epostadress: ${account.email}
@@ -109,10 +137,16 @@ ${purchase.deliveryAddress}
 Licens: ${purchase.license}, ${purchase.amount} ${purchase.currency}
 
 
+
+${notice}
 ${url}
 
       """
     }
 
+  }
+
+  def getAdminEmails() {
+    ["jm.bergqvist@gmail.com", "staffan.holmberg@spsm.se", "roland.lundgren@spsm.se"]
   }
 }

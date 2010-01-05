@@ -1,4 +1,3 @@
-import se.jaghandlar.web.subscribe.PurchaseMessagingService
 import se.pictosys.license.LicenseSelection
 import se.pictosys.payment.api.ContactInformation
 
@@ -42,6 +41,17 @@ class PurchaseService {
     log.info("Added purchase ${purchase} to account ${account}")
 
 
+
+    boolean isRenewal = account.isRenewal()
+
+    if (isRenewal) {
+      /** Seems that if this method is called after purchase.save(), then the changes made in the method will
+       * not be persisted.
+       */
+      activateRenewalPurchase purchase
+    }
+
+
     log.info "There are ${account.purchases?.size()} purchases for the account."
 
 
@@ -58,10 +68,9 @@ class PurchaseService {
     }
 
 
-    boolean isRenewal = false
 
     if (isRenewal) {
-      
+      fireRenewalPurchaseAdded purchase
     } else {
       fireNewPurchaseAdded purchase
     }
@@ -69,6 +78,24 @@ class PurchaseService {
 
     return purchase
 
+  }
+
+  def activateRenewalPurchase(Purchase purchase) {
+    log.info "Activating renewal purchase for purchase ${purchase.id}"
+
+    Account account = purchase.account
+
+    Date previousEndDate = account.latestEndDate()
+    purchase.markPaid(previousEndDate)
+    purchase.account.resetReminders()
+
+  }
+
+  def fireRenewalPurchaseAdded(Purchase purchase) {
+    log.info "Handling renewal purchase"
+
+    purchaseMessagingService.sendAdminRenewalPurchaseNotification purchase
+    purchaseMessagingService.sendCustomerRenewalPurchaseMail purchase
   }
 
   def fireNewPurchaseAdded(Purchase purchase) {

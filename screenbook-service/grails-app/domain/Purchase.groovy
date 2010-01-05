@@ -64,18 +64,27 @@ class Purchase {
     this.deliveryAddress = new JagHandlarAddress(contactInformation.deliveryAddress)
   }
 
-  def markPaid() {
+  def markPaid(Date previousEnddate = null) {
     if (invoiceSent) {
       throw new IllegalStateException("This purchase has already been invoiced.")
     }
 
     invoiceSent = true
-    invoiceDate = new Date()
+    Date now = new Date()
+    invoiceDate = now
 
     Calendar calendar = Calendar.getInstance();
+    if (previousEnddate == null || previousEnddate.before(now)) {
+      log.info "Previous end date was ${previousEnddate}. Using <now> instead."
+    } else {
+      log.info "Previous end date was ${previousEnddate}. Adding 15 months."
+      calendar.setTime(previousEnddate)
+    }
+
     calendar.add(Calendar.MONTH, 15);
     calendar.add(Calendar.DAY_OF_YEAR, 1);
 
+    log.info "End date will be ${calendar.getTime()}"
     endDate = calendar.getTime();
 
   }
@@ -91,6 +100,27 @@ class Purchase {
 
     return purchaseDate.after(date);
   }
+
+  boolean endsAfter(Date date) {
+    if (endDate == null) {
+      return false
+    }
+
+    if (date == null) {
+      return false
+    }
+
+    return endDate.after(date)
+  }
+
+  boolean endsAfter(Purchase purchase) {
+    if (purchase == null) {
+      return false
+    }
+
+    return endsAfter(purchase.endDate)
+  }
+
 }
 
 /**

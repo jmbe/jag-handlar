@@ -83,29 +83,47 @@ class Account {
     
   }
 
-  def latestActivePurchase() {
-    Purchase purchase = latestInvoicedPurchase()
-    if (purchase == null) {
-      log.info "No invoiced purchases found for user ${username}."
+
+  def isRenewal() {
+    return !isNew() && latestActivePurchase() != null
+  }
+
+  Date latestEndDate() {
+    Purchase purchase = latestActivePurchase()
+
+    if (purchase == null || purchase.endDate == null) {
       return null
     }
 
-    if (purchase != null && purchase.endDate != null && purchase.endDate.after(new Date())) {
-      return purchase
-    } else {
+    return purchase.endDate
+  }
+
+  def latestActivePurchase() {
+    Date now = new Date();
+    Purchase latestPurchase = null;
+    for (Purchase purchase : this.purchases) {
+      if (purchase.invoiceSent && purchase.endsAfter(now) && (latestPurchase == null || purchase.endsAfter(latestPurchase))) {
+        latestPurchase = purchase
+      }
+    }
+    if (latestPurchase == null) {
       log.info "No active purchase found for user ${username}"
     }
+
+    return latestPurchase
   }
 
   def latestInvoicedPurchase() {
       Purchase latestPurchase = null;
       for (Purchase purchase : this.purchases) {
-          if (latestPurchase == null
-                  || (purchase.invoiceSent && purchase
-                          .purchasedAfter(latestPurchase.getPurchaseDate()))) {
+        if (purchase.invoiceSent && (latestPurchase == null || purchase.purchasedAfter(latestPurchase.purchaseDate))) {
               latestPurchase = purchase;
-          }
+        }
       }
+      if (latestPurchase == null) {
+        log.info "No invoiced purchases found for user ${username}."
+      }
+
       return latestPurchase;
   }
 
