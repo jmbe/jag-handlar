@@ -121,6 +121,17 @@ class Purchase {
     return endsAfter(purchase.endDate)
   }
 
+  boolean endsBefore(Date date) {
+    if (date == null) {
+      return false
+    }
+
+    if (endDate == null) {
+      return false
+    }
+
+    return endDate.before(date)
+  }
 }
 
 /**
