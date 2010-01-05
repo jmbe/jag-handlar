@@ -75,7 +75,34 @@
                                     <g:checkBox name="newAccount" value="${accountInstance?.newAccount}" ></g:checkBox>
                                 </td>
                             </tr>
-                        
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="enabled">Skickat påminnelse dag före:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:accountInstance,field:'dayBeforeNoticeSent','errors')}">
+                                    <g:checkBox name="dayBeforeNoticeSent" value="${accountInstance?.dayBeforeNoticeSent}" ></g:checkBox>
+                                </td>
+                            </tr>
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="enabled">Skickat påminnelse 2v före:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:accountInstance,field:'twoWeeksNoticeSent','errors')}">
+                                    <g:checkBox name="twoWeeksNoticeSent" value="${accountInstance?.twoWeeksNoticeSent}" ></g:checkBox>
+                                </td>
+                            </tr>
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="enabled">Skickat påminnelse 6v före:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:accountInstance,field:'sixWeeksNoticeSent','errors')}">
+                                    <g:checkBox name="sixWeeksNoticeSent" value="${accountInstance?.sixWeeksNoticeSent}" ></g:checkBox>
+                                </td>
+                            </tr>
+
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label>Authorities:</label>
