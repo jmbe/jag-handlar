@@ -67,6 +67,13 @@ class PurchaseService {
       }
     }
 
+    /* Save account to update reminders */
+    if (!account.save()) {
+      log.warn "There was a problem saving reminders for account ${username}"
+      account.errors.allErrors.each {
+        log.warn it
+      }
+    }
 
 
     if (isRenewal) {
@@ -87,8 +94,9 @@ class PurchaseService {
 
     Date previousEndDate = account.latestEndDate()
     purchase.markPaid(previousEndDate)
-    purchase.account.resetReminders()
 
+    purchase.account.resetReminders()
+    log.info "Account reminders have been reset."
   }
 
   def fireRenewalPurchaseAdded(Purchase purchase) {
