@@ -152,6 +152,13 @@
         <mx:DataGrid id="dg" dataProvider="{accountService.accountRemotingTest.lastResult}" />
 
     </mx:Panel>
+    
+
+
+    <mx:HBox horizontalCenter="0" verticalCenter="0">
+    <mx:VBox>
+            
+
 
     <mx:Panel title="Logga in som lärare">
         <mx:Form>
@@ -278,6 +285,9 @@
         </mx:Form>
     </mx:Panel>
 
+    </mx:VBox>
+    <mx:VBox>
+
     <mx:Panel title="Svar i bok">
         <mx:Form>
             <mx:FormItem label="Fråga">
@@ -327,5 +337,9 @@
         </mx:Form>
     </mx:Panel>
 
+
+        </mx:VBox>
+    </mx:HBox>
+    
 
 </mx:Application>
