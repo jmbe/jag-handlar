@@ -178,6 +178,12 @@ class ApiController {
     def answers = answerService.getAnswers(accountName, changedName)
     def studentInstance = studentService.findStudent(accountName, changedName)
 
+    if (studentInstance == null) {
+      log.warn "Name change failed. New student could not be found. Returning old name!"
+      studentInstance = studentService.findStudent(accountName, oldStudentName)
+      answers = answerService.getAnswers(accountName, oldStudentName)
+    }
+
     render XmlResults.getAnswersResult(studentInstance, answers)
   }
  

@@ -36,7 +36,12 @@ class StudentService {
 
     student.username = newStudentName
 
-    student.save()
+    if (!student.save()) {
+      log.warn "There were problems saving changed username for student ${oldStudentName}"
+      student.errors.allErrors.each {
+        log.warn it
+      }
+    }
 
     return student.username
   }
