@@ -28,6 +28,13 @@ class StudentService {
       return oldStudentName
     }
 
+    def otherStudent = findStudent(accountName, newStudentName)
+
+    if (otherStudent != null) {
+      log.warn "Tried to change ${accountName}:${oldStudentName} to ${newStudentName} but the new name already exists."
+      return oldStudentName
+    }
+
     def student = findStudent(accountName, oldStudentName)
     if (student == null) {
       log.warn("Could not find student named ${accountName}:${oldStudentName} when renaming. Aborting...")
