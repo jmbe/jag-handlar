@@ -47,6 +47,9 @@ public class JagHandlar extends EventDispatcher {
     [Event("StudentEvent.ALL_ANSWERS_LOADED")]
     [Event("StudentEvent.STUDENT_CREATED")]
     [Event("StudentEvent.BOOK_OPENED")]
+    [Event("StudentEvent.ALL_ANSWERS_LOADED")]
+    [Event("StudentEvent.ALL_ANSWERS_REMOVED")]
+    [Event("StudentEvent.STUDENT_NAME_CHANGED")]
 
     public function JagHandlar(newSettings:ConnectionSettings) {
         this.settings = newSettings;
