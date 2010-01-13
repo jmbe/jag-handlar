@@ -186,5 +186,28 @@ class ApiController {
 
     render XmlResults.getAnswersResult(studentInstance, answers)
   }
+
+  def changeContactDetails = {
+    def accountName = params.account
+    def newContactPerson = params.contactPerson;
+    def newEmail = params.email;
+    def newPhone = params.phone;
+
+
+    log.info "Changing contact details for account ${accountName}"
+
+    def success = accountService.changeContactDetails(accountName, newContactPerson, newEmail, newPhone)
+
+    def accountInstance = Account.findByUsername(accountName)
+
+    render XmlResults.getContactDetailsResult(accountInstance, success)
+  }
+
+  def loadContactDetails = {
+    def accountName = params.account
+    log.info "Loading contact details for account ${accountName}."
+    def accountInstance = Account.findByUsername(accountName)
+    render XmlResults.getContactDetailsResult(accountInstance, true)
+  }
  
 }

@@ -8,6 +8,7 @@
 
         import se.spsm.screenbook.ConnectionSettings;
         import se.spsm.screenbook.JagHandlar;
+        import se.spsm.screenbook.account.AccountEvent;
         import se.spsm.screenbook.answer.AnswerEvent;
         import se.spsm.screenbook.apikey.ApiKeyRequiredEvent;
         import se.spsm.screenbook.apikey.ApiLoginEvent;
@@ -19,6 +20,7 @@
 
 
         private var connectionSettings:ConnectionSettings = new ConnectionSettings("localhost:8080");
+        //private var connectionSettings:ConnectionSettings = new ConnectionSettings("www.jaghandlar.se");
 
         
         private var amf:String = "http://localhost:8080/messagebroker/amf";
@@ -48,6 +50,8 @@
             jagHandlar.addEventListener(AnswerEvent.LOADED, onAnswerEvent);
 
             jagHandlar.addEventListener(StudentListEvent.LOADED, onStudentListLoaded);
+
+            jagHandlar.addEventListener(AccountEvent.CONTACT_DETAILS_CHANGED, onContactDetailsChanged);
         }
 
         /* Common functions */
@@ -130,6 +134,13 @@
             studentListResult.text = event.studentList.toString();
         }
 
+        /* Change and load contact details */
+        private function onContactDetailsChanged(event:AccountEvent):void {
+            contactPerson.text = event.result.contactPerson;
+            contactEmail.text = event.result.email;
+            contactPhone.text = event.result.phone;
+            changeContactDetailsResult.text = event.result.success.toString()
+        }
 
         ]]></mx:Script>
 
@@ -195,6 +206,33 @@
             <mx:FormItem label="Lösenordet ändrat:">
                 <mx:Label id="changePasswordResult" />
             </mx:FormItem>
+        </mx:Form>
+    </mx:Panel>
+
+    <mx:Panel title="Kontaktuppgifter">
+        <mx:Form>
+            <mx:FormItem label="Kontaktperson">
+                <mx:TextInput id="contactPerson">
+                    
+                </mx:TextInput>
+            </mx:FormItem>
+            <mx:FormItem label="Email">
+                <mx:TextInput id="contactEmail" />
+            </mx:FormItem>
+            <mx:FormItem label="Telefon">
+                <mx:TextInput id="contactPhone" />
+            </mx:FormItem>
+
+            <mx:FormItem>
+                <mx:Button label="Ladda" click="jagHandlar.loadContactDetails()" />
+                <mx:Button label="Spara" click="jagHandlar.changeContactDetails(contactPerson.text,  contactEmail.text, contactPhone.text)" />
+            </mx:FormItem>
+
+            <mx:FormItem label="Resultatstatus">
+                <mx:Label id="changeContactDetailsResult" /> 
+            </mx:FormItem>
+
+
         </mx:Form>
     </mx:Panel>
 

@@ -3,6 +3,7 @@ import flash.events.EventDispatcher;
 
 import mx.controls.Alert;
 
+import se.spsm.screenbook.account.AccountEvent;
 import se.spsm.screenbook.answer.AnswerEvent;
 import se.spsm.screenbook.apikey.ApiKey;
 import se.spsm.screenbook.apikey.ApiKeyRequiredEvent;
@@ -26,6 +27,7 @@ public class JagHandlar extends EventDispatcher {
     private var student:String;
     private var studentController:StudentController;
     private var contactController:ContactController;
+    private var accountController:AccountController;
 
     private var authenticationController:AuthenticationController;
 
@@ -50,6 +52,8 @@ public class JagHandlar extends EventDispatcher {
     [Event("StudentEvent.ALL_ANSWERS_LOADED")]
     [Event("StudentEvent.ALL_ANSWERS_REMOVED")]
     [Event("StudentEvent.STUDENT_NAME_CHANGED")]
+    [Event("AccountEvent.CONTACT_DETAILS_CHANGED")]
+    [Event("AccountEvent.CONTACT_DETAILS_LOADED")]
 
     public function JagHandlar(newSettings:ConnectionSettings) {
         this.settings = newSettings;
@@ -76,8 +80,13 @@ public class JagHandlar extends EventDispatcher {
         this.authenticationController.addEventListener(LostPasswordEvent.RESULT, onLostPasswordResult);
         this.authenticationController.addEventListener(ChangedPasswordEvent.RESULT, onChangedPasswordResult);
 
+        this.accountController = new AccountController(this.settings);
+        this.accountController.addEventListener(AccountEvent.CONTACT_DETAILS_CHANGED, onContactDetailsChanged);
+        this.accountController.addEventListener(AccountEvent.CONTACT_DETAILS_LOADED, onContactDetailsChanged);
+
         this.authenticationController.addEventListener(NetworkProblemEvent.FAILURE, onNetworkProblem);
         this.studentController.addEventListener(NetworkProblemEvent.FAILURE, onNetworkProblem);
+        this.accountController.addEventListener(NetworkProblemEvent.FAILURE, onNetworkProblem);
 
 
         this.studentController.addEventListener(AnswerEvent.LOADED, handleAnswerEvent);
@@ -367,7 +376,19 @@ public class JagHandlar extends EventDispatcher {
     }
 
     public function changeTeacherPassword(currentPassword:String, newPassword:String):void {
-        this.authenticationController.changeTeacherPassword(currentTeacher, currentPassword, newPassword)
+        this.authenticationController.changeTeacherPassword(currentApiKey, currentPassword, newPassword);
+    }
+
+    public function changeContactDetails(contactPerson:String, email:String, phone:String):void {
+        this.accountController.changeContactDetails(currentApiKey, contactPerson, email, phone);
+    }
+
+    public function loadContactDetails():void {
+        this.accountController.loadContactDetails(currentApiKey);
+    }
+
+    private function onContactDetailsChanged(event:AccountEvent):void {
+        dispatchEvent(new AccountEvent(event.type,  event.result));
     }
 
     public function sendSupportMail(name:String, organisation:String, email:String, message:String):void {

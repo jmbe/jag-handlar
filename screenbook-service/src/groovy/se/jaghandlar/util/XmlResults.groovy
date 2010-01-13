@@ -91,4 +91,18 @@ class XmlResults {
     return [text: writer.toString(), contentType: "text/xml"]
 
   }
+
+  static def getContactDetailsResult(def account, boolean success) {
+    def writer = new StringWriter()
+    def xml = new MarkupBuilder(writer)
+
+    xml.result() {
+      contactPerson account.contactPerson
+      email account.email
+      phone account.phoneNumber
+      status success ? "OK" : "NOK"
+    }
+
+    return [text: writer.toString(), contentType: "text/xml"]
+  }
 }

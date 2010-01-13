@@ -6,6 +6,7 @@ import mx.rpc.events.ResultEvent;
 import mx.rpc.http.HTTPService;
 
 import se.spsm.screenbook.*;
+import se.spsm.screenbook.apikey.ApiKey;
 import se.spsm.screenbook.apikey.ApiLoginEvent;
 import se.spsm.screenbook.apikey.ApiLoginResult;
 import se.spsm.screenbook.lostpassword.ChangedPasswordEvent;
@@ -108,13 +109,13 @@ public class AuthenticationController extends EventDispatcher {
     }
 
 
-    public function changeTeacherPassword(teacher:Teacher, currentPassword:String, newPassword:String):void {
+    public function changeTeacherPassword(apiKey:ApiKey, currentPassword:String, newPassword:String):void {
 
 
         var service:HTTPService = _settings.createService("authentication/changeTeacherPassword");
 
         var params:Object = {
-            account : teacher.username,
+            account : apiKey.username,
             oldPassword : currentPassword,
             newPassword : newPassword
         };

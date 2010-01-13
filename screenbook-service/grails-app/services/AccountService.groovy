@@ -222,4 +222,26 @@ Lösenord: ${password}
     def account = Account.findByUsername(username)
     account.getNumberOfLicenses()
   }
+
+  /**
+   * @return true if changes were successfully saved
+   */
+  def changeContactDetails(def username, def contactName, def email, def phone) {
+    def account = Account.findByUsername(username)
+
+    account.contactPerson = contactName
+    account.email = email;
+    account.phoneNumber = phone;
+
+    if (!account.save()) {
+      log.warn "Problems saving contact details for account ${username}"
+      account.errors.allErrors.each {
+        log.warn it
+      }
+
+      return false
+    }
+
+    return true
+  }
 }

@@ -21,6 +21,8 @@ class Account {
   String apikey
 
   String email
+  String contactPerson
+  String phoneNumber
 
   Date lastUpdated
   Date dateCreated
