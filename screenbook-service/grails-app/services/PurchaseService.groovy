@@ -67,7 +67,14 @@ class PurchaseService {
       }
     }
 
+
+    /* Update account contact information */
+    log.info "Updating account with new contact details."
+    account.phoneNumber = contactInformation.phoneNumber
+    account.contactPerson = contactInformation.contactPerson
+
     /* Save account to update reminders */
+    log.info "Saving account ${account}"
     if (!account.save()) {
       log.warn "There was a problem saving reminders for account ${username}"
       account.errors.allErrors.each {
