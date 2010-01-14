@@ -37,7 +37,7 @@
 
                             <g:sortableColumn property="email" title="Epostadress" />
                         
-                   	        <g:sortableColumn property="newsLetterSubscribe" title="Nyhetsbrev" />
+                   	        <g:sortableColumn property="newsletterSubscribe" title="Nyhetsbrev" />
 
                             <g:sortableColumn property="newAccount" title="Nytt konto" />
 
@@ -54,7 +54,7 @@
                         
                             <td>
                               <c:choose>
-                                <c:when test="${fieldValue(bean:accountInstance, field:'newsLetterSubscribe')}">
+                                <c:when test="${fieldValue(bean:accountInstance, field:'newsletterSubscribe')}">
                                   Ja
                                 </c:when>
                                 <c:otherwise>

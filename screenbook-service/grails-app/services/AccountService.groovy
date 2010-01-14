@@ -49,9 +49,9 @@ class AccountService {
     return account
   }
 
-  def createMainAccount(String username, String email, boolean newsLetterSubscribe = false) {
+  def createMainAccount(String username, String email, boolean newsletterSubscribe = false) {
     def account = createAccountWithRole(username, email, "ROLE_TEACHER");
-    account.newsLetterSubscribe = newsLetterSubscribe
+    account.newsletterSubscribe = newsletterSubscribe
   }
 
   def createAdminAccount(String username, String email) {
