@@ -379,8 +379,8 @@ public class JagHandlar extends EventDispatcher {
         this.authenticationController.changeTeacherPassword(currentApiKey, currentPassword, newPassword);
     }
 
-    public function changeContactDetails(contactPerson:String, email:String, phone:String):void {
-        this.accountController.changeContactDetails(currentApiKey, contactPerson, email, phone);
+    public function changeContactDetails(contactPerson:String, email:String, phone:String, newsletterSubscribe:Boolean):void {
+        this.accountController.changeContactDetails(currentApiKey, contactPerson, email, phone, newsletterSubscribe);
     }
 
     public function loadContactDetails():void {

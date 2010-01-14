@@ -100,6 +100,7 @@ class XmlResults {
       contactPerson account.contactPerson
       email account.email
       phone account.phoneNumber
+      newsletterSubscribe account.newsletterSubscribe
       status success ? "OK" : "NOK"
     }
 

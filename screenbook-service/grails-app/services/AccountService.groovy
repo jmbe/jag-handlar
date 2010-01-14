@@ -226,12 +226,13 @@ Lösenord: ${password}
   /**
    * @return true if changes were successfully saved
    */
-  def changeContactDetails(def username, def contactName, def email, def phone) {
+  def changeContactDetails(def username, def contactName, def email, def phone, boolean newsletterSubscribe) {
     def account = Account.findByUsername(username)
 
     account.contactPerson = contactName
     account.email = email;
     account.phoneNumber = phone;
+    account.newsletterSubscribe = newsletterSubscribe
 
     if (!account.save()) {
       log.warn "Problems saving contact details for account ${username}"

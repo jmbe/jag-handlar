@@ -139,6 +139,7 @@
             contactPerson.text = event.result.contactPerson;
             contactEmail.text = event.result.email;
             contactPhone.text = event.result.phone;
+            contactNewsletterSubscribe.selected = event.result.newsletterSubscribe;
             changeContactDetailsResult.text = event.result.success.toString()
         }
 
@@ -222,10 +223,13 @@
             <mx:FormItem label="Telefon">
                 <mx:TextInput id="contactPhone" />
             </mx:FormItem>
+            <mx:FormItem>
+                <mx:CheckBox id="contactNewsletterSubscribe" />
+            </mx:FormItem>
 
             <mx:FormItem>
                 <mx:Button label="Ladda" click="jagHandlar.loadContactDetails()" />
-                <mx:Button label="Spara" click="jagHandlar.changeContactDetails(contactPerson.text,  contactEmail.text, contactPhone.text)" />
+                <mx:Button label="Spara" click="jagHandlar.changeContactDetails(contactPerson.text,  contactEmail.text, contactPhone.text, contactNewsletterSubscribe.selected)" />
             </mx:FormItem>
 
             <mx:FormItem label="Resultatstatus">

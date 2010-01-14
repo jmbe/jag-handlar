@@ -192,11 +192,12 @@ class ApiController {
     def newContactPerson = params.contactPerson;
     def newEmail = params.email;
     def newPhone = params.phone;
+    boolean newNewsletterSubscribe = "true".equalsIgnoreCase(params.newsletterSubscribe)
 
 
     log.info "Changing contact details for account ${accountName}"
 
-    def success = accountService.changeContactDetails(accountName, newContactPerson, newEmail, newPhone)
+    def success = accountService.changeContactDetails(accountName, newContactPerson, newEmail, newPhone, newNewsletterSubscribe)
 
     def accountInstance = Account.findByUsername(accountName)
 

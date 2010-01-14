@@ -43,7 +43,7 @@ public class AccountController extends EventDispatcher {
     }
 
 
-    public function changeContactDetails(apiKey:ApiKey, contactPerson:String, email:String, phone:String):void {
+    public function changeContactDetails(apiKey:ApiKey, contactPerson:String, email:String, phone:String, newsletterSubscribe:Boolean):void {
         if (!checkApiKey(apiKey)) {
             return;
         }
@@ -55,6 +55,7 @@ public class AccountController extends EventDispatcher {
         params.contactPerson = contactPerson;
         params.email = email;
         params.phone = phone;
+        params.newsletterSubscribe = newsletterSubscribe
 
 
         service.addEventListener(ResultEvent.RESULT, onContactDetailsChanged);

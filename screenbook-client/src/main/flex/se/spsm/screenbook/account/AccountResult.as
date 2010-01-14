@@ -5,6 +5,7 @@ public class AccountResult {
     private var _contactPerson:String;
     private var _phone:String;
     private var _status:String;
+    private var _newsletterSubscribe:Boolean;
 
     public function AccountResult() {
     }
@@ -15,6 +16,9 @@ public class AccountResult {
         _email = xml.email;
         _phone = xml.phone;
         _status = xml.status;
+
+        _newsletterSubscribe = xml.newsletterSubscribe == "true";
+
         return this;
     }
 
@@ -29,6 +33,10 @@ public class AccountResult {
 
     public function get phone():String {
         return _phone;
+    }
+
+    public function get newsletterSubscribe():Boolean {
+        return _newsletterSubscribe;
     }
 
     private function get status():String {
