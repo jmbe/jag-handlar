@@ -39,12 +39,24 @@ class XmlResults {
     return [text: writer.toString(), contentType: "text/xml"]
   }
 
+  static def getEmptyAnswersResult(String bookString = "jag-handlar") {
+    def writer = new StringWriter()
+    def xml = new MarkupBuilder(writer)
+    xml.result() {
+      student ""
+      book bookString
+      success false
+    }
+  }
+
+
   def static getAnswersResult(studentInstance, answerList, String bookString = "jag-handlar") {
     def writer = new StringWriter()
     def xml = new MarkupBuilder(writer)
 
     xml.result() {
       student(studentInstance.username)
+      success true
       book(bookString)
       screenKeyboard(studentInstance.screenKeyboard)
       answers() {

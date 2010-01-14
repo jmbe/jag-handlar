@@ -105,6 +105,14 @@ class ApiController {
       return;
     }
 
+    def studentExists = accountService.verifyStudentLogin(accountName, studentName)
+
+    if (studentExists) {
+      log.warn "Tried to create student ${accountName}:${studentName} but that student already exists."
+      render XmlResults.getEmptyAnswersResult()
+      return
+    }
+
     def loginVerified = accountService.verifyStudentLogin(accountName, studentName)
     if (!loginVerified && accountService.verifyFreeLicences(accountName)) {
       accountService.createStudentAccount(accountName, studentName, screenKeyboard)

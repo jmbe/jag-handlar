@@ -8,6 +8,7 @@ public class StudentResult {
     private var _book:String;
     private var _answers:Object;
     private var _useScreenKeyboard:Boolean;
+    private var _success:Boolean;
 
     public function StudentResult() {
     }
@@ -16,6 +17,7 @@ public class StudentResult {
         _student = xml.student;
         _book = xml.book;
         _useScreenKeyboard = xml.screenKeyboard == "true";
+        _success = xml.success == "true";
 
         _answers = new Object();
 
@@ -51,6 +53,13 @@ public class StudentResult {
 
     public function get useScreenKeyboard():Boolean {
         return _useScreenKeyboard;
+    }
+
+    /**
+     * @return true if the operation succeeded.
+     */
+    public function get success():Boolean {
+        return _success
     }
 }
 }
