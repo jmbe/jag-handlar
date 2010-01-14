@@ -57,7 +57,25 @@
                                     <input type="text" id="email" name="email" value="${fieldValue(bean:accountInstance,field:'email')}"/>
                                 </td>
                             </tr>
-                        
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="contactPerson">Kontaktperson:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:accountInstance,field:'contactPerson','errors')}">
+                                    <input type="text" id="contactPerson" name="contactPerson" value="${fieldValue(bean:accountInstance,field:'contactPerson')}"/>
+                                </td>
+                            </tr>
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="phoneNumber">Telefonnummer:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:accountInstance,field:'phoneNumber','errors')}">
+                                    <input type="text" id="phoneNumber" name="phoneNumber" value="${fieldValue(bean:accountInstance,field:'phoneNumber')}"/>
+                                </td>
+                            </tr>
+
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="enabled">Enabled:</label>

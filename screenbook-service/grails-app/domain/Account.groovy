@@ -21,8 +21,8 @@ class Account {
   String apikey
 
   String email
-  String contactPerson
-  String phoneNumber
+  String contactPerson = ""
+  String phoneNumber = ""
 
   Date lastUpdated
   Date dateCreated
@@ -48,9 +48,11 @@ class Account {
 
     lastUpdated(nullable: true)
     dateCreated(nullable: true)
-
+    contactPerson(nullable: true)
+    phoneNumber(nullable: true)
   }
 
+  /* Prevent Hibernate from persisting these fields. */
   static transients = ['new']
 
   def hasFreeLicenses() {
