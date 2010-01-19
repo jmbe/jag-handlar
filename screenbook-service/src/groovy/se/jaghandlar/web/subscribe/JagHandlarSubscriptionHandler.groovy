@@ -27,7 +27,7 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
   @Resource(name = "accountService")
   def accountService
 
-  @Resource(name ="userItemLoader")
+  @Resource(name = "userItemLoader")
   def userItemLoader
 
   Object addPendingPurchase(String username, LicenseSelection licenseSelection, String type) {
@@ -90,28 +90,42 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
   }
 
   void loadAccountFormValues(HttpServletRequest request, CreateInvoiceForm f) {
-    String username = userItemLoader.getUserItemUsername(request)
-    def purchase = purchaseService.findLatestActivePurchase(username)
-    if (purchase) {
-      f.contactPerson = purchase.contactPerson
-      f.phone = purchase.phoneNumber
 
-      f.invoiceFirstName = purchase.invoiceAddress.firstName
-      f.invoiceStreetAddressLine1 = purchase.invoiceAddress.streetLine1
-      f.invoiceStreetAddressLine2 = purchase.invoiceAddress.streetLine2
-      f.invoiceZip = purchase.invoiceAddress.zip
-      f.invoiceCity = purchase.invoiceAddress.city
-      f.invoiceCountryCode = purchase.invoiceAddress.countryCode
-      f.invoiceState = purchase.invoiceAddress.state
+    if (!userItemLoader.hasUserItem(request)) {
+      return;
+    }
 
+    try {
+      String username = userItemLoader.getUserItemUsername(request)
+      def purchase = purchaseService.findLatestActivePurchase(username)
+      if (purchase) {
+        f.contactPerson = purchase.contactPerson
+        f.phone = purchase.phoneNumber
+
+        f.invoiceFirstName = purchase.invoiceAddress.firstName
+        f.invoiceStreetAddressLine1 = purchase.invoiceAddress.streetLine1
+        f.invoiceStreetAddressLine2 = purchase.invoiceAddress.streetLine2
+        f.invoiceZip = purchase.invoiceAddress.zip
+        f.invoiceCity = purchase.invoiceAddress.city
+        f.invoiceCountryCode = purchase.invoiceAddress.countryCode
+        f.invoiceState = purchase.invoiceAddress.state
+      }
+    } catch (Exception e) {
+      log.error("There was a problem loading account form values", e)
     }
   }
 
   void loadAddressFormValues(HttpServletRequest request, CreatePaynovaPurchaseForm f) {
-    String username = userItemLoader.getUserItemUsername(request)
-    def purchase = purchaseService.findLatestActivePurchase(username)
+    if (!userItemLoader.hasUserItem(request)) {
+      return;
+    }
 
-    if (purchase) {
+    try {
+
+      String username = userItemLoader.getUserItemUsername(request)
+      def purchase = purchaseService.findLatestActivePurchase(username)
+
+      if (purchase) {
         f.firstName = purchase.deliveryAddress.firstName
         f.streetAddressLine1 = purchase.deliveryAddress.streetLine1
         f.streetAddressLine2 = purchase.deliveryAddress.streetLine2
@@ -119,6 +133,9 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
         f.city = purchase.deliveryAddress.city
         f.countryCode = purchase.deliveryAddress.countryCode
         f.state = purchase.deliveryAddress.state
+      }
+    } catch (Exception e) {
+      log.error("There was a problem loading address form values", e)
     }
   }
 
@@ -130,4 +147,5 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
     /* All customers must pay by invoice. */
     return false
   }
+
 }
