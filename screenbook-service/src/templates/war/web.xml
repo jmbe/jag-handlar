@@ -44,7 +44,10 @@
 
     <filter>
         <filter-name>hibernateOpenSessionInView</filter-name>
+        <!--
         <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+        -->
+        <filter-class>se.jaghandlar.hibernate.FlushingOpenSessionInView</filter-class>
     </filter>
 
     <filter>
