@@ -28,11 +28,4 @@ class FlushingOpenSessionInView extends OpenSessionInViewFilter {
     super.closeSession(session, factory);
   }
 
-
 }
-
-
-
-
-
-
