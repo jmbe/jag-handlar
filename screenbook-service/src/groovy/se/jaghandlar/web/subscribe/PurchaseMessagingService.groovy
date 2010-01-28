@@ -180,6 +180,6 @@ ${url}
   }
 
   def getAdminEmails() {
-    ["jm.bergqvist@gmail.com", "staffan.holmberg@spsm.se", "roland.lundgren@spsm.se"]
+    ["jm.bergqvist@gmail.com", "roland.lundgren@spsm.se"]
   }
 }

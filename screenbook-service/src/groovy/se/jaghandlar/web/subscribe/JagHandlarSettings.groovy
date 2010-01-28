@@ -11,11 +11,11 @@ class JagHandlarSettings implements PurchaseMessagingSettings {
   }
 
   String getOrderEmailAddress() {
-    "jm.bergqvist@gmail.com"
+    "roland.lundgren@spsm.se"
   }
 
   String getSupportEmailAddress() {
-    "jm.bergqvist+support@gmail.com"
+    "jaghandlar@spsm.se"
   }
 
   String formatBackofficeUrl(String format, Object ... objects) {
