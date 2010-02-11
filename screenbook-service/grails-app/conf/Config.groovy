@@ -1,3 +1,9 @@
+import org.apache.log4j.DailyRollingFileAppender
+import org.apache.log4j.Level
+import org.apache.log4j.Priority
+import org.apache.log4j.net.SMTPAppender
+import org.apache.log4j.helpers.OnlyOnceErrorHandler
+
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
 
@@ -77,18 +83,37 @@ environments {
 
 // log4j configuration
 log4j = {
-    // Example of changing the log pattern for the default console
-    // appender:
-    //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
+    appenders {
+        def dailyAppender = new DailyRollingFileAppender(name:'dailyAppender',
+                                             datePattern: "'.'yyyy-MM-dd",
+                                             file:'logs/jag-handlar.log',
+                                             layout:pattern(conversionPattern: '%d %-5p [%c] %m%n'))
+        dailyAppender.threshold = Priority.INFO
+
+        def smtpAppender = new SMTPAppender(name:'smtpAppender',
+                                            to: 'asynclog@gmail.com',
+                                            from: "no-reply@jaghandlar.se",
+                                            subject:"Problems with jag-handlar",
+                                            layout:pattern(conversionPattern: '%d %-5p [%c] %m%n'));
+        smtpAppender.errorHandler = new OnlyOnceErrorHandler()
+        smtpAppender.threshold = Priority.INFO
+
+        console name:'stdout', layout:pattern(conversionPattern: '%d %-5p [%c] %m%n')
+        appender dailyAppender
+        appender smtpAppender
+        
+    }
+
+    root {
+      additivity = true
+      debug 'stdout','dailyAppender', 'smtpAppender'
+    }
 
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
 	       'org.codehaus.groovy.grails.web.pages', //  GSP
 	       'org.codehaus.groovy.grails.web.sitemesh', //  layouts
-	       'org.codehaus.groovy.grails."web.mapping.filter', // URL mapping
-	       'org.codehaus.groovy.grails."web.mapping', // URL mapping
+	       'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
+	       'org.codehaus.groovy.grails.web.mapping', // URL mapping
 	       'org.codehaus.groovy.grails.commons', // core / classloading
 	       'org.codehaus.groovy.grails.plugins', // plugins
 	       'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
