@@ -142,7 +142,7 @@ Välkommen till http://www.jaghandlar.se/
     def url = settings.formatBackofficeUrl("/account/show/%s", account.id)
 
 
-    def adminMails = getAdminEmails()
+    def adminMails = getOrderEmailRecipients()
 
 
     mailService.sendMail {
@@ -179,7 +179,7 @@ ${url}
 
   }
 
-  def getAdminEmails() {
-    ["jm.bergqvist@gmail.com", "roland.lundgren@spsm.se"]
+  def getOrderEmailRecipients() {
+    ["jm.bergqvist@gmail.com", "roland.lundgren@spsm.se", "jaghandlar-order@spsm.se"]
   }
 }
