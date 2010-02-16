@@ -56,7 +56,7 @@ class AccountController {
       log.info "Exporting newsletter subscription list"
 
       StringWriter writer = new StringWriter();
-      def accounts = Account.findAllByNewsLetterSubscribe(true)
+      def accounts = Account.findAllByNewsletterSubscribe(true)
 
       accounts.collect {it.email}.unique().sort().eachWithIndex { email, index ->
         writer.print "${email};"
