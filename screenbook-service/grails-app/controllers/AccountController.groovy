@@ -47,7 +47,7 @@ class AccountController {
       log.info "Listing accounts interested in newsletter"
 
       params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-      def accounts = Account.findAllByNewsLetterSubscribe(true)
+      def accounts = Account.findAllByNewsletterSubscribe(true)
       render (view:'list', model:[newsletter:true, title: 'Intresserade av nyhetsbrev', accountInstanceList: accounts, accountInstanceTotal: accounts.size()])
     }
 
