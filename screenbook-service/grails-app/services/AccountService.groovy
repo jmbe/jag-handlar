@@ -62,10 +62,10 @@ class AccountService {
   def verifyLogin(String username, String password) throws UserNotFoundException, IncorrectPasswordException {
     def account = Account.findByUsername(username);
     if (account == null) {
-      log.info("Bad account")
+      log.info("Bad account ${username}")
       throw new UserNotFoundException("error.incorrect.username");
     } else if (account.passwd != authenticateService.encodePassword(password)) {
-      log.info("Bad password")
+      log.info("Bad password for ${username}")
       throw new IncorrectPasswordException("error.incorrect.password");
     } else {
       return account.apikey
@@ -110,10 +110,10 @@ class AccountService {
     def account = Account.findByUsername(accountName)
     if (account) {
       def result = account.apikey == apikey
-      println "apikey was correct? " + result
+      log.info "apikey was correct for ${accountName}: " + result
       return result
     } else {
-      println "no account was found"
+      log.info "no account ${accountName} was found while verifying API key"
       return false
     }
   }
