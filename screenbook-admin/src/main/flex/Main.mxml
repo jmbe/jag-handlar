@@ -22,7 +22,7 @@
         private var connectionSettings:ConnectionSettings = new ConnectionSettings("localhost:8080");
         //private var connectionSettings:ConnectionSettings = new ConnectionSettings("www.jaghandlar.se");
 
-        
+
         private var amf:String = "http://localhost:8080/messagebroker/amf";
 
         [Bindable]
@@ -66,6 +66,8 @@
 
         private function onApiLogin(e:ApiLoginEvent):void {
             apiLoginResult.text = "" + e.result.isValid;
+            apiLoginErrorCode.text = e.result.errorCode;
+            apiLoginAccountExpired.selected = e.result.isAccountExpired;
 
             testMode.text = jagHandlar.isTestMode.toString();
         }
@@ -106,6 +108,10 @@
 
         private function onLoginTeacher(e:LoginTeacherEvent):void {
             teacherLoginResult.text = e.type;
+
+            teacherLoginError.text = e.result.errorCode;
+            teacherLoginExpiredAccount.selected = e.result.isExpiredAccount;
+            teacherLoginIncorrectCredentials.selected = e.result.isIncorrectCredentials;
 
             apiUsername.text = e.result.username;
             apiKey.text = e.result.key;
@@ -187,6 +193,20 @@
             <mx:FormItem label="Resultat">
                 <mx:Label id="teacherLoginResult"/>
             </mx:FormItem>
+            <mx:FormItem label="Felkod">
+                <mx:Label id="teacherLoginError" />
+            </mx:FormItem>
+
+            <mx:FormItem label="Felaktiga kontouppgifter">
+                <mx:CheckBox id="teacherLoginIncorrectCredentials" />
+            </mx:FormItem>
+
+            <mx:FormItem label="Utgånget abonnemang">
+                <mx:CheckBox id="teacherLoginExpiredAccount" />
+            </mx:FormItem>
+
+            
+
             <mx:FormItem label="Nuvarande lärare">
                 <mx:Label text="{jagHandlar.currentTeacher.username}"/>
             </mx:FormItem>
@@ -247,6 +267,14 @@
             </mx:FormItem>
             <mx:FormItem label="Lösenord">
                 <mx:TextInput id="apiKey"/>
+            </mx:FormItem>
+
+            <mx:FormItem label="Felkod">
+                <mx:Label id="apiLoginErrorCode" />
+            </mx:FormItem>
+
+            <mx:FormItem label="Utgånget abonnemang">
+                <mx:CheckBox id="apiLoginAccountExpired" />
             </mx:FormItem>
 
             <mx:FormItem>

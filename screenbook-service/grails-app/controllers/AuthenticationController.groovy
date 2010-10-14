@@ -30,24 +30,26 @@ class AuthenticationController {
       def password = params.password
 
       def apikey
-      def result
+      def result = "failure"
       def error
-      def showBookmarkReminder = true;
       try {
+        /* Authentication */
         apikey = accountService.verifyLogin(username, password)
 
+        /* Authorization */
         def account = Account.findByUsername(username)
-        showBookmarkReminder = account.showBookmarkReminder;
-        result ="success"
+        if (account.isActive()) {
+          result = "success"
+        } else {
+          error = "error.account.expired"
+        }
       } catch (UserNotFoundException e) {
-        result = "failure"
         error = e.message
       } catch (IncorrectPasswordException e) {
-        result = "failure"
         error = e.message
       }
 
-      render XmlResults.getLoginAsTeacherResult(username, apikey, result, error, showBookmarkReminder)
+      render XmlResults.getLoginAsTeacherResult(username, apikey, result, error, false)
     }
 
     def changeTeacherPassword = {
@@ -64,10 +66,19 @@ class AuthenticationController {
     def verifyApiLogin = {
       def username = params.username
       def apikey = params.apikey
+      String error = "";
+      def active = false;
 
       def valid = accountService.verifyApiLogin(username, apikey);
 
-      render new XmlResults().withVerifyApiLoginResult(valid).toXml();
+      if (valid) {
+        active = Account.findByUsername(username).isActive();
+        if (!active) {
+          error = "error.account.expired"
+        }
+      }
+
+      render new XmlResults().withVerifyApiLoginResult(valid && active, error).toXml();
     }
 
 

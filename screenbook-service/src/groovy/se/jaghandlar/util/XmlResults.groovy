@@ -17,9 +17,10 @@ class XmlResults {
     return [text: writer.toString(), contentType: "text/xml"]
   }
 
-  def withVerifyApiLoginResult(boolean isValid) {
+  def withVerifyApiLoginResult(boolean isValid, String code) {
     xml.result() {
       valid(isValid)
+      errorCode(code)
     }
     
     return this;
@@ -33,7 +34,7 @@ class XmlResults {
       status(statusString)
       username(usernameString)
       apikey(apikeyString)
-      error(errorString)
+      errorCode(errorString)
       showBookmarkReminder(showBookmarkReminderFlag)
     }
     return [text: writer.toString(), contentType: "text/xml"]

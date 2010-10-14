@@ -77,6 +77,24 @@ class Account {
     this.passwd = authenticateService.encodePassword(plainTextPassword)
   }
 
+  def isActive() {
+    return hasRole(Role.ADMIN) || hasActivePurchase();
+  }
+
+  def hasRole(def roleName) {
+    for (Role role : this.authorities) {
+      if (role.authority.equals(roleName)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  def hasActivePurchase() {
+    return latestActivePurchase() != null;
+  }
+
   def getNumberOfLicenses() {
     def purchase = latestActivePurchase()
     if (purchase == null) {

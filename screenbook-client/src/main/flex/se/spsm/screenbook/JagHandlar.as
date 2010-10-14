@@ -186,7 +186,7 @@ public class JagHandlar extends EventDispatcher {
         //Alert.show("Jag handlar: Login failed for teacher");
 
         logoutTeacher();
-        dispatchEvent(new LoginTeacherEvent(LoginTeacherEvent.FAILURE, null));
+        dispatchEvent(new LoginTeacherEvent(LoginTeacherEvent.FAILURE, e.result));
     }
 
 

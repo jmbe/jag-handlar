@@ -1,7 +1,3 @@
-
-
-
-
 /**
  * Authority domain class.
  */
@@ -18,4 +14,7 @@ class Role {
 		authority(blank: false, unique: true)
 		description()
 	}
+
+  static String ADMIN="ROLE_ADMIN"
+  static String TEACHER="ROLE_TEACHER"
 }
