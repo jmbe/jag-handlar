@@ -11,4 +11,6 @@
 			            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
 
     <context:component-scan base-package="se.jaghandlar.web.subscribe"/>
+
+    <bean id="remoteIpResolver" class="se.pictosys.ip.ProxyAwareRemoteIpResolver" />
 </beans>

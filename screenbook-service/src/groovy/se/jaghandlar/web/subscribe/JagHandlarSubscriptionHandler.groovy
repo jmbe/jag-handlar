@@ -85,7 +85,7 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
   }
 
   void addUser(HttpServletRequest request, NewPurchaseInfo newPurchaseInfo) {
-    accountService.createMainAccount(newPurchaseInfo.getUsername(), newPurchaseInfo.getEmail(), newPurchaseInfo.isNotify())
+    accountService.createMainAccount(newPurchaseInfo.username.username, newPurchaseInfo.email.email, newPurchaseInfo.notify)
   }
 
   boolean isRenewal(HttpServletRequest request) {
