@@ -106,6 +106,7 @@ log4j = {
 
     root {
       additivity = true
+      warn()
       debug 'stdout','dailyAppender', 'smtpAppender'
     }
 
