@@ -46,15 +46,15 @@
                     <tbody>
                     <g:each in="${accountInstanceList}" status="i" var="accountInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                        
+
                             <td><g:link action="show" class="user" id="${accountInstance.id}">${fieldValue(bean:accountInstance, field:'username')}</g:link></td>
-                        
+
 
                             <td>${fieldValue(bean:accountInstance, field:'email')}</td>
-                        
+
                             <td>
                               <c:choose>
-                                <c:when test="${fieldValue(bean:accountInstance, field:'newsletterSubscribe')}">
+                                <c:when test="${accountInstance.newsletterSubscribe}">
                                   Ja
                                 </c:when>
                                 <c:otherwise>
@@ -64,16 +64,13 @@
                             </td>
 
                             <td>
-                              <c:choose>
-                                <c:when test="${fieldValue(bean:accountInstance, field:'newAccount')}">
+                                <g:if test="${accountInstance.newAccount}">
                                   <g:link class="yes" action="show"  id="${accountInstance.id}"><span class="yes">Ja</span></g:link>
-
-                                </c:when>
-                                <c:otherwise>
+                                </g:if>
+                                <g:else>
                                   <span class="not-important">Nej</span>
-                                </c:otherwise>
+                                </g:else>
 
-                              </c:choose>
                               </td>
 
                         </tr>

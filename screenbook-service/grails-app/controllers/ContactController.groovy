@@ -25,7 +25,7 @@ ${params.message ?: '<Tomt meddelande>'}
       """
     }
 
-    render true as XML
+    render "true"
   }
 
 }

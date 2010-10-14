@@ -120,7 +120,11 @@ log4j = {
 	       'org.springframework',
 	       'org.hibernate'
 
-    warn   'org.mortbay.log'
+
+    warn   'org.mortbay.log',
+           'org.apache.commons',
+           'org.apache.tomcat',
+           'org.apache.catalina'
 
     info   'grails.app',
             'se.jaghandlar',

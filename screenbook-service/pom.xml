@@ -17,8 +17,8 @@
     <name>Screenbook Grails Service</name>
 
     <properties>
-        <grails.version>1.1.1</grails.version>
-        <slf4j.version>1.5.6</slf4j.version>
+        <grails.version>1.3.5</grails.version>
+        <slf4j.version>1.5.8</slf4j.version>
         <flex.blazeds.version>3.2.0.3978</flex.blazeds.version>
     </properties>
 
@@ -29,7 +29,7 @@
 			<plugin>
 				<groupId>org.grails</groupId>
 				<artifactId>grails-maven-plugin</artifactId>
-				<version>1.1</version>
+				<version>1.3.4</version>
 				<extensions>true</extensions>
 				<executions>
 					<execution>
