@@ -111,6 +111,7 @@ log4j = {
 
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
 	       'org.codehaus.groovy.grails.web.pages', //  GSP
+	       'org.codehaus.groovy.grails.web.metaclass',
 	       'org.codehaus.groovy.grails.web.sitemesh', //  layouts
 	       'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
 	       'org.codehaus.groovy.grails.web.mapping', // URL mapping
@@ -124,7 +125,8 @@ log4j = {
     warn   'org.mortbay.log',
            'org.apache.commons',
            'org.apache.tomcat',
-           'org.apache.catalina'
+           'org.apache.catalina',
+            'com.opensymphony'
 
     info   'grails.app',
             'se.jaghandlar',
