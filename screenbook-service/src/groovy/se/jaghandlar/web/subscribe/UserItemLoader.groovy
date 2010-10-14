@@ -3,6 +3,7 @@ package se.jaghandlar.web.subscribe
 import javax.servlet.http.HttpServletRequest
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
+import se.pictosys.account.api.Username
 import se.pictosys.web.api.Scope
 import se.pictosys.web.api.ScopeObjectLoader
 
@@ -17,9 +18,9 @@ class UserItemLoader implements se.pictosys.payment.web.api.UserItemLoader {
     throw new UnsupportedOperationException("Not implemented");
   }
 
-  void saveUserItem(HttpServletRequest request, String username) {
+  void saveUserItem(HttpServletRequest request, Username username) {
     log.debug "Saving user item ${username}"
-    userItemLoader.set(request, new Username(username: username));
+    userItemLoader.set(request, username);
   }
 
   boolean hasUserItem(HttpServletRequest request) {
@@ -32,8 +33,8 @@ class UserItemLoader implements se.pictosys.payment.web.api.UserItemLoader {
     userItemLoader.remove(request);
   }
 
-  String getUserItemUsername(HttpServletRequest request) {
+  Username getUserItemUsername(HttpServletRequest request) {
     log.debug "Returning user item as username."
-    return userItemLoader.get(request).getUsername();
+    return userItemLoader.get(request);
   }
 }

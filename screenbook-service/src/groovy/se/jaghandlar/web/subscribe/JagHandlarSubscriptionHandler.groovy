@@ -4,7 +4,10 @@ import javax.annotation.Resource
 import javax.servlet.http.HttpServletRequest
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
+import se.pictosys.account.api.Username
+import se.pictosys.ip.IpAddress
 import se.pictosys.license.LicenseSelection
+import se.pictosys.password.api.PlainTextPassword
 import se.pictosys.payment.api.ContactInformation
 import se.pictosys.payment.api.data.NewPurchaseInfo
 import se.pictosys.payment.web.api.SubscriptionHandler
@@ -30,17 +33,17 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
   @Resource(name = "userItemLoader")
   def userItemLoader
 
-  Object addPendingPurchase(String username, LicenseSelection licenseSelection, String type) {
+  Object addPendingPurchase(Username username, LicenseSelection licenseSelection, String type, IpAddress remoteIp) {
     /* PayPal purchases are not supported in Jag handlar. */
     throw new UnsupportedOperationException("Not implemented");
   }
 
-  void addPurchase(String username, LicenseSelection licenseSelection, ContactInformation contactInformation, String type) {
-    purchaseService.addInvoicePurchase(username, licenseSelection, contactInformation)
+  void addPurchase(Username username, LicenseSelection licenseSelection, ContactInformation contactInformation, String type, IpAddress remoteIp) {
+    purchaseService.addInvoicePurchase(username.username, licenseSelection, contactInformation)
   }
 
-  String getCurrentLicense(String username) {
-    return accountService.getNumberOfLicenses(username)
+  String getCurrentLicense(Username username) {
+    return accountService.getNumberOfLicenses(username.username)
   }
 
   void savePayPalPurchaseId(HttpServletRequest request, Object purchaseId) {
@@ -64,17 +67,17 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
     return licenseLoader.get(request)
   }
 
-  boolean doesUserExist(String username) {
+  boolean doesUserExist(Username username) {
     log.info "Checking if main account ${username} exists."
-    return accountService.mainAccountExists(username)
+    return accountService.mainAccountExists(username.username)
   }
 
-  String getLoggedInUsername(HttpServletRequest request) {
+  Username getLoggedInUsername(HttpServletRequest request) {
     throw new UnsupportedOperationException("Not implemented");
   }
 
-  boolean isValidLogin(String username, String password) {
-    return accountService.isValidLogin(username, password)
+  boolean isValidLogin(Username username, PlainTextPassword password) {
+    return accountService.isValidLogin(username.username, password.password)
   }
 
   boolean isLoggedInAsCustomer(HttpServletRequest request) {
@@ -96,8 +99,8 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
     }
 
     try {
-      String username = userItemLoader.getUserItemUsername(request)
-      def purchase = purchaseService.findLatestActivePurchase(username)
+      Username username = userItemLoader.getUserItemUsername(request)
+      def purchase = purchaseService.findLatestActivePurchase(username.username)
       if (purchase) {
         f.contactPerson = purchase.contactPerson
         f.phone = purchase.phoneNumber
@@ -122,8 +125,8 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
 
     try {
 
-      String username = userItemLoader.getUserItemUsername(request)
-      def purchase = purchaseService.findLatestActivePurchase(username)
+      Username username = userItemLoader.getUserItemUsername(request)
+      def purchase = purchaseService.findLatestActivePurchase(username.username)
 
       if (purchase) {
         f.firstName = purchase.deliveryAddress.firstName
@@ -139,7 +142,7 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
     }
   }
 
-  void onSubscriptionRenewedEvent(HttpServletRequest request, String username) {
+  void onSubscriptionRenewedEvent(HttpServletRequest request, Username username) {
     /* Nothing to do in Jag handlar */
   }
 
