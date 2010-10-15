@@ -82,7 +82,7 @@ class Account {
   }
 
   def hasRole(def roleName) {
-    for (Role role : this.authorities) {
+    for (Role role: this.authorities) {
       if (role.authority.equals(roleName)) {
         return true;
       }
@@ -102,7 +102,7 @@ class Account {
     }
 
     return purchase.license
-    
+
   }
 
 
@@ -123,7 +123,7 @@ class Account {
   def latestActivePurchase() {
     Date now = new Date();
     Purchase latestPurchase = null;
-    for (Purchase purchase : this.purchases) {
+    for (Purchase purchase: this.purchases) {
       if (purchase.invoiceSent && purchase.endsAfter(now) && (latestPurchase == null || purchase.endsAfter(latestPurchase))) {
         latestPurchase = purchase
       }
@@ -136,17 +136,61 @@ class Account {
   }
 
   def latestInvoicedPurchase() {
-      Purchase latestPurchase = null;
-      for (Purchase purchase : this.purchases) {
-        if (purchase.invoiceSent && (latestPurchase == null || purchase.purchasedAfter(latestPurchase.purchaseDate))) {
-              latestPurchase = purchase;
-        }
+    Purchase latestPurchase = null;
+    for (Purchase purchase: this.purchases) {
+      if (purchase.invoiceSent && (latestPurchase == null || purchase.purchasedAfter(latestPurchase.purchaseDate))) {
+        latestPurchase = purchase;
       }
-      if (latestPurchase == null) {
-        log.info "No invoiced purchases found for user ${username}."
-      }
+    }
+    if (latestPurchase == null) {
+      log.info "No invoiced purchases found for user ${username}."
+    }
 
-      return latestPurchase;
+    return latestPurchase;
   }
 
+  boolean shouldReminderBeSent(int daysBefore) {
+    if (!enabled) {
+      return false;
+    }
+
+    if (isDayBefore(daysBefore)) {
+      return !isDayBeforeNoticeSent();
+    } else if (isTwoWeeksBefore(daysBefore)) {
+      return !isTwoWeeksNoticeSent();
+    }
+
+    return isSixWeeksBefore(daysBefore) && !isSixWeeksNoticeSent();
+
+  }
+
+  private boolean isSixWeeksBefore(final int daysBefore) {
+    boolean sixWeeksBefore = daysBefore <= 6 * 7;
+    return sixWeeksBefore;
+  }
+
+  private boolean isTwoWeeksBefore(final int daysBefore) {
+    boolean twoWeeksBefore = daysBefore <= 14;
+    return twoWeeksBefore;
+  }
+
+  private boolean isDayBefore(final int daysBefore) {
+    boolean dayBefore = daysBefore <= 1;
+    return dayBefore;
+  }
+
+  def setReminderNoticeSent(int daysBefore) {
+    if (isDayBefore(daysBefore)) {
+      setDayBeforeNoticeSent(true);
+    }
+
+    if (isTwoWeeksBefore(daysBefore)) {
+      setTwoWeeksNoticeSent(true);
+    }
+
+    if (isSixWeeksBefore(daysBefore)) {
+      setSixWeeksNoticeSent(true);
+    }
+
+  }
 }

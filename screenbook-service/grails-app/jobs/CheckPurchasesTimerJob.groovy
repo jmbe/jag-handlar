@@ -9,100 +9,68 @@ class CheckPurchasesTimerJob {
    * Cron with quartz syntax is *seconds* minutes hour day month days-of-week.
    */
   static triggers = {
-    cron name: 'cronTrigger', startDelay: 5000, cronExpression:  "0 4 21 * * ?" 
+    cron name: 'cronTrigger', startDelay: 5000, cronExpression: "0 0 7 * * ?"
   }
 
   def execute() {
-    def purchases = Purchase.findAllByInvoiceSent(true)
+    sendReminders();
+  }
+
+  private def sendReminders() {
+    log.info "Checking for expired accounts."
 
     int tomorrow = 1;
     int twoWeeks = 14;
     int sixWeeks = 6 * 7;
 
-    sendReminders(purchases, tomorrow);
-    sendReminders(purchases, twoWeeks);
-    sendReminders(purchases, sixWeeks);
+    for (int days: [tomorrow, twoWeeks, sixWeeks]) {
+      def accounts = findCustomersWhichExpireWithinDays(days);
+      for (account in accounts) {
+        sendReminder(account, days);
+      }
+    }
   }
 
-  def sendReminders(List<Purchase> purchases, int daysBefore) {
+  private def findCustomersWhichExpireWithinDays(final int days) {
 
-    Calendar calendar = Calendar.getInstance()
-    calendar.add(Calendar.DAY_OF_YEAR, daysBefore)
-    Date expiry = calendar.getTime()
+    def accounts = Account.findAll("from Account as account where exists " +
+            "(from account.purchases as invoicedPurchase where invoicedPurchase.invoiceSent = true) " +
+            "and exists (from account.purchases as activePurchase where activePurchase.invoiceSent = true and activePurchase.endDate > :now) " +
+            "and not exists (from account.purchases as activePurchase  where activePurchase.invoiceSent = true and activePurchase.endDate > :date)", [now: new Date(), date: inDays(days)]);
 
+    log.info "Found ${accounts.size()} accounts which potentially expire within ${days} days."
 
-    def expiredPurchases = purchases.findAll {purchase ->
-      purchase.endsBefore(expiry)
-    }
-
-    log.info "Found ${expiredPurchases?.size()} expired purchases out of ${purchases?.size()} invoiced purchases in total."
-
-
-    for (it in expiredPurchases) {
-      sendReminder it, daysBefore
-    }
-
-
+    return accounts;
   }
 
-  def sendReminder(def purchase, int daysBefore) {
-    if (!shouldReminderBeSent(purchase, daysBefore)) {
-      log.info "Reminder has already been sent to ${purchase.account.username} for ${daysBefore} days before."
+  /**
+   * Days in the future.
+   */
+  private Date inDays(final int days) {
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DAY_OF_YEAR, days);
+    Date expiry = calendar.getTime();
+    return expiry;
+  }
+
+
+
+
+  def sendReminder(Account account, int daysBefore) {
+    if (!account.shouldReminderBeSent(daysBefore)) {
+      log.info "Reminder has already been sent to ${account.username} for ${daysBefore} days before."
       return
     }
 
     /*
-     * Logging on warn level so that a mail will be sent - not an actual
+     * Logging on error level so that a mail will be sent - not an actual
      * warning.
      */
-    log.warn "Sending reminder for purchase ${purchase.id} for user ${purchase.account.username}. (Ignore warning.)"
-
-
-    def account = purchase.account
+    log.error "Sending reminder to user ${account.username}. (Ignore error.)"
 
     purchaseMessagingService.sendCustomerExpirationWarning(account, account.latestEndDate())
-
-    if (isDayBefore(daysBefore)) {
-      account.setDayBeforeNoticeSent(true);
-    }
-
-    if (isTwoWeeksBefore(daysBefore)) {
-      account.setTwoWeeksNoticeSent(true);
-    }
-
-    if (isSixWeeksBefore(daysBefore)) {
-      account.setSixWeeksNoticeSent(true);
-    }
-
+    account.setReminderNoticeSent(daysBefore)
   }
 
-  def shouldReminderBeSent(def purchase, int daysBefore) {
-    def user = purchase.account
-
-    if (isDayBefore(daysBefore)) {
-      return !user.dayBeforeNoticeSent;
-    } else if (isTwoWeeksBefore(daysBefore)) {
-      return !user.twoWeeksNoticeSent;
-    }
-
-    return isSixWeeksBefore(daysBefore) && !user.sixWeeksNoticeSent;
-
-
-  }
-
-  private boolean isSixWeeksBefore(final int daysBefore) {
-    boolean sixWeeksBefore = daysBefore <= 6 * 7;
-    return sixWeeksBefore;
-  }
-
-  private boolean isTwoWeeksBefore(final int daysBefore) {
-    boolean twoWeeksBefore = daysBefore <= 14;
-    return twoWeeksBefore;
-  }
-
-  private boolean isDayBefore(final int daysBefore) {
-    boolean dayBefore = daysBefore <= 1;
-    return dayBefore;
-  }
 
 }
