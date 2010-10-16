@@ -1,6 +1,7 @@
-import se.jaghandlar.exceptions.UserNotFoundException
-import se.jaghandlar.exceptions.IncorrectPasswordException
 import cr.co.arquetipos.password.PasswordTools
+import org.apache.commons.lang.StringUtils
+import se.jaghandlar.exceptions.IncorrectPasswordException
+import se.jaghandlar.exceptions.UserNotFoundException
 
 class AccountService {
 
@@ -60,13 +61,23 @@ class AccountService {
   }
 
   def verifyLogin(String username, String password) throws UserNotFoundException, IncorrectPasswordException {
+    if (StringUtils.isEmpty(username)) {
+      log.warn "Username was empty"
+      throw new UserNotFoundException();
+    }
+
+    if (StringUtils.isEmpty(password)) {
+      log.warn "Password was empty for user ${username}"
+      throw new IncorrectPasswordException();
+    }
+
     def account = Account.findByUsername(username);
     if (account == null) {
       log.info("Bad account ${username}")
-      throw new UserNotFoundException("error.incorrect.username");
+      throw new UserNotFoundException();
     } else if (account.passwd != authenticateService.encodePassword(password)) {
       log.info("Bad password for ${username}")
-      throw new IncorrectPasswordException("error.incorrect.password");
+      throw new IncorrectPasswordException();
     } else {
       return account.apikey
     }
@@ -168,17 +179,17 @@ class AccountService {
 
   def resetPassword(String accountIdentifier) {
     def account
-    if(accountIdentifier.contains("@")) {
+    if (accountIdentifier.contains("@")) {
       account = Account.findByEmail(accountIdentifier)
     } else {
       account = Account.findByUsername(accountIdentifier)
     }
 
-    if(account == null) {
+    if (account == null) {
       return false
     }
 
-    
+
     def password = generateNewPassword()
     account.passwd = authenticateService.encodePassword(password)
     account.save()
