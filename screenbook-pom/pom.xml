@@ -4,16 +4,17 @@
 
     <parent>
         <groupId>se.spsm.screenbook</groupId>
-        <artifactId>screenbook-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <relativePath>../screenbook-parent/pom.xml</relativePath>
+        <artifactId>screenbook-flex-parent</artifactId>
+        <version>1.1-SNAPSHOT</version>
+        <relativePath>../screenbook-flex-parent/pom.xml</relativePath>
     </parent>
 
+    <groupId>se.spsm.screenbook</groupId>
     <artifactId>screenbook-pom</artifactId>
     <packaging>pom</packaging>
     <name>Screenbook Pom</name>
+    <version>1.1-SNAPSHOT</version>
 
-    
     <modules>
         <module>../screenbook-parent</module>
         <module>../screenbook-service</module>
@@ -21,4 +22,3 @@
     </modules>
 
 </project>
-

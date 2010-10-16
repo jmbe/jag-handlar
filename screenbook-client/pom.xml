@@ -5,7 +5,7 @@
     <parent>
         <groupId>se.spsm.screenbook</groupId>
         <artifactId>screenbook-flex-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.1-SNAPSHOT</version>
         <relativePath>../screenbook-flex-parent/pom.xml</relativePath>
     </parent>
 
