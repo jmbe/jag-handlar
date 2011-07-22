@@ -9,3 +9,13 @@ target
 classes
 */infinitest.settings
 */out.txt
+*/.settings/.jsdtscope
+*/.settings/com.springsource.sts.config.flow.prefs
+*/.settings/org.eclipse.jdt.core.prefs
+*/.settings/org.eclipse.wst.common.component
+*/.settings/org.eclipse.wst.common.project.facet.core.xml
+*/.settings/org.maven.ide.eclipse.prefs
+*/.settings/org.eclipse.wst.jsdt.ui.superType.container
+*/.settings/org.eclipse.wst.jsdt.ui.superType.name
+*/.settings/org.eclipse.ajdt.core.prefs
+*/.settings/com.vaadin.integration.eclipse.prefs
