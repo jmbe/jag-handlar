@@ -10,6 +10,9 @@
 			            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
 			            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
 
+    <!-- Turn on AspectJ @Configurable support -->
+    <context:spring-configured />
+
     <context:component-scan base-package="se.jaghandlar.web.subscribe"/>
 
     <bean id="remoteIpResolver" class="se.pictosys.ip.ProxyAwareRemoteIpResolver" />
