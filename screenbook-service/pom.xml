@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
         <groupId>se.spsm.screenbook</groupId>
@@ -9,10 +9,10 @@
         <relativePath>../screenbook-parent/pom.xml</relativePath>
     </parent>
 
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>se.spsm.screenbook</groupId>
-	<artifactId>screenbook-service</artifactId>
-	<packaging>war</packaging>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>se.spsm.screenbook</groupId>
+    <artifactId>screenbook-service</artifactId>
+    <packaging>war</packaging>
 
     <name>Screenbook Grails Service</name>
 
@@ -23,60 +23,60 @@
     </properties>
 
 
-	<build>
-		<pluginManagement/>
-		<plugins>
-			<plugin>
-				<groupId>org.grails</groupId>
-				<artifactId>grails-maven-plugin</artifactId>
-				<version>1.3.4</version>
-				<extensions>true</extensions>
-				<executions>
-					<execution>
-						<goals>
-							<goal>init</goal>
-							<goal>maven-clean</goal>
-							<goal>validate</goal>
-							<goal>config-directories</goal>
-							<goal>maven-compile</goal>
-							<goal>maven-test</goal>
-							<goal>maven-war</goal>
-							<goal>maven-functional-test</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-	<profiles>
-		<profile>
-			<id>tools</id>
-			<activation>
-				<property>
-					<name>java.vendor</name>
-					<value>Sun Microsystems Inc.</value>
-				</property>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>com.sun</groupId>
-					<artifactId>tools</artifactId>
-					<version>${java.version}</version>
-					<scope>system</scope>
-					<systemPath>${java.home}/../lib/tools.jar</systemPath>
-				</dependency>
-			</dependencies>
-		</profile>
-	</profiles>
-    
-	<dependencies>
+    <build>
+        <pluginManagement />
+        <plugins>
+            <plugin>
+                <groupId>org.grails</groupId>
+                <artifactId>grails-maven-plugin</artifactId>
+                <version>1.3.4</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>init</goal>
+                            <goal>maven-clean</goal>
+                            <goal>validate</goal>
+                            <goal>config-directories</goal>
+                            <goal>maven-compile</goal>
+                            <goal>maven-test</goal>
+                            <goal>maven-war</goal>
+                            <goal>maven-functional-test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>tools</id>
+            <activation>
+                <property>
+                    <name>java.vendor</name>
+                    <value>Sun Microsystems Inc.</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.sun</groupId>
+                    <artifactId>tools</artifactId>
+                    <version>${java.version}</version>
+                    <scope>system</scope>
+                    <systemPath>${java.home}/../lib/tools.jar</systemPath>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
+    <dependencies>
         <dependency>
             <groupId>org.grails</groupId>
             <artifactId>grails-core</artifactId>
@@ -88,29 +88,29 @@
             <version>${grails.version}</version>
         </dependency>
 
-		<dependency>
-			<groupId>org.grails</groupId>
-			<artifactId>grails-crud</artifactId>
-			<version>${grails.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.grails</groupId>
+            <artifactId>grails-crud</artifactId>
+            <version>${grails.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.grails</groupId>
-			<artifactId>grails-gorm</artifactId>
-			<version>${grails.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.grails</groupId>
+            <artifactId>grails-gorm</artifactId>
+            <version>${grails.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.grails</groupId>
-			<artifactId>grails-spring</artifactId>
-			<version>${grails.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.grails</groupId>
+            <artifactId>grails-spring</artifactId>
+            <version>${grails.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.grails</groupId>
-			<artifactId>grails-resources</artifactId>
-    		<version>${grails.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.grails</groupId>
+            <artifactId>grails-resources</artifactId>
+            <version>${grails.version}</version>
+        </dependency>
 
         <!--
         <dependency>
@@ -121,48 +121,48 @@
 		-->
 
         <dependency>
-			<groupId>org.grails</groupId>
-			<artifactId>grails-test</artifactId>
-    		<version>${grails.version}</version>
-		</dependency>
+            <groupId>org.grails</groupId>
+            <artifactId>grails-test</artifactId>
+            <version>${grails.version}</version>
+        </dependency>
 
 
 
-		<!-- Grails defaults to OSCache for the second-level Hibernate cache. -->
-		<dependency>
-			<groupId>opensymphony</groupId>
-			<artifactId>oscache</artifactId>
-			<version>2.4</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.jms</groupId>
-					<artifactId>jms</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.servlet</groupId>
-					<artifactId>servlet-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+        <!-- Grails defaults to OSCache for the second-level Hibernate cache. -->
+        <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>oscache</artifactId>
+            <version>2.4</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.jms</groupId>
+                    <artifactId>jms</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-		<!-- For ease of development and testing, we include the HSQLDB database. -->
-		<dependency>
-			<groupId>hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>1.8.0.5</version>
-		</dependency>
+        <!-- For ease of development and testing, we include the HSQLDB database. -->
+        <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>1.8.0.5</version>
+        </dependency>
 
-		<!-- Use Log4J for logging. This artifact also pulls in the Log4J JAR. -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
-			<scope>runtime</scope>
-		</dependency>
+        <!-- Use Log4J for logging. This artifact also pulls in the Log4J JAR. -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -183,18 +183,18 @@
             <version>${slf4j.version}</version>
         </dependency>
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.tmatesoft.svnkit</groupId>
-			<artifactId>svnkit</artifactId>
-			<version>1.2.3.5521</version>
-			<scope>runtime</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.tmatesoft.svnkit</groupId>
+            <artifactId>svnkit</artifactId>
+            <version>1.2.3.5521</version>
+            <scope>runtime</scope>
+        </dependency>
 
         <dependency>
             <groupId>net.sf.ehcache</groupId>
@@ -238,11 +238,11 @@
             </exclusions>
         </dependency>
 
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.6</version>
-		</dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.6</version>
+        </dependency>
 
         <dependency>
             <groupId>se.pictosys</groupId>
@@ -257,9 +257,9 @@
         </dependency>
 
         <dependency>
-        	<groupId>se.pictosys</groupId>
-        	<artifactId>country-service</artifactId>
-        	<version>2.0.1-SNAPSHOT</version>
+            <groupId>se.pictosys</groupId>
+            <artifactId>country-service</artifactId>
+            <version>2.0.1-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
                     <groupId>xml-apis</groupId>
@@ -273,9 +273,9 @@
         </dependency>
 
         <dependency>
-        	<groupId>se.pictosys</groupId>
-        	<artifactId>license-service</artifactId>
-        	<version>2.0.1-SNAPSHOT</version>
+            <groupId>se.pictosys</groupId>
+            <artifactId>license-service</artifactId>
+            <version>2.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -299,7 +299,7 @@
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.4</version>
-            <scope>provided</scope>               
+            <scope>provided</scope>
         </dependency>
 
         <!-- Explicit version to avoid duplicate dependencies -->
