@@ -23,6 +23,7 @@
 </p>
 
 
+<div class="error-message"><stripes:errors globalErrorsOnly="true"/></div>
 
 <stripes:form action="/subscribe/login/checkLogin" id="account">
 

@@ -122,6 +122,11 @@ fieldset.x-fieldset {
 	clear: both;
 }
 
+.subscribe div.error-message {
+    color: red;
+    font-weight: bold;
+}
+
 .subscribe .error-messages ul {
     float: right;
     color: red;
