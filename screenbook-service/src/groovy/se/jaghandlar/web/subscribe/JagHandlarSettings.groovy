@@ -6,23 +6,23 @@ import se.pictosys.payment.api.messaging.PurchaseMessagingSettings
 @Component
 class JagHandlarSettings implements PurchaseMessagingSettings {
 
-  String getEmailFromAddress() {
-    "no-reply@jaghandlar.se"
-  }
+    String getEmailFromAddress() {
+        "no-reply@jaghandlar.se"
+    }
 
-  String getOrderEmailAddress() {
-    "roland.lundgren@spsm.se"
-  }
+    String getOrderEmailAddress() {
+        "roland.lundgren@spsm.se"
+    }
 
-  String getSupportEmailAddress() {
-    "jaghandlar@spsm.se"
-  }
+    String getSupportEmailAddress() {
+        "jaghandlar@spsm.se"
+    }
 
-  String formatBackofficeUrl(String format, Object ... objects) {
-    return String.format(getBackofficeBaseUrl() + format, objects);
-  }
+    String formatBackofficeUrl(String format, Object ... objects) {
+        return String.format(getBackofficeBaseUrl() + format, objects);
+    }
 
-  def getBackofficeBaseUrl() {
-    "http://www.jaghandlar.se"
-  }
+    def getBackofficeBaseUrl() {
+        "http://www.jaghandlar.se"
+    }
 }
