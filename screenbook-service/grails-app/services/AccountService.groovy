@@ -84,7 +84,7 @@ class AccountService {
 
     def isValidLogin(String username, String password) {
         try {
-            verifyApiLogin(username, password)
+            verifyLogin(username, password)
             return true
         } catch (UserNotFoundException e) {
             /* fall through */
@@ -174,6 +174,10 @@ class AccountService {
         student.save()
 
         return student
+    }
+
+    def emailExists(String email) {
+        return Account.findByEmail(email) != null
     }
 
     def resetPassword(String accountIdentifier) {

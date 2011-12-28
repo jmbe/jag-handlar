@@ -4,6 +4,8 @@ import javax.annotation.Resource
 import javax.servlet.http.HttpServletRequest
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
+
+import se.pictosys.account.api.Email;
 import se.pictosys.account.api.Username
 import se.pictosys.ip.IpAddress
 import se.pictosys.license.LicenseSelection
@@ -149,5 +151,15 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
     boolean isPayPalSupported() {
         /* All customers must pay by invoice. */
         return false
+    }
+
+    @Override
+    public boolean doesEmailExist(Email email) {
+        return accountService.emailExists(email.email)
+    }
+
+    @Override
+    public boolean isLoggedInAsHabilitation(HttpServletRequest request) {
+        return false;
     }
 }
