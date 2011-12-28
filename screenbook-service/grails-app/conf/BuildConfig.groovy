@@ -10,6 +10,9 @@ grails.project.dependency.resolution = {
     }
     log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     repositories {
+        mavenRepo "http://nexus.internetapplications.se/content/groups/public"
+        mavenRepo "http://nexus.internetapplications.se/content/groups/public-snapshots"
+
         grailsPlugins()
         grailsHome()
         grailsCentral()
@@ -18,8 +21,6 @@ grails.project.dependency.resolution = {
         // from public Maven repositories
         //mavenLocal()
         //mavenCentral()
-        mavenRepo "http://nexus.internetapplications.se/content/groups/public"
-        mavenRepo "http://nexus.internetapplications.se/content/groups/public-snapshots"
         //mavenRepo "http://snapshots.repository.codehaus.org"
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
