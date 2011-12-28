@@ -127,7 +127,11 @@ log4j = {
            'org.apache.commons',
            'org.apache.tomcat',
            'org.apache.catalina',
-            'com.opensymphony'
+            'com.opensymphony',
+            'org.apache',
+            'net.sourceforge',
+            'org.codehaus',
+            'httpclient'
 
     info   'grails.app',
             'se.jaghandlar',
