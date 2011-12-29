@@ -23,7 +23,7 @@
                 <configuration>
                     <contextRoot>/</contextRoot>
                     <services>${basedir}/../screenbook-service/web-app/WEB-INF/flex/services-config.xml</services>
-                    <output>${basedir}/../screenbook-service/web-app/${project.build.finalName}.swf</output>
+                    <output>${basedir}/../screenbook-service/web-app/swf/${project.build.finalName}.swf</output>
                 </configuration>
             </plugin>
         </plugins>
