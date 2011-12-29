@@ -3,6 +3,8 @@
 //grails.project.test.reports.dir = "target/test-reports"
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 grails.project.dependency.resolution = {
+    useOrigin true
+
     // inherit Grails' default dependencies
     inherits("global") {
         // uncomment to disable ehcache
@@ -28,7 +30,11 @@ grails.project.dependency.resolution = {
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-
         // runtime 'mysql:mysql-connector-java:5.1.5'
+
+        runtime "mysql:mysql-connector-java:5.1.6"
+        compile "se.pictosys:payment-web:2.0.1-SNAPSHOT"
+        compile "se.pictosys:pictosys-web:2.0.1-SNAPSHOT"
+        compile "org.springframework.flex:spring-flex:1.0.1.RELEASE"
     }
 }
