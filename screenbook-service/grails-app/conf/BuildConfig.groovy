@@ -33,8 +33,11 @@ grails.project.dependency.resolution = {
         // runtime 'mysql:mysql-connector-java:5.1.5'
 
         runtime "mysql:mysql-connector-java:5.1.6"
+        compile "org.springframework.flex:spring-flex:1.0.1.RELEASE"
+        compile "packtag:packtag:3.6"
+        compile "com.yahoo.platform.yui:yuicompressor:2.3.6"
+
         compile "se.pictosys:payment-web:2.0.1-SNAPSHOT"
         compile "se.pictosys:pictosys-web:2.0.1-SNAPSHOT"
-        compile "org.springframework.flex:spring-flex:1.0.1.RELEASE"
     }
 }
