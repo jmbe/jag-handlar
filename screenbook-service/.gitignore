@@ -3,8 +3,6 @@ target-eclipse
 plugins
 stacktrace.log
 test/reports/*
-*.swf
-*.swc
 logs
 .link_to_grails_plugins
 lib
