@@ -1,6 +1,8 @@
 import org.apache.commons.lang.StringUtils
 import org.codehaus.groovy.grails.plugins.springsecurity.Secured
 
+import se.jaghandlar.Account;
+
 @Secured(['ROLE_ADMIN'])
 class AccountController {
 

@@ -1,4 +1,5 @@
 import grails.converters.XML
+import se.jaghandlar.Account;
 import se.jaghandlar.exceptions.UserNotFoundException
 import se.jaghandlar.exceptions.IncorrectPasswordException
 import se.jaghandlar.util.XmlResults

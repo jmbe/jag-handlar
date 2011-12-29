@@ -1,3 +1,6 @@
+import se.jaghandlar.Account
+import se.jaghandlar.Role
+
 class CheckPurchasesTimerJob {
 
   def accountService

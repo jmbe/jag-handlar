@@ -1,5 +1,9 @@
 import cr.co.arquetipos.password.PasswordTools
 import org.apache.commons.lang.StringUtils
+
+import se.jaghandlar.Account;
+import se.jaghandlar.Role;
+import se.jaghandlar.Student;
 import se.jaghandlar.exceptions.IncorrectPasswordException
 import se.jaghandlar.exceptions.UserNotFoundException
 

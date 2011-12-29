@@ -1,3 +1,6 @@
+import se.jaghandlar.Account;
+import se.jaghandlar.Purchase;
+import se.jaghandlar.Role;
 import se.pictosys.license.LicenseSelection
 import se.pictosys.payment.api.ContactInformation
 

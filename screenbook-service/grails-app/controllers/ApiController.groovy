@@ -1,4 +1,5 @@
 import grails.converters.XML
+import se.jaghandlar.Account;
 import se.jaghandlar.util.XmlResults
 
 class ApiController {

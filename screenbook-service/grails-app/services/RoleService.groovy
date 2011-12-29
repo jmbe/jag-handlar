@@ -1,3 +1,5 @@
+import se.jaghandlar.Role;
+
 class RoleService {
 
   static transactional = true

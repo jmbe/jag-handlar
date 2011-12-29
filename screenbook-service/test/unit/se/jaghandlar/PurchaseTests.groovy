@@ -1,9 +1,11 @@
+package se.jaghandlar
 import grails.test.GrailsUnitTestCase
 import se.pictosys.license.LicenseSelection
 import se.pictosys.payment.api.Address
 import se.pictosys.payment.api.ContactInformation
 import se.pictosys.payment.api.Name
 import se.pictosys.payment.api.Street
+import se.jaghandlar.Purchase;
 import se.jaghandlar.web.subscribe.JagHandlarLicenseRepository
 
 class PurchaseTests extends GrailsUnitTestCase {

@@ -1,3 +1,4 @@
+package se.jaghandlar
 class Book {
 
 	String name

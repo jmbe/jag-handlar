@@ -2,6 +2,8 @@ import grails.converters.XML
 
 import org.codehaus.groovy.grails.plugins.springsecurity.Secured
 
+import se.jaghandlar.Answer;
+
 @Secured(['ROLE_ADMIN'])
 class AnswerController {
 

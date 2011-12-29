@@ -1,3 +1,4 @@
+package se.jaghandlar
 import org.apache.commons.lang.StringUtils
 import se.pictosys.license.LicenseSelection
 import se.pictosys.license.api.LicenseRepository

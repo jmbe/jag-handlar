@@ -1,3 +1,4 @@
+package se.jaghandlar
 /**
  * User domain class.
  */

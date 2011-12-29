@@ -1,5 +1,7 @@
 import org.codehaus.groovy.grails.plugins.springsecurity.Secured
 
+import se.jaghandlar.WorkBook;
+
 @Secured(['ROLE_ADMIN'])
 class WorkBookController {
     

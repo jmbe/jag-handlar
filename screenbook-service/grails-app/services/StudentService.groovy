@@ -1,3 +1,5 @@
+import se.jaghandlar.Student;
+
 class StudentService {
 
   static transactional = true

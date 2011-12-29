@@ -1,3 +1,4 @@
+package se.jaghandlar
 class Student {
 
     static hasMany = [books: WorkBook]

@@ -1,3 +1,4 @@
+package se.jaghandlar
 class Answer {
 	static belongsTo = [book: WorkBook]
 

@@ -1,3 +1,5 @@
+import se.jaghandlar.Book;
+
 class BookService {
 
     static transactional = true

@@ -1,5 +1,7 @@
 import org.codehaus.groovy.grails.plugins.springsecurity.Secured
 
+import se.jaghandlar.Role;
+
 @Secured(['ROLE_ADMIN'])
 class RoleController {
     

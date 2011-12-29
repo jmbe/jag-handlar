@@ -1,3 +1,4 @@
+package se.jaghandlar
 /**
  * Authority domain class.
  */
