@@ -1,3 +1,4 @@
+package se.jaghandlar
 import cr.co.arquetipos.password.PasswordTools
 import org.apache.commons.lang.StringUtils
 

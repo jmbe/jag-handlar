@@ -1,3 +1,4 @@
+package se.jaghandlar
 import se.jaghandlar.Book;
 
 class BookService {

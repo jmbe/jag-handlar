@@ -1,3 +1,4 @@
+package se.jaghandlar
 import se.jaghandlar.Account;
 import se.jaghandlar.Purchase;
 import se.jaghandlar.Role;

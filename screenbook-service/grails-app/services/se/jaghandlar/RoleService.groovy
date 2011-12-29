@@ -1,3 +1,4 @@
+package se.jaghandlar
 import se.jaghandlar.Role;
 
 class RoleService {
