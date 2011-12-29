@@ -5,3 +5,5 @@ test/reports/*
 *.swf
 *.swc
 logs/*
+.link_to_grails_plugins
+
