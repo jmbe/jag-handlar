@@ -1,27 +1,34 @@
 dataSource {
-	pooled = true
-	driverClassName = "com.mysql.jdbc.Driver"
-	username = "screenbook-dev"
-	password = "screenbook-dev"
+    pooled = true
+    driverClassName = "com.mysql.jdbc.Driver"
+    username = "screenbook-dev"
+    password = "screenbook-dev"
     dbCreate = "update"
+    dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+    properties {
+        testOnBorrow = "true"
+        validationQuery = "/* ping */ SELECT 1 FROM DUAL;"
+    }
 }
+
 hibernate {
     cache.use_second_level_cache=true
     cache.use_query_cache=true
-    cache.provider_class='com.opensymphony.oscache.hibernate.OSCacheProvider'
+    cache.provider_class = "net.sf.ehcache.hibernate.EhCacheProvider"
 }
 // environment specific settings
 environments {
+    development { dataSource { url = "jdbc:mysql://localhost/screenbook-dev" } }
 
-    /* Production and Development data sources are defined in resources.groovy. */
+    test {
+        dataSource {
+            driverClassName = "org.hsqldb.jdbcDriver"
+            dbCreate = "update"
+            username = "screenbook-test"
+            password = "screenbook-test"
+            url = "jdbc:mysql://localhost/screenbook-test"
+        }
+    }
 
-	test {
-		dataSource {
-			driverClassName = "org.hsqldb.jdbcDriver"
-			dbCreate = "update"
-			username = "sa"
-			password = ""
-			url = "jdbc:hsqldb:mem:testDb"
-		}
-	}
+    production { dataSource { url = "jdbc:mysql://localhost/screenbook-dev" } }
 }
