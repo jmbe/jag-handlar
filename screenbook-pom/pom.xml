@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -9,11 +9,9 @@
         <relativePath>../screenbook-flex-parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>se.spsm.screenbook</groupId>
     <artifactId>screenbook-pom</artifactId>
     <packaging>pom</packaging>
     <name>Screenbook Pom</name>
-    <version>1.1-SNAPSHOT</version>
 
     <modules>
         <module>../screenbook-parent</module>
