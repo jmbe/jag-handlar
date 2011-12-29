@@ -130,6 +130,7 @@ log4j = {
             'com.opensymphony',
             'org.apache',
             'net.sourceforge',
+            'net.sf',
             'org.codehaus',
             'httpclient'
 
