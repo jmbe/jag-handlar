@@ -3,7 +3,6 @@ dataSource {
     driverClassName = "com.mysql.jdbc.Driver"
     username = "screenbook-dev"
     password = "screenbook-dev"
-    dbCreate = "update"
     dialect = org.hibernate.dialect.MySQL5InnoDBDialect
     properties {
         testOnBorrow = "true"
