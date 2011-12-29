@@ -1,3 +1,4 @@
+package se.jaghandlar
 import grails.converters.XML
 import se.jaghandlar.Account;
 import se.jaghandlar.exceptions.UserNotFoundException

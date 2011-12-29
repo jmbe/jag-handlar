@@ -1,3 +1,4 @@
+package se.jaghandlar
 import org.codehaus.groovy.grails.plugins.springsecurity.Secured
 
 import se.jaghandlar.Book;

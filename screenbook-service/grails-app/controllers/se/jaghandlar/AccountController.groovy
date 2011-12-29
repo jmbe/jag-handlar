@@ -1,3 +1,4 @@
+package se.jaghandlar
 import org.apache.commons.lang.StringUtils
 import org.codehaus.groovy.grails.plugins.springsecurity.Secured
 

@@ -1,3 +1,4 @@
+package se.jaghandlar
 import grails.converters.XML
 import org.apache.commons.lang.StringUtils
 import se.jaghandlar.web.subscribe.JagHandlarSettings
