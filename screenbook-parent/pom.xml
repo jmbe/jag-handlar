@@ -16,7 +16,7 @@
         <repository>
             <id>se.internetapplications-releases</id>
             <url>
-                http://nexus.internetapplications.se/content/groups/public
+                http://nexus.intem.se/content/groups/public
             </url>
             <releases>
                 <enabled>true</enabled>
@@ -25,7 +25,7 @@
         <repository>
             <id>se.internetapplications-snapshots</id>
             <url>
-                http://nexus.internetapplications.se/content/groups/public-snapshots
+                http://nexus.intem.se/content/groups/public-snapshots
             </url>
             <snapshots>
                 <enabled>true</enabled>
@@ -36,7 +36,7 @@
         <pluginRepository>
             <id>se.internetapplications-releases</id>
             <url>
-                http://nexus.internetapplications.se/content/groups/public
+                http://nexus.intem.se/content/groups/public
             </url>
             <releases>
                 <enabled>true</enabled>
@@ -45,7 +45,7 @@
         <pluginRepository>
             <id>se.internetapplications-snapshots</id>
             <url>
-                http://nexus.internetapplications.se/content/groups/public-snapshots
+                http://nexus.intem.se/content/groups/public-snapshots
             </url>
             <snapshots>
                 <enabled>true</enabled>

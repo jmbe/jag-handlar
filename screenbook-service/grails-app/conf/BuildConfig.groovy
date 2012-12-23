@@ -19,8 +19,8 @@ grails.project.dependency.resolution = {
     }
     log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     repositories {
-        mavenRepo "http://nexus.internetapplications.se/content/groups/public"
-        mavenRepo "http://nexus.internetapplications.se/content/groups/public-snapshots"
+        mavenRepo "http://nexus.intem.se/content/groups/public"
+        mavenRepo "http://nexus.intem.se/content/groups/public-snapshots"
 
         grailsPlugins()
         grailsHome()
