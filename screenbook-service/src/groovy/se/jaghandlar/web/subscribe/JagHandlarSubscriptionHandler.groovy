@@ -162,4 +162,8 @@ class JagHandlarSubscriptionHandler implements SubscriptionHandler {
     public boolean isLoggedInAsHabilitation(HttpServletRequest request) {
         return false;
     }
+
+    boolean isSubAccount(Username username) {
+        return false;
+    }
 }
