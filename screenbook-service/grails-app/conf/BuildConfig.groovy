@@ -1,31 +1,46 @@
-//grails.project.class.dir = "target/classes"
-//grails.project.test.class.dir = "target/test-classes"
-//grails.project.test.reports.dir = "target/test-reports"
+grails.servlet.version = "2.5" // Change depending on target container compliance (2.5 or 3.0)
+grails.project.class.dir = "target/classes"
+grails.project.test.class.dir = "target/test-classes"
+grails.project.test.reports.dir = "target/test-reports"
+grails.project.target.level = 1.6
+grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
-
+/* Remove old conflicting jar files */
 grails.war.resources = { stagingDir ->
-    delete(file:"${stagingDir}/WEB-INF/lib/commons-logging-1.1.1.jar")
-    delete(file:"${stagingDir}/WEB-INF/lib/slf4j-api-1.5.2.jar")
+    [
+        "commons-logging-1.1.1.jar",
+        "slf4j-api-1.5.2.jar"
+    ].each {
+        delete(file:"${stagingDir}/WEB-INF/lib/${it}")
+    }
 }
 
-
 grails.project.dependency.resolution = {
-    useOrigin true
+    pom true
+    /* Turn off ivy checksums because many artifacts on central contains wrong sha1 */
+    checksums false
+
+    // useOrigin true
 
     // inherit Grails' default dependencies
     inherits("global") {
+        /* xml-apis conflicts with Java 6 */
+        excludes "xml-apis", "xmlParserAPIs"
         // uncomment to disable ehcache
         // excludes 'ehcache'
     }
     log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     repositories {
+        inherit false
         mavenRepo "http://nexus.intem.se/content/groups/public"
         mavenRepo "http://nexus.intem.se/content/groups/public-snapshots"
+        grailsRepo "http://plugins.grails.org/"
 
-        grailsPlugins()
-        grailsHome()
-        grailsCentral()
+        // grailsPlugins()
+        // grailsHome()
+        // grailsCentral()
+        // mavenCentral()
 
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
@@ -38,23 +53,8 @@ grails.project.dependency.resolution = {
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-        // runtime 'mysql:mysql-connector-java:5.1.5'
+    }
 
-        runtime "mysql:mysql-connector-java:5.1.6"
-        compile "org.springframework.flex:spring-flex:1.0.1.RELEASE"
-        compile "packtag:packtag:3.6"
-        compile "com.yahoo.platform.yui:yuicompressor:2.3.6"
-
-        compile ("se.pictosys:payment-web:2.0.1-SNAPSHOT") {
-            /* exclude only because it pulls in slf4j 1.6.4 which is not compatible with 
-             * Grails 1.3.7. Exclusion can be removed on upgrade. */
-            excludes ([group: "com.mysema.querydsl", artifact:"querydsl-jpa"])
-        }
-        compile "se.pictosys:pictosys-web:2.0.1-SNAPSHOT"
-
-        compile "org.slf4j:jcl-over-slf4j:1.5.8"
-        compile "org.slf4j:jul-to-slf4j:1.5.8"
-        compile "org.slf4j:slf4j-api:1.5.8"
-        compile "org.slf4j:slf4j-log4j12:1.5.8"
+    plugins {
     }
 }
