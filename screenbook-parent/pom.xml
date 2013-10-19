@@ -4,7 +4,7 @@
     <groupId>se.spsm.screenbook</groupId>
     <artifactId>screenbook-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.2-SNAPSHOT</version>
     <name>screenbook-parent</name>
 
 
