@@ -156,6 +156,12 @@
             <version>${project.version}</version>
             <scope>provided</scope>
             <type>swc</type>
+            <exclusions>
+                <exclusion>
+                    <artifactId>flex-framework</artifactId>
+                    <groupId>com.adobe.flex.framework</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -164,6 +170,12 @@
             <version>${project.version}</version>
             <scope>provided</scope>
             <type>swf</type>
+            <exclusions>
+                <exclusion>
+                    <artifactId>flex-framework</artifactId>
+                    <groupId>com.adobe.flex.framework</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- <dependency> -->
