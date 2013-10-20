@@ -52,14 +52,6 @@
 
         <dependency>
             <groupId>org.grails.plugins</groupId>
-            <artifactId>tomcat</artifactId>
-            <version>2.1.2</version>
-            <scope>runtime</scope>
-            <type>zip</type>
-        </dependency>
-
-        <dependency>
-            <groupId>org.grails.plugins</groupId>
             <artifactId>hibernate</artifactId>
             <version>2.1.2</version>
             <scope>runtime</scope>
