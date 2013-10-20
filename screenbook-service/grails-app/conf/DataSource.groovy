@@ -38,7 +38,7 @@ environments {
     }
 
     production {
-        dataSource dataSource {
+        dataSource {
             url = "jdbc:mysql://localhost/screenbook_prod"
             username = "screenbook_prod"
             password = "screenbook_prod"
