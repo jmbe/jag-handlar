@@ -37,5 +37,11 @@ environments {
         }
     }
 
-    production { dataSource { url = "jdbc:mysql://localhost/screenbook-dev" } }
+    production {
+        dataSource dataSource {
+            url = "jdbc:mysql://localhost/screenbook_prod"
+            username = "screenbook_prod"
+            password = "screenbook_prod"
+        }
+    }
 }
