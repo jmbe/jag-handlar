@@ -17,6 +17,9 @@ grails.project.dependency.resolution = {
 
     useOrigin true
 
+    /* Turn off ivy checksums because many artifacts on central contains wrong sha1 (old syntax) */
+    ivySettings.setVariable("ivy.checksums", "")
+
     // inherit Grails' default dependencies
     inherits("global") {
         /* xml-apis conflicts with Java 6 */
@@ -35,7 +38,7 @@ grails.project.dependency.resolution = {
 
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
-        //mavenLocal()
+        mavenLocal()
         //mavenCentral()
         //mavenRepo "http://snapshots.repository.codehaus.org"
         //mavenRepo "http://repository.codehaus.org"
@@ -45,5 +48,7 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
         // runtime 'mysql:mysql-connector-java:5.1.5'
+
+        compile "commons-collections:commons-collections:3.2.1"
     }
 }
