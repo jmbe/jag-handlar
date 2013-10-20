@@ -15,6 +15,8 @@ grails.project.dependency.resolution = {
 
     // inherit Grails' default dependencies
     inherits("global") {
+        /* xml-apis conflicts with Java 6 */
+        excludes "xml-apis", "xmlParserAPIs"
         // uncomment to disable ehcache
         // excludes 'ehcache'
     }
