@@ -45,7 +45,6 @@ grails.project.dependency.resolution = {
         runtime "mysql:mysql-connector-java:5.1.6"
         compile "org.springframework.flex:spring-flex:1.0.1.RELEASE"
         compile "se.intem:combine-taglib:1.4.0"
-        compile "com.yahoo.platform.yui:yuicompressor:2.3.6"
 
         compile ("se.pictosys:payment-web:2.0.1-jag-handlar") {
             /* exclude only because it pulls in slf4j 1.6.4 which is not compatible with 

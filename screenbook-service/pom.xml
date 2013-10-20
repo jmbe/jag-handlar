@@ -279,13 +279,31 @@
         <dependency>
             <groupId>se.pictosys</groupId>
             <artifactId>pictosys-web</artifactId>
-            <version>2.0.1-SNAPSHOT</version>
+            <version>2.0.1-jag-handlar</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.mysema.querydsl</groupId>
                     <artifactId>querydsl-jpa</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>se.pictosys</groupId>
+            <artifactId>payment-web</artifactId>
+            <version>2.0.1-jag-handlar</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.mysema.querydsl</groupId>
+                    <artifactId>querydsl-jpa</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>se.intem</groupId>
+            <artifactId>combine-taglib</artifactId>
+            <version>1.4.0</version>
         </dependency>
 
         <dependency>
