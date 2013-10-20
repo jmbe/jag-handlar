@@ -142,7 +142,8 @@ class ApiController {
     def studentExists = accountService.verifyStudentLogin(accountName, studentName)
 
     if (!studentExists) {
-      render false as XML
+      def result = [text: "<result><success>false</success></result>", contentType: "text/xml"]
+      render result
       return
     }
 
