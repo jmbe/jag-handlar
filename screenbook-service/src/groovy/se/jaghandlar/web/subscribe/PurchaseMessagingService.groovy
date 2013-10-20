@@ -2,13 +2,13 @@ package se.jaghandlar.web.subscribe
 
 import java.text.SimpleDateFormat
 import javax.annotation.Resource
-import org.apache.log4j.LogManager
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
 @Component
 class PurchaseMessagingService {
 
-  def log = LogManager.getLogger(PurchaseMessagingService.class)
+  def log = LoggerFactory.getLogger(PurchaseMessagingService.class)
 
   @Resource(name = "mailService")
   def mailService
