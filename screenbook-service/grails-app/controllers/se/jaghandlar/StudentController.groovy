@@ -1,9 +1,8 @@
 package se.jaghandlar
-import org.codehaus.groovy.grails.plugins.springsecurity.Secured
 
 import se.jaghandlar.Student;
 
-@Secured(['ROLE_ADMIN'])
+//@Secured(['ROLE_ADMIN'])
 class StudentController {
     
     def index = { redirect(action:list,params:params) }
