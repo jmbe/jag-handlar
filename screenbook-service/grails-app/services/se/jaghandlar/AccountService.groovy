@@ -1,5 +1,4 @@
 package se.jaghandlar
-import cr.co.arquetipos.password.PasswordTools
 import org.apache.commons.lang.StringUtils
 
 import se.jaghandlar.Account;
@@ -7,6 +6,7 @@ import se.jaghandlar.Role;
 import se.jaghandlar.Student;
 import se.jaghandlar.exceptions.IncorrectPasswordException
 import se.jaghandlar.exceptions.UserNotFoundException
+import se.pictosys.account.crypto.PasswordGenerator
 
 class AccountService {
 
@@ -234,7 +234,7 @@ Lösenord: ${password}
      * @return password in plain text
      */
     def generateNewPassword() {
-        PasswordTools.generateRandomPassword(8, "abcdefghjkmnpqrstuwxz23456789")
+        PasswordGenerator.generatePassword(8)
     }
 
     def getNumberOfLicenses(def username) {
