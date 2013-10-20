@@ -58,5 +58,6 @@ grails.project.dependency.resolution = {
         compile "org.slf4j:jul-to-slf4j:1.5.8"
         compile "org.slf4j:slf4j-api:1.5.8"
         compile "org.slf4j:slf4j-log4j12:1.5.8"
+        compile "log4j:log4j:1.2.17"
     }
 }
