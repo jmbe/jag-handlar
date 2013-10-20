@@ -47,12 +47,12 @@ grails.project.dependency.resolution = {
         compile "packtag:packtag:3.6"
         compile "com.yahoo.platform.yui:yuicompressor:2.3.6"
 
-        compile ("se.pictosys:payment-web:2.0.1-SNAPSHOT") {
+        compile ("se.pictosys:payment-web:2.0.1-jag-handlar") {
             /* exclude only because it pulls in slf4j 1.6.4 which is not compatible with 
              * Grails 1.3.7. Exclusion can be removed on upgrade. */
             excludes ([group: "com.mysema.querydsl", artifact:"querydsl-jpa"])
         }
-        compile "se.pictosys:pictosys-web:2.0.1-SNAPSHOT"
+        compile "se.pictosys:pictosys-web:2.0.1-jag-handlar"
 
         compile "org.slf4j:jcl-over-slf4j:1.5.8"
         compile "org.slf4j:jul-to-slf4j:1.5.8"
