@@ -5,8 +5,14 @@
 
 
 grails.war.resources = { stagingDir ->
-    delete(file:"${stagingDir}/WEB-INF/lib/commons-logging-1.1.1.jar")
-    delete(file:"${stagingDir}/WEB-INF/lib/slf4j-api-1.5.2.jar")
+
+    [
+        "commons-logging-1.1.1.jar",
+        "slf4j-api-1.5.2.jar",
+        "commons-collections-3.1.jar"
+    ].each {
+        delete(file:"${stagingDir}/WEB-INF/lib/${it}")
+    }
 }
 
 
