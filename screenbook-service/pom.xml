@@ -108,9 +108,11 @@
         </dependency>
 
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.6</version>
+            <groupId>org.grails.plugins</groupId>
+            <artifactId>mysql-connectorj</artifactId>
+            <version>5.1.22.1</version>
+            <scope>runtime</scope>
+            <type>zip</type>
         </dependency>
 
         <dependency>
