@@ -237,16 +237,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.grails</groupId>
-                <artifactId>grails-maven-plugin</artifactId>
-                <version>${grails.version}</version>
-                <configuration>
-                    <!-- Whether for Fork a JVM to run Grails commands -->
-                    <fork>true</fork>
-                </configuration>
-                <extensions>true</extensions>
-            </plugin>
             <!-- Disables the Maven surefire plugin for Grails applications, as we have our own test runner -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -282,6 +272,17 @@
                         </fileset>
                     </filesets>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.grails</groupId>
+                <artifactId>grails-maven-plugin</artifactId>
+                <version>${grails.version}</version>
+                <configuration>
+                    <!-- Whether for Fork a JVM to run Grails commands -->
+                    <fork>true</fork>
+                </configuration>
+                <extensions>true</extensions>
             </plugin>
         </plugins>
     </build>
