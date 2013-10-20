@@ -1,3 +1,5 @@
+import org.apache.ivy.plugins.parser.m2.PomReader.PomDependencyData;
+
 //grails.project.class.dir = "target/classes"
 //grails.project.test.class.dir = "target/test-classes"
 //grails.project.test.reports.dir = "target/test-reports"
@@ -11,6 +13,8 @@ grails.war.resources = { stagingDir ->
 
 
 grails.project.dependency.resolution = {
+    pom true
+
     useOrigin true
 
     // inherit Grails' default dependencies
@@ -41,22 +45,5 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
         // runtime 'mysql:mysql-connector-java:5.1.5'
-
-        runtime "mysql:mysql-connector-java:5.1.6"
-        compile "org.springframework.flex:spring-flex:1.0.1.RELEASE"
-        compile "se.intem:combine-taglib:1.4.0"
-
-        compile ("se.pictosys:payment-web:2.0.1-jag-handlar") {
-            /* exclude only because it pulls in slf4j 1.6.4 which is not compatible with 
-             * Grails 1.3.7. Exclusion can be removed on upgrade. */
-            excludes ([group: "com.mysema.querydsl", artifact:"querydsl-jpa"])
-        }
-        compile "se.pictosys:pictosys-web:2.0.1-jag-handlar"
-
-        compile "org.slf4j:jcl-over-slf4j:1.5.8"
-        compile "org.slf4j:jul-to-slf4j:1.5.8"
-        compile "org.slf4j:slf4j-api:1.5.8"
-        compile "org.slf4j:slf4j-log4j12:1.5.8"
-        compile "log4j:log4j:1.2.17"
     }
 }
