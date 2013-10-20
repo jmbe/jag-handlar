@@ -29,5 +29,13 @@ environments {
         }
     }
 
+    qa {
+        dataSource {
+            url = "jdbc:mysql://localhost/screenbook_qa"
+            username = "screenbook_qa"
+            password = "screenbook_qa"
+        }
+    }
+
     production { dataSource { url = "jdbc:mysql://localhost/screenbook-dev" } }
 }
