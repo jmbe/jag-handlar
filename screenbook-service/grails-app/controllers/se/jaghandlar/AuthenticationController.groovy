@@ -22,7 +22,9 @@ class AuthenticationController {
         try {
             result = accountService.verifyLogin(username, password) != null
         } catch (UserNotFoundException e) {
+            log.info "User ${username} not found"
         } catch (IncorrectPasswordException) {
+            log.info "User ${username} provided wrong password"
         }
 
         render result as XML
