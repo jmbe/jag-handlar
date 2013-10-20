@@ -151,12 +151,9 @@
     </servlet>
 
     <servlet>
-        <description>This is the servlet needed for cache.type servlet, returns the packed resources</description>
-        <display-name>PackServlet</display-name>
-        <servlet-name>PackServlet</servlet-name>
-        <servlet-class>net.sf.packtag.servlet.PackServlet</servlet-class>
+        <servlet-name>CombinedServlet</servlet-name>
+        <servlet-class>se.intem.web.taglib.combined.servlet.CombinedServlet</servlet-class>
     </servlet>
-
 
     <servlet>
         <servlet-name>messagebroker</servlet-name>
@@ -173,13 +170,10 @@
         <url-pattern>/messagebroker/*</url-pattern>
     </servlet-mapping>
 
-
-
     <servlet-mapping>
-        <servlet-name>PackServlet</servlet-name>
-        <url-pattern>*.pack</url-pattern>
+        <servlet-name>CombinedServlet</servlet-name>
+        <url-pattern>*.combined</url-pattern>
     </servlet-mapping>
-    
 
     <servlet-mapping>
         <servlet-name>gsp</servlet-name>

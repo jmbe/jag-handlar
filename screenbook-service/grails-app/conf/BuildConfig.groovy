@@ -44,7 +44,7 @@ grails.project.dependency.resolution = {
 
         runtime "mysql:mysql-connector-java:5.1.6"
         compile "org.springframework.flex:spring-flex:1.0.1.RELEASE"
-        compile "packtag:packtag:3.6"
+        compile "se.intem:combine-taglib:1.4.0"
         compile "com.yahoo.platform.yui:yuicompressor:2.3.6"
 
         compile ("se.pictosys:payment-web:2.0.1-jag-handlar") {

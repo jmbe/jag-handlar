@@ -1,0 +1,14 @@
+[
+
+{
+    name : "prototypejs",
+    js : "http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"
+},
+
+{
+    name : "customer",
+    requires : "prototypejs",
+    css : [ "/css/jag-handlar.css", "/css/subscribe.css" ]
+}
+
+]

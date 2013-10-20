@@ -3,8 +3,9 @@
 <%@ taglib prefix="stripes-dyn" uri="http://stripes.sourceforge.net/stripes-dynattr.tld" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://packtag.sf.net" prefix="pack" %>
+<%@ taglib uri="http://combine.intem.se" prefix="combine" %>
 
+<combine:requires requires="customer" />
 <stripes:layout-definition>
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
     <html>
@@ -13,14 +14,9 @@
         <title><stripes:layout-component name="title"/></title>
 
 
-        <pack:style minify="false">
-            <src>${pageContext.request.contextPath}/css/jag-handlar.css</src>
-            <src>${pageContext.request.contextPath}/css/subscribe.css</src>
-        </pack:style>
-
-        <%-- Prototype --%>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
-
+        <combine:layout-css />
+        <%--Move to bottom when rest of javascript has been migrated. --%>
+        <combine:layout-script />
         <script type="text/javascript">
           var _gaq = _gaq || [];
           _gaq.push(['_setAccount', 'UA-19116328-1']);

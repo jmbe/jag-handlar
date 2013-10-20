@@ -132,7 +132,8 @@ log4j = {
             'net.sourceforge',
             'net.sf',
             'org.codehaus',
-            'httpclient'
+            'httpclient',
+            "se.intem.web.taglib.combined"
 
     info   'grails.app',
             'se.jaghandlar',
