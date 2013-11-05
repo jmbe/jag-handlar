@@ -1,9 +1,6 @@
 package se.jaghandlar
 import org.apache.commons.lang.StringUtils
 
-import se.jaghandlar.Account;
-import se.jaghandlar.Role;
-import se.jaghandlar.Student;
 import se.jaghandlar.exceptions.IncorrectPasswordException
 import se.jaghandlar.exceptions.UserNotFoundException
 import se.pictosys.account.crypto.PasswordGenerator
@@ -14,7 +11,6 @@ class AccountService {
     def mailService
 
     static transactional = true
-
 
     def accountRemotingTest() {
         log.info "Account remoting test"
@@ -30,7 +26,7 @@ class AccountService {
     def parameterRemotingTest(String name) {
         log.info "Received parameter ${name}"
 
-        def t = "Hi ${name}";
+        def t = "Hi ${name}"
         // must use actual String so that Flex can read it.
         return t as String
 
@@ -55,33 +51,33 @@ class AccountService {
     }
 
     def createMainAccount(String username, String email, boolean newsletterSubscribe = false) {
-        def account = createAccountWithRole(username, email, "ROLE_TEACHER");
+        def account = createAccountWithRole(username, email, "ROLE_TEACHER")
         account.newsletterSubscribe = newsletterSubscribe
     }
 
     def createAdminAccount(String username, String email) {
-        def account = createAccountWithRole(username, email, "ROLE_ADMIN");
+        def account = createAccountWithRole(username, email, "ROLE_ADMIN")
         account.newAccount = false
     }
 
     def verifyLogin(String username, String password) throws UserNotFoundException, IncorrectPasswordException {
         if (StringUtils.isEmpty(username)) {
             log.warn "Username was empty"
-            throw new UserNotFoundException();
+            throw new UserNotFoundException()
         }
 
         if (StringUtils.isEmpty(password)) {
             log.warn "Password was empty for user ${username}"
-            throw new IncorrectPasswordException();
+            throw new IncorrectPasswordException()
         }
 
-        def account = Account.findByUsername(username);
+        def account = Account.findByUsername(username)
         if (account == null) {
             log.info("Bad account ${username}")
-            throw new UserNotFoundException();
+            throw new UserNotFoundException()
         } else if (account.passwd != authenticateService.encodePassword(password)) {
             log.info("Bad password for ${username}")
-            throw new IncorrectPasswordException();
+            throw new IncorrectPasswordException()
         } else {
             return account.apikey
         }
@@ -101,9 +97,9 @@ class AccountService {
     }
 
     def changePassword(accountName, oldPassword, newPassword) {
-        def account = Account.findByUsername(accountName);
+        def account = Account.findByUsername(accountName)
         if (account == null) {
-            log.warn("Tried to change password for ${accountName}, but that account cannot be found.");
+            log.warn("Tried to change password for ${accountName}, but that account cannot be found.")
             return false
         }
 
@@ -138,12 +134,12 @@ class AccountService {
      */
     def setNewPassword(String accountName, String newPassword) {
         if (!mainAccountExists(accountName)) {
-            log.warn("Could not find account ${accountName} when setting new password.");
-            return;
+            log.warn("Could not find account ${accountName} when setting new password.")
+            return
         }
 
-        def account = Account.findByUsername(accountName);
-        account.passwd = authenticateService.encodePassword(newPassword);
+        def account = Account.findByUsername(accountName)
+        account.passwd = authenticateService.encodePassword(newPassword)
     }
 
     /**
@@ -158,8 +154,8 @@ class AccountService {
         def account = Account.findByUsername(accountName)
 
         if (account == null) {
-            log.warn("Could not find account ${accountName}");
-            return false;
+            log.warn("Could not find account ${accountName}")
+            return false
         }
 
         return account.hasFreeLicenses()
@@ -167,7 +163,7 @@ class AccountService {
 
     def mainAccountExists(String accountName) {
         def account = Account.findByUsername(accountName)
-        return account != null;
+        return account != null
     }
 
     def createStudentAccount(String accountName, String studentName, Boolean screenKeyboard = false) {
@@ -224,7 +220,7 @@ Lösenord: ${password}
         def account = Account.findByUsername(username)
 
         if (account != null) {
-            account.showBookmarkReminder = false;
+            account.showBookmarkReminder = false
         }
     }
 
@@ -249,8 +245,8 @@ Lösenord: ${password}
         def account = Account.findByUsername(username)
 
         account.contactPerson = contactName
-        account.email = email;
-        account.phoneNumber = phone;
+        account.email = email
+        account.phoneNumber = phone
         account.newsletterSubscribe = newsletterSubscribe
 
         if (!account.save()) {
