@@ -229,8 +229,8 @@ Lösenord: ${password}
      *
      * @return password in plain text
      */
-    def generateNewPassword() {
-        PasswordGenerator.generatePassword(8)
+    String generateNewPassword() {
+        PasswordGenerator.generatePassword(8).password
     }
 
     def getNumberOfLicenses(def username) {
